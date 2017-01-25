@@ -1,1 +1,22 @@
-/bin/
+# Anything that was built #
+**/target/
+/target/
+*/target/*
+
+# Eclipse Config Files #
+.classpath
+.project
+.settings
+
+# Package Files #
+# *.jar  # <-- Commented this out because you guys
+         #     purposefully pushed the .jar files
+*.war
+*.ear
+
+# IntelliJ Config Files #
+*.iml
+*.idea
+
+# JVM Error Logs #
+hs_err_pid*
