@@ -5,3 +5,5 @@ creating a Treasure Hunt through Bishop's University Campus.
 
 We are using [Slick2D](http://slick.ninjacave.com/) to create the game.
 
+Right now we don't have a very good idea of what's going on, but there
+will be more to come!
