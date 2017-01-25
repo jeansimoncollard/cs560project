@@ -1,6 +1,6 @@
 # Anything that was built #
-**/target/
-/target/
+*/target/
+*/test/
 */target/*
 
 # Eclipse Config Files #
@@ -15,8 +15,7 @@
 *.ear
 
 # IntelliJ Config Files #
-*.iml
-*.idea
+*.idea/*
 
 # JVM Error Logs #
 hs_err_pid*
