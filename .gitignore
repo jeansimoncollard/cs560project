@@ -1,0 +1,7 @@
+/bin/
+.classpath
+.project
+hs_err*
+.settings/
+.idea/
+target/
