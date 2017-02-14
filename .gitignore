@@ -1,0 +1,21 @@
+# Anything that was built #
+target/
+*/test/
+*/target/*
+
+# Eclipse Config Files #
+.classpath
+.project
+.settings
+
+# Package Files #
+# *.jar  # <-- Commented this out because you guys
+         #     purposefully pushed the .jar files
+*.war
+*.ear
+
+# IntelliJ Config Files #
+*.idea/*
+
+# JVM Error Logs #
+hs_err_pid*
