@@ -41,7 +41,7 @@ public class Main extends BasicGame {
 			// Doesn't go off map
 			if (_mainCharacter.XPosition != _map.getWidth() - 1) {
 				// Doesn't collide with foreground
-				if (_map.getTileId((int) _mainCharacter.XPosition + 1, (int) _mainCharacter.YPosition,
+				if (_map.getTileId(_mainCharacter.XPosition + 1, _mainCharacter.YPosition,
 						foregroundLayerIndex) == 0) {
 					_mainCharacter.XPosition++;
 				}
@@ -52,7 +52,7 @@ public class Main extends BasicGame {
 			// Doesn't go off map
 			if (_mainCharacter.XPosition != 0) {
 				// Doesn't collide with foreground
-				if (_map.getTileId((int) _mainCharacter.XPosition - 1, (int) _mainCharacter.YPosition,
+				if (_map.getTileId(_mainCharacter.XPosition - 1, _mainCharacter.YPosition,
 						foregroundLayerIndex) == 0) {
 					_mainCharacter.XPosition--;
 				}
@@ -63,7 +63,7 @@ public class Main extends BasicGame {
 			// Doesn't go off map
 			if (_mainCharacter.YPosition != 0) {
 				// Doesn't collide with foreground
-				if (_map.getTileId((int) _mainCharacter.XPosition, (int) _mainCharacter.YPosition - 1,
+				if (_map.getTileId(_mainCharacter.XPosition, _mainCharacter.YPosition - 1,
 						foregroundLayerIndex) == 0) {
 					_mainCharacter.YPosition--;
 				}
@@ -73,7 +73,7 @@ public class Main extends BasicGame {
 		if (gc.getInput().isKeyDown(Input.KEY_DOWN)) {
 			if (_mainCharacter.YPosition != _map.getHeight() - 1) {
 				// doesn't collide with foreground
-				if (_map.getTileId((int) _mainCharacter.XPosition, (int) _mainCharacter.YPosition + 1,
+				if (_map.getTileId(_mainCharacter.XPosition, _mainCharacter.YPosition + 1,
 						foregroundLayerIndex) == 0) {
 					_mainCharacter.YPosition++;
 				}
