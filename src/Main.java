@@ -24,10 +24,10 @@ public class Main extends BasicGame {
     // This function is called once at the beginning when we start the game
     public void init(GameContainer gc) throws SlickException {
         _map = new TiledMap(MAP_PATH);
-        _mainCharacter = new MainCharacter(0, 0, CHARACTER_IMAGE_PATH);
+        _mainCharacter = new MainCharacter(135, 85, CHARACTER_IMAGE_PATH);
         _img = new Image(OVERLAY_PATH);
         //Set minimum interval between update() calls
-        gc.setMinimumLogicUpdateInterval(10);
+        gc.setMinimumLogicUpdateInterval(5);
 
 
 
@@ -36,55 +36,8 @@ public class Main extends BasicGame {
     @Override
     // Update is called just before render
     public void update(GameContainer gc, int i) throws SlickException {
-
-        int foregroundLayerIndex = _map.getLayerIndex("noCollision");
-
-        if (!_renderOverlay) {
-            if (gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
-                // Doesn't go off map
-                if (_mainCharacter.XPosition != _map.getWidth() - 1) {
-                    // Doesn't collide with foreground
-                    if (_map.getTileId(_mainCharacter.XPosition + 1, _mainCharacter.YPosition,
-                            foregroundLayerIndex) != 0) {
-                        _mainCharacter.XPosition++;
-                    }
-
-                }
-            }
-
-            if (gc.getInput().isKeyDown(Input.KEY_LEFT)) {
-                // Doesn't go off map
-                if (_mainCharacter.XPosition != 0) {
-                    // Doesn't collide with foreground
-                    if (_map.getTileId(_mainCharacter.XPosition - 1, _mainCharacter.YPosition,
-                            foregroundLayerIndex) != 0) {
-                        _mainCharacter.XPosition--;
-                    }
-                }
-            }
-
-            if (gc.getInput().isKeyDown(Input.KEY_UP)) {
-                // Doesn't go off map
-                if (_mainCharacter.YPosition != 0) {
-                    // Doesn't collide with foreground
-                    if (_map.getTileId(_mainCharacter.XPosition, _mainCharacter.YPosition - 1,
-                            foregroundLayerIndex) != 0) {
-                        _mainCharacter.YPosition--;
-                    }
-                }
-            }
-
-            if (gc.getInput().isKeyDown(Input.KEY_DOWN)) {
-                if (_mainCharacter.YPosition != _map.getHeight() - 1) {
-                    // doesn't collide with foreground
-                    if (_map.getTileId(_mainCharacter.XPosition, _mainCharacter.YPosition + 1,
-                            foregroundLayerIndex) != 0) {
-                        _mainCharacter.YPosition++;
-                    }
-                }
-            }
-        }
-
+    	_mainCharacter.Move(_map, _renderOverlay, gc);
+    	
         if (gc.getInput().isMousePressed(0) &&
                 Mouse.getX() < gc.getWidth() &&
                 Mouse.getY() < 136 &&
@@ -92,7 +45,6 @@ public class Main extends BasicGame {
                 Mouse.getX() > gc.getWidth() - 130) {
             _renderOverlay = !_renderOverlay;
         }
-
     }
 
     @Override
