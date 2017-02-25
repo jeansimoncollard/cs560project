@@ -37,7 +37,7 @@ public class Main extends BasicGame {
     // Update is called just before render
     public void update(GameContainer gc, int i) throws SlickException {
 
-        int foregroundLayerIndex = _map.getLayerIndex("Tile Layer 1");
+        int foregroundLayerIndex = _map.getLayerIndex("noCollision");
 
         if (!_renderOverlay) {
             if (gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
