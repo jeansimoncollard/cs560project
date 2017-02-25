@@ -27,7 +27,7 @@ public class Main extends BasicGame {
         _mainCharacter = new MainCharacter(0, 0, CHARACTER_IMAGE_PATH);
         _img = new Image(OVERLAY_PATH);
         //Set minimum interval between update() calls
-        gc.setMinimumLogicUpdateInterval(150);
+        gc.setMinimumLogicUpdateInterval(10);
 
 
 
@@ -37,7 +37,7 @@ public class Main extends BasicGame {
     // Update is called just before render
     public void update(GameContainer gc, int i) throws SlickException {
 
-        int foregroundLayerIndex = _map.getLayerIndex("Foreground");
+        int foregroundLayerIndex = _map.getLayerIndex("Tile Layer 1");
 
         if (!_renderOverlay) {
             if (gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
@@ -45,9 +45,10 @@ public class Main extends BasicGame {
                 if (_mainCharacter.XPosition != _map.getWidth() - 1) {
                     // Doesn't collide with foreground
                     if (_map.getTileId(_mainCharacter.XPosition + 1, _mainCharacter.YPosition,
-                            foregroundLayerIndex) == 0) {
+                            foregroundLayerIndex) != 0) {
                         _mainCharacter.XPosition++;
                     }
+
                 }
             }
 
@@ -56,7 +57,7 @@ public class Main extends BasicGame {
                 if (_mainCharacter.XPosition != 0) {
                     // Doesn't collide with foreground
                     if (_map.getTileId(_mainCharacter.XPosition - 1, _mainCharacter.YPosition,
-                            foregroundLayerIndex) == 0) {
+                            foregroundLayerIndex) != 0) {
                         _mainCharacter.XPosition--;
                     }
                 }
@@ -67,7 +68,7 @@ public class Main extends BasicGame {
                 if (_mainCharacter.YPosition != 0) {
                     // Doesn't collide with foreground
                     if (_map.getTileId(_mainCharacter.XPosition, _mainCharacter.YPosition - 1,
-                            foregroundLayerIndex) == 0) {
+                            foregroundLayerIndex) != 0) {
                         _mainCharacter.YPosition--;
                     }
                 }
@@ -77,7 +78,7 @@ public class Main extends BasicGame {
                 if (_mainCharacter.YPosition != _map.getHeight() - 1) {
                     // doesn't collide with foreground
                     if (_map.getTileId(_mainCharacter.XPosition, _mainCharacter.YPosition + 1,
-                            foregroundLayerIndex) == 0) {
+                            foregroundLayerIndex) != 0) {
                         _mainCharacter.YPosition++;
                     }
                 }
@@ -100,7 +101,7 @@ public class Main extends BasicGame {
         // Move the map to simulate that the character moves, but the character
         // actually stays static in middle of screen {
         _map.render(0, 0, _mainCharacter.XPosition - gc.getWidth() / (2 * 32),
-                _mainCharacter.YPosition - gc.getHeight() / (2 * 32), gc.getWidth(), gc.getHeight()
+                _mainCharacter.YPosition - gc.getHeight() / (2 * 32), 60, 60
 
         );
 
