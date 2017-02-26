@@ -3,6 +3,7 @@ import org.newdawn.slick.tiled.TiledMap;
 import org.lwjgl.input.Mouse;
 
 import Characters.MainCharacter;
+import HUD.CoinDisplayer;
 import Objects.ObjectsDisplayer;
 import Objects.ObjectsHandler;
 
@@ -11,6 +12,7 @@ public class Main extends BasicGame {
 	private TiledMap _map;
 	private MainCharacter _mainCharacter;
 	private ObjectsHandler _objectsHandler;
+	private CoinDisplayer _coinDisplayer;
 	private Image _img;
 	private boolean _renderOverlay = false;
 
@@ -27,6 +29,7 @@ public class Main extends BasicGame {
 		_map = new TiledMap(MAP_PATH);
 		_mainCharacter = new MainCharacter(130, 85);
 		_img = new Image(OVERLAY_PATH);
+		_coinDisplayer = new CoinDisplayer();
 		_objectsHandler = new ObjectsHandler();
 		// Set minimum interval between update() calls
 		gc.setMinimumLogicUpdateInterval(5);
@@ -62,7 +65,8 @@ public class Main extends BasicGame {
 
 		
 		_objectsHandler.HandleObjects(_mainCharacter, _map, gc);
-		
+		_coinDisplayer.DisplayCoins(_mainCharacter, g, gc);
+			
 		if (_renderOverlay) {
 			g.drawImage(_img, (gc.getWidth() / 2) - (_img.getWidth() / 2),
 					(gc.getHeight() / 2) - (_img.getHeight() / 2));
