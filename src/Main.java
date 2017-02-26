@@ -61,7 +61,7 @@ public class Main extends BasicGame {
 		g.drawImage(new Image("dependencies/UI_photos/wood-plank.jpg"), gc.getWidth() - 130, gc.getHeight() - 135);
 
 		
-		_objectsHandler.HandleObjects(_mainCharacter.XPosition, _mainCharacter.YPosition, _map, gc);
+		_objectsHandler.HandleObjects(_mainCharacter, _map, gc);
 		
 		if (_renderOverlay) {
 			g.drawImage(_img, (gc.getWidth() / 2) - (_img.getWidth() / 2),
