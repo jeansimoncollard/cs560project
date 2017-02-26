@@ -101,9 +101,6 @@ public class MainCharacter {
 		if (map.getTileId(this.XPosition, this.YPosition-1, overheadLayerIndex1) == 0
 				&& map.getTileId(this.XPosition, this.YPosition-1, overheadLayerIndex2) == 0) { 
 			this._upperTileImage.draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2 - 32, 40, 32);
-		}
-
-		
+		}		
 	}
-
 }
