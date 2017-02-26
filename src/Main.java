@@ -3,11 +3,14 @@ import org.newdawn.slick.tiled.TiledMap;
 import org.lwjgl.input.Mouse;
 
 import Characters.MainCharacter;
+import Objects.ObjectsDisplayer;
+import Objects.ObjectsHandler;
 
 public class Main extends BasicGame {
 
 	private TiledMap _map;
 	private MainCharacter _mainCharacter;
+	private ObjectsHandler _objectsHandler;
 	private Image _img;
 	private boolean _renderOverlay = false;
 
@@ -22,8 +25,9 @@ public class Main extends BasicGame {
 	// This function is called once at the beginning when we start the game
 	public void init(GameContainer gc) throws SlickException {
 		_map = new TiledMap(MAP_PATH);
-		_mainCharacter = new MainCharacter(135, 85);
+		_mainCharacter = new MainCharacter(130, 85);
 		_img = new Image(OVERLAY_PATH);
+		_objectsHandler = new ObjectsHandler();
 		// Set minimum interval between update() calls
 		gc.setMinimumLogicUpdateInterval(5);
 
@@ -56,6 +60,9 @@ public class Main extends BasicGame {
 
 		g.drawImage(new Image("dependencies/UI_photos/wood-plank.jpg"), gc.getWidth() - 130, gc.getHeight() - 135);
 
+		
+		_objectsHandler.HandleObjects(_mainCharacter.XPosition, _mainCharacter.YPosition, _map, gc);
+		
 		if (_renderOverlay) {
 			g.drawImage(_img, (gc.getWidth() / 2) - (_img.getWidth() / 2),
 					(gc.getHeight() / 2) - (_img.getHeight() / 2));
