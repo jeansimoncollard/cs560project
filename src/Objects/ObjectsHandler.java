@@ -9,6 +9,7 @@ import org.newdawn.slick.tiled.TiledMap;
 
 import Characters.MainCharacter;
 import Entities.ObjectEntity;
+import GameState.GameStateMaster;
 
 public class ObjectsHandler {
 
@@ -27,7 +28,7 @@ public class ObjectsHandler {
 		_objectsPickuper = new ObjectsPickuper();
 	}
 
-	public void HandleObjects(MainCharacter character, TiledMap map, GameContainer gc) throws SlickException {
+	public void HandleObjects(MainCharacter character, TiledMap map, GameContainer gc, GameStateMaster gameStateMaster) throws SlickException {
 
 		int characterX = character.XPosition;
 		int characterY = character.YPosition;
@@ -35,11 +36,17 @@ public class ObjectsHandler {
 		if (oldCharacterXPosition != characterX || oldCharacterYPosition != characterY) {
 			// Only execute the code when the character moved
 			createObjects(characterX, characterY, map);
-			pickupObjects(character, _objectsList);
+			pickupObjects(character, _objectsList, gameStateMaster);
 			oldCharacterXPosition = characterX;
 			oldCharacterYPosition = characterY;
 		}
 		displayObjects(characterX, characterY, gc);
+	}
+
+	public void GenerateClueItem(int characterX, int characterY, TiledMap map, GameStateMaster gameStateMaster)
+			throws SlickException {
+
+		_objectGenerator.GenerateClueRandomly(_objectsList, characterX, characterY, map, gameStateMaster);
 	}
 
 	private void createObjects(int characterX, int characterY, TiledMap map) {
@@ -50,7 +57,8 @@ public class ObjectsHandler {
 		_objectDisplayer.DisplayObjects(_objectsList, characterX, characterY, gc);
 	}
 
-	private void pickupObjects(MainCharacter character, List<ObjectEntity> objectsList) {
-		_objectsPickuper.PickupObjects(character, objectsList);
+	private void pickupObjects(MainCharacter character, List<ObjectEntity> objectsList,
+			GameStateMaster gameStateMaster) {
+		_objectsPickuper.PickupObjects(character, objectsList, gameStateMaster);
 	}
 }

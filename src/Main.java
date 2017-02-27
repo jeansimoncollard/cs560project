@@ -3,6 +3,8 @@ import org.newdawn.slick.tiled.TiledMap;
 import org.lwjgl.input.Mouse;
 
 import Characters.MainCharacter;
+import Clues.ClueDisplayer;
+import GameState.GameStateMaster;
 import HUD.CoinDisplayer;
 import Objects.ObjectsDisplayer;
 import Objects.ObjectsHandler;
@@ -13,6 +15,8 @@ public class Main extends BasicGame {
 	private MainCharacter _mainCharacter;
 	private ObjectsHandler _objectsHandler;
 	private CoinDisplayer _coinDisplayer;
+	private GameStateMaster _gameStateMaster;
+	private ClueDisplayer _clueDisplayer;
 	private Image _img;
 	private boolean _renderOverlay = false;
 
@@ -31,6 +35,8 @@ public class Main extends BasicGame {
 		_img = new Image(OVERLAY_PATH);
 		_coinDisplayer = new CoinDisplayer();
 		_objectsHandler = new ObjectsHandler();
+		_clueDisplayer = new ClueDisplayer();
+		_gameStateMaster = new GameStateMaster(_objectsHandler, _clueDisplayer);
 		// Set minimum interval between update() calls
 		gc.setMinimumLogicUpdateInterval(5);
 
@@ -39,7 +45,6 @@ public class Main extends BasicGame {
 	@Override
 	// Update is called just before render
 	public void update(GameContainer gc, int i) throws SlickException {
-
 		_mainCharacter.Move(_map, _renderOverlay, gc);
 
 		if (gc.getInput().isMousePressed(0) && Mouse.getX() < gc.getWidth() && Mouse.getY() < 136 && Mouse.getY() > 0
@@ -61,12 +66,16 @@ public class Main extends BasicGame {
 
 		_mainCharacter.RenderCharacter(_map, gc);
 
+		_objectsHandler.HandleObjects(_mainCharacter, _map, gc, _gameStateMaster);
+
 		g.drawImage(new Image("dependencies/UI_photos/wood-plank.jpg"), gc.getWidth() - 130, gc.getHeight() - 135);
 
-		
-		_objectsHandler.HandleObjects(_mainCharacter, _map, gc);
 		_coinDisplayer.DisplayCoins(_mainCharacter, g, gc);
-			
+
+		_gameStateMaster.Update(_mainCharacter, _map, gc, g);
+
+		_clueDisplayer.RenderClue(gc, g);
+
 		if (_renderOverlay) {
 			g.drawImage(_img, (gc.getWidth() / 2) - (_img.getWidth() / 2),
 					(gc.getHeight() / 2) - (_img.getHeight() / 2));

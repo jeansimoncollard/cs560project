@@ -7,15 +7,23 @@ import org.newdawn.slick.Image;
 
 import Characters.MainCharacter;
 import Entities.ObjectEntity;
+import Enums.ObjectType;
+import GameState.GameStateMaster;
 
 public class ObjectsPickuper {
 
-	public void PickupObjects(MainCharacter character, List<ObjectEntity> objectsList) {
+	public void PickupObjects(MainCharacter character, List<ObjectEntity> objectsList, GameStateMaster gameStateMaster) {
 		for (Iterator<ObjectEntity> i = objectsList.iterator(); i.hasNext();) {
 			ObjectEntity object = i.next();
 
 			if (object.ObjectX == character.XPosition && object.ObjectY == character.YPosition) {
-				character.CoinCount++;
+
+				if (object.ObjectType == ObjectType.Coin) {
+					character.CoinCount++;
+				} else if (object.ObjectType == ObjectType.Clue) {				
+					gameStateMaster.GameState++;
+				}
+
 				i.remove();
 			}
 
