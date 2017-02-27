@@ -29,7 +29,10 @@ public class ClueDisplayer {
 	}
 
 	private void displayCurrentClue(GameContainer gc, Graphics g) {
-		g.drawImage(CurrentClueImage, (gc.getWidth() / 2) - (CurrentClueImage.getWidth() / 2),
-				(gc.getHeight() / 2) - (CurrentClueImage.getHeight() / 2));
+
+		if (CurrentClueImage != null) {
+			g.drawImage(CurrentClueImage, (gc.getWidth() / 2) - (CurrentClueImage.getWidth() / 2),
+					(gc.getHeight() / 2) - (CurrentClueImage.getHeight() / 2));
+		}
 	}
 }
