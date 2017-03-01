@@ -9,6 +9,7 @@ import org.newdawn.slick.tiled.TiledMap;
 
 import Characters.MainCharacter;
 import Clues.ClueDisplayer;
+import Clues.LibraryBushClueDetector;
 import Objects.ObjectsHandler;
 
 public class GameStateMaster {
@@ -18,17 +19,20 @@ public class GameStateMaster {
 	private int oldCharacterXPosition;
 	private int oldCharacterYPosition;
 	private final String PATH_LIBRARYBUSHCLUE_IMAGE = "dependencies/clues/clueBushLibrary.png";
+	private final String PATH_HAMILTONNOISECLUE_IMAGE = "dependencies/clues/noisenearhamiltonclue.png";
 	private ClueDisplayer _clueDisplayer;
+	private LibraryBushClueDetector _libraryBushClueDetector;
 
 	public GameStateMaster(ObjectsHandler objectsHandler, ClueDisplayer clueDisplayer) {
 		GameState = 0;
 		_objectsHandler = objectsHandler;
 		_clueDisplayer = clueDisplayer;
+		_libraryBushClueDetector = new LibraryBushClueDetector();
 	}
 
 	public void Update(MainCharacter character, TiledMap map, GameContainer gc, Graphics g) throws SlickException {
 		switch (GameState) {
-		case 0:
+		case 0: // Generate clue on the floor
 			int characterX = character.XPosition;
 			int characterY = character.YPosition;
 
@@ -40,15 +44,24 @@ public class GameStateMaster {
 			}
 
 			break;
-		case 1:
+		case 1: // Player pickups clue
 			// The objectsPicuper will take care of advancing the gamestate when
-						// the player pickups the clue
+			// the player pickups the clue
 			break;
-		case 2:			
+		case 2:// Clue is displayed
 			_clueDisplayer.CurrentClueImage = new Image(PATH_LIBRARYBUSHCLUE_IMAGE);
 			_clueDisplayer.DisplayCurrentClue();
 			GameState++;
 
+			break;
+		case 3:
+
+			_libraryBushClueDetector.Detect(this, character);
+			break;
+		case 4:
+			_clueDisplayer.CurrentClueImage = new Image(PATH_HAMILTONNOISECLUE_IMAGE);
+			_clueDisplayer.DisplayCurrentClue();
+			GameState++;
 			break;
 		}
 	}
