@@ -6,7 +6,7 @@ import GameState.GameStateMaster;
 public class LibraryBushClueDetector {
 
 	public void Detect(GameStateMaster gameStateMaster, MainCharacter character) {
-		if (character.XPosition > 130 && character.YPosition < 135) // If it is
+		if (character.XPosition > 130 && character.XPosition < 135) // If it is
 																	// near the
 																	// bush
 		{

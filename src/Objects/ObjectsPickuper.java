@@ -3,8 +3,6 @@ package Objects;
 import java.util.Iterator;
 import java.util.List;
 
-import org.newdawn.slick.Image;
-
 import Characters.MainCharacter;
 import Entities.ObjectEntity;
 import Enums.ObjectType;

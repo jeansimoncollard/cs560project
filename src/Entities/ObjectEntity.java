@@ -1,7 +1,5 @@
 package Entities;
 
-import java.awt.Point;
-
 public class ObjectEntity {
 	public int ObjectX;
 	public int ObjectY;

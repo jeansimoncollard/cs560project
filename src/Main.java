@@ -6,7 +6,6 @@ import Characters.MainCharacter;
 import Clues.ClueDisplayer;
 import GameState.GameStateMaster;
 import HUD.CoinDisplayer;
-import Objects.ObjectsDisplayer;
 import Objects.ObjectsHandler;
 
 public class Main extends BasicGame {

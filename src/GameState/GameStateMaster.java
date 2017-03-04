@@ -55,14 +55,13 @@ public class GameStateMaster {
 
 			break;
 		case 3:
-
-			_libraryBushClueDetector.Detect(this, character);
+			_libraryBushClueDetector.Detect(this, character); //Player walks near bush
 			break;
 		case 4:
-			_clueDisplayer.CurrentClueImage = new Image(PATH_HAMILTONNOISECLUE_IMAGE);
+			_clueDisplayer.CurrentClueImage = new Image(PATH_HAMILTONNOISECLUE_IMAGE); //New clue displayed
 			_clueDisplayer.DisplayCurrentClue();
 			GameState++;
-			break;
+			break;			
 		}
 	}
 
