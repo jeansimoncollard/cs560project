@@ -103,7 +103,7 @@
   <image source="road5.png" width="256" height="224"/>
  </tileset>
  <tileset firstgid="33317" name="roads" tilewidth="32" tileheight="32" tilecount="40000" columns="200">
-  <image source="../../../Documents/roads.png" width="6400" height="6400"/>
+  <image source="roads.png" width="6400" height="6400"/>
  </tileset>
  <layer name="noCollision" width="200" height="200">
   <data encoding="base64" compression="gzip">
