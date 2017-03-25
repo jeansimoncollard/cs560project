@@ -29,6 +29,14 @@ abstract class Menu {
     Image getImage() throws SlickException {
         return new Image(this.pathToImage);
     }
+    
+    /**
+     * Sets the path to the image that is needed.
+     * @param pathToImage
+     */
+    void setImagePath(String pathToImage){
+    	this.pathToImage = pathToImage;
+    }
 
     /**
      * Contains the logic of when to display Menu
