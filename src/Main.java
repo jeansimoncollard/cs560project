@@ -1,12 +1,22 @@
+
+
+
+
+import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.tiled.TiledMap;
+
 import Characters.MainCharacter;
 import Clues.ClueDisplayer;
 import GameState.GameStateMaster;
 import HUD.CoinDisplayer;
 import HUD.HelpMenu;
+import HUD.MainMenu;
 import HUD.PauseMenu;
 import Objects.ObjectsHandler;
-import org.newdawn.slick.*;
-import org.newdawn.slick.tiled.TiledMap;
 
 public class Main extends BasicGame {
 
@@ -18,6 +28,7 @@ public class Main extends BasicGame {
     private ClueDisplayer _clueDisplayer;
     private PauseMenu _pauseMenu;
     private HelpMenu _helpMenu;
+    private MainMenu _mainMenu;
     private boolean _renderOverlay;
 
     private static final String MAP_PATH = "dependencies/map/bishopsmap.tmx";
@@ -36,6 +47,7 @@ public class Main extends BasicGame {
         _clueDisplayer = new ClueDisplayer();
         _pauseMenu = new PauseMenu();
         _helpMenu = new HelpMenu();
+        _mainMenu = new MainMenu();
         _gameStateMaster = new GameStateMaster(_objectsHandler, _clueDisplayer);
         // Set minimum interval between update() calls
         gc.setMinimumLogicUpdateInterval(5);
@@ -77,15 +89,15 @@ public class Main extends BasicGame {
         else if (_helpMenu.render(gc)) {
             this._renderOverlay = true;
         }
+        else if (_mainMenu.render(gc)) {
+        	this._renderOverlay = true;
+        }
         else {
             this._renderOverlay = false;
         }
-
-
     }
 
     public static void main(String[] args) throws SlickException {
-
         AppGameContainer appgc;
         appgc = new AppGameContainer(new Main("Treasure Trail"));
         appgc.setDisplayMode(1280, 768, false);
