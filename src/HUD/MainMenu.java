@@ -1,10 +1,13 @@
 package HUD;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.loading.LoadingList;
 
 /**
  * Implementation of the Main menu.
@@ -17,12 +20,19 @@ public class MainMenu  extends Menu {
     /**
      * String that contains the path to the pause menu overlay
      */
-    private static final String _MENU_OVERLAY_PATH = "dependencies/UI_photos/mainmenu.png";
+    private static final String _MENU_OVERLAY_LOAD3 = "dependencies/UI_photos/mainmenu_loading3.png";
+    private static final String _MENU_OVERLAY_LOAD2 = "dependencies/UI_photos/mainmenu_loading2.png";
+    private static final String _MENU_OVERLAY_LOAD1 = "dependencies/UI_photos/mainmenu_loading.png";
+    private static final String _MENU_OVERLAY_PRESSSPACE = "dependencies/UI_photos/mainmenu_pressspace.png";
 
     /**
      * The Image that is fetched using the path to the overlay
      */
-    private Image _menuOverlay;
+    private ArrayList<Image> _menuOverlays;
+    private Image _menuOverlayComplete;
+    private Image currentMenu;
+    private int numLoads;
+    private boolean loading;
 
     /**
      * Decision variable on whether to render the menu or not
@@ -31,14 +41,37 @@ public class MainMenu  extends Menu {
 
     /**
      * Default Constructor.
-     * Initialises all instance variables.
+     * Initializes all instance variables.
      *
      * @throws SlickException Throws if issue with reading Image file
      */
     public MainMenu() throws SlickException {
-        super(_MENU_OVERLAY_PATH);
-        this._menuOverlay = this.getImage();
+        super(_MENU_OVERLAY_LOAD3);
+    	this._menuOverlays = new ArrayList<Image>();
+    	
+        this._menuOverlays.add(this.getImage());
+        this.setImagePath(_MENU_OVERLAY_LOAD1);
+        this._menuOverlays.add(this.getImage());
+        this.setImagePath(_MENU_OVERLAY_LOAD2);
+        this._menuOverlays.add(this.getImage());
+        this.setImagePath(_MENU_OVERLAY_PRESSSPACE);
+        this._menuOverlayComplete = this.getImage();
+        
         this._renderMenu = true;
+        this.numLoads = 0;
+        this.loading = true;
+    }
+    
+    public void setLoading(boolean status) { 
+    	this.loading = status;
+    	if (!this.loading) {
+    		this.currentMenu = this._menuOverlayComplete;
+    		LoadingList.setDeferredLoading(false);
+    	}
+    }
+    
+    public boolean getLoading() {
+    	return this.loading;
     }
 
     /**
@@ -51,13 +84,20 @@ public class MainMenu  extends Menu {
      */
     @Override
     public boolean render(GameContainer gc) {
-        if (gc.getInput().isKeyPressed(Input.KEY_SPACE)) {
-            _renderMenu = !_renderMenu;
-        }
-
-        if (_renderMenu) {
+    	if (!this.loading){
+	        if (gc.getInput().isKeyPressed(Input.KEY_SPACE)) {
+	            _renderMenu = !_renderMenu;
+	        }
+	
+	        if (_renderMenu) {
+	            display(gc, gc.getGraphics());
+	        }
+    	} else {
+    		this.currentMenu = this._menuOverlays.get(this.numLoads%3);
+    		this.numLoads++;
+    		System.out.println(numLoads);
             display(gc, gc.getGraphics());
-        }
+    	}
 
         return _renderMenu;
     }
@@ -71,6 +111,6 @@ public class MainMenu  extends Menu {
      */
     @Override
     public void display(GameContainer gc, Graphics g) {
-        g.drawImage(_menuOverlay, 0, 0, gc.getWidth(), gc.getHeight(), 0, 0, 1920, 1080);
+        g.drawImage(this.currentMenu, 0, 0, gc.getWidth(), gc.getHeight(), 0, 0, 1920, 1080);
     }
 }
