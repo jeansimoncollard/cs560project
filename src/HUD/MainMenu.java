@@ -149,6 +149,6 @@ public class MainMenu  extends Menu {
         fontr.initialize_font();
         TrueTypeFont ttf = fontr.get_ttf();
         ttf.drawString((gc.getWidth()/2-gc.getWidth()/4)+10, gc.getHeight()/2+gc.getHeight()/4+10, "E  -  English", Color.black);
-        ttf.drawString((gc.getWidth()/2-gc.getWidth()/4)+10, gc.getHeight()/2+gc.getHeight()/4+60, "F  -  French", Color.black);
+        ttf.drawString((gc.getWidth()/2-gc.getWidth()/4)+10, gc.getHeight()/2+gc.getHeight()/4+60, "F  -  Francais", Color.black);
     }
 }

@@ -288,6 +288,12 @@ public class ShopMenu  extends Menu {
 								this.shop.set_drawingMsg(StringResources.messages.getString("missingCoins") + MainCharacter.CoinCount);
 							}
 						}
+						// Sleep to prevent a click being recognized as two clicks.
+						try {
+							Thread.sleep(100);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
 						return true;
 					}
 				};
@@ -310,6 +316,12 @@ public class ShopMenu  extends Menu {
 								this.shop.set_stringFrames(0);
 								this.shop.set_drawingMsg(StringResources.messages.getString("missingCoins") + MainCharacter.CoinCount);
 							}
+						}
+						// Sleep to prevent a click being recognized as two clicks.
+						try {
+							Thread.sleep(100);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
 						}
 						return true;
 					}
@@ -340,6 +352,12 @@ public class ShopMenu  extends Menu {
 							}
 						}
 						
+						// Sleep to prevent a click being recognized as two clicks.
+						try {
+							Thread.sleep(100);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
 						return true;
 					}
 				};
