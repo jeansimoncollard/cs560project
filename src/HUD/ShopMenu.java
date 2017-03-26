@@ -49,6 +49,11 @@ public class ShopMenu  extends Menu {
     private static final String _MENU_OVERLAY_CHPDC = "dependencies/UI_photos/arrow_left_click.png";
     private static final String _MENU_OVERLAY_CHPUC = "dependencies/UI_photos/arrow_right_click.png";
     
+    //Blank buttons
+    private static final String _MENU_OVERLAY_BLANK = "dependencies/UI_photos/button_orig.png";
+    private static final String _MENU_OVERLAY_BLANKC = "dependencies/UI_photos/button_orig_click.png";
+    private static final String _MENU_OVERLAY_BLANKO = "dependencies/UI_photos/button_orig_mouseover.png";
+    
     /**
      * The Image that is fetched using the path to the overlay
      * and the pages of the shop. Each inner array is one page.
@@ -56,7 +61,8 @@ public class ShopMenu  extends Menu {
     private Image _menuOverlay;
     private ArrayList<ArrayList<Button>> shopPages;
     private int currentPage;
-    private int maxPages = 1;
+    private int prevPage;
+    private int maxPages = 3;
     
     /**
      * Button images, *o for mouseover and *c for click.
@@ -86,6 +92,13 @@ public class ShopMenu  extends Menu {
     
     private Image chpd_imgc;
     private Image chpu_imgc;
+    
+    private Button blank_button1;
+    private Button blank_button2;
+    private Button blank_button3;
+    private Image blank_img;
+    private Image blank_imgc;
+    private Image blank_imgo;
 
     /**
      * Decision variable on whether to render the menu or not.
@@ -121,6 +134,7 @@ public class ShopMenu  extends Menu {
         
         // Initialize to the max number of pages.
         this.currentPage = 0;
+        this.prevPage = 0;
         this.shopPages = new ArrayList<ArrayList<Button>>();
         for (int i = 0; i < maxPages; i++){
         	this.shopPages.add(new ArrayList<Button>());
@@ -149,6 +163,10 @@ public class ShopMenu  extends Menu {
 
 		chpd_imgc = new Image(_MENU_OVERLAY_CHPDC);
 		chpu_imgc = new Image(_MENU_OVERLAY_CHPUC);
+		
+		blank_img = new Image(_MENU_OVERLAY_BLANK);
+		blank_imgc = new Image(_MENU_OVERLAY_BLANKC);
+		blank_imgo = new Image(_MENU_OVERLAY_BLANKO);
     }
     
     /**
@@ -200,6 +218,30 @@ public class ShopMenu  extends Menu {
     }
     
     /**
+     * Get the current page number.
+     * @return
+     */
+    public int getCurrentPage() {
+		return currentPage;
+	}
+    
+    /**
+     * Get the maximum number of pages.
+     * @return
+     */
+    public int getMaximumPages() {
+    	return this.maxPages;
+    }
+    
+    /**
+     * Set the current page number.
+     * @param currentPage
+     */
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+
+	/**
      * Get the font/string drawing object.
      * @return The font object.
      */
@@ -229,18 +271,55 @@ public class ShopMenu  extends Menu {
 
         if (_renderMenu) {
         	if (this.shopPages.get(currentPage).isEmpty()) {
+				/**
+				 * Blank buttons for use on extra pages, or irregular
+				 * amounts of buttons (not multiples of 3).
+				 */
+				blank_button1 = new Button(gc, blank_img, 0, 0, maxFrameTime, this) {
+					@Override
+					boolean process() {
+						System.out.println("Blank button process.");
+						return true;
+					}
+				};
+				blank_button1.setMouseDownImage(blank_imgc);
+				blank_button1.setMouseOverImage(blank_imgo);
+				
+				blank_button2 = new Button(gc, blank_img, 0, 0, maxFrameTime, this) {
+					@Override
+					boolean process() {
+						System.out.println("Blank button process.");
+						return true;
+					}
+				};
+				blank_button2.setMouseDownImage(blank_imgc);
+				blank_button2.setMouseOverImage(blank_imgo);
+				
+				blank_button3 = new Button(gc, blank_img, 0, 0, maxFrameTime, this) {
+					@Override
+					boolean process() {
+						System.out.println("Blank button process.");
+						return true;
+					}
+				};
+				blank_button3.setMouseDownImage(blank_imgc);
+				blank_button3.setMouseOverImage(blank_imgo);
+        		
         		/**
         		 * Load change page down button.
         		 */
         		chpd_button = new Button(gc, chpd_img, 0, 0, maxFrameTime, this) {
 					@Override
 					boolean process() {
-						if (!this.shop.get_drawing()) {
-							this.shop.set_drawing(true);
-							this.shop.set_stringFrames(0);
-							this.shop.set_drawingMsg("This button hasn't been implemented yet.");
+						if (currentPage > 0) {
+							this.shop.setCurrentPage(this.shop.getCurrentPage()-1);
 						}
-						return false;
+						try {
+							Thread.sleep(100);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						return true;
 					}
         		};
 				chpd_button.setMouseDownImage(chpd_imgc);
@@ -252,12 +331,15 @@ public class ShopMenu  extends Menu {
         		chpu_button = new Button(gc, chpu_img, 0, 0, maxFrameTime, this) {
 					@Override
 					boolean process() {
-						if (!this.shop.get_drawing()) {
-							this.shop.set_drawing(true);
-							this.shop.set_stringFrames(0);
-							this.shop.set_drawingMsg("This button hasn't been implemented yet.");
+						if (currentPage < this.shop.getMaximumPages()-1) {
+							this.shop.setCurrentPage(this.shop.getCurrentPage()+1);
 						}
-						return false;
+						try {
+							Thread.sleep(100);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						return true;
 					}
         		};
 				chpu_button.setMouseDownImage(chpu_imgc);
@@ -363,11 +445,20 @@ public class ShopMenu  extends Menu {
 				};
 				q2_button.setMouseDownImage(q2_imgc);
 				q2_button.setMouseOverImage(q2_imgo);
+
 				
 				// Add these buttons to their appropriate pages.
 				this.shopPages.get(0).add(spd_button);
 				this.shopPages.get(0).add(q1_button);
 				this.shopPages.get(0).add(q2_button);
+				
+				this.shopPages.get(1).add(blank_button1);
+				this.shopPages.get(1).add(blank_button2);
+				this.shopPages.get(1).add(blank_button3);
+				
+				this.shopPages.get(2).add(blank_button1);
+				this.shopPages.get(2).add(blank_button2);
+				this.shopPages.get(2).add(blank_button3);
         	}
         	
             display(gc, gc.getGraphics());
@@ -392,19 +483,31 @@ public class ShopMenu  extends Menu {
         
         
         // TODO: Make a better way to calculate it.
-        spd_button.setLocation(corner.x+90, corner.y+130);
-        q1_button.setLocation(corner.x+90, corner.y+185);
-        q2_button.setLocation(corner.x+90, corner.y+240);
+        this.shopPages.get(currentPage).get(0).setLocation(corner.x+90, corner.y+130);
+        this.shopPages.get(currentPage).get(1).setLocation(corner.x+90, corner.y+185);
+        this.shopPages.get(currentPage).get(2).setLocation(corner.x+90, corner.y+240);
         
         chpd_button.setLocation(corner.x+120, corner.y+300);
         chpu_button.setLocation(corner.x+170, corner.y+300);
         
-        spd_button.render(gc, g);
-        q1_button.render(gc, g);
-        q2_button.render(gc, g);
+        if (prevPage != currentPage) {
+        	this.shopPages.get(prevPage).get(0).setAcceptingInput(false);
+        	this.shopPages.get(prevPage).get(1).setAcceptingInput(false);
+        	this.shopPages.get(prevPage).get(2).setAcceptingInput(false);
+        	
+        	this.shopPages.get(currentPage).get(0).setAcceptingInput(true);
+        	this.shopPages.get(currentPage).get(1).setAcceptingInput(true);
+        	this.shopPages.get(currentPage).get(2).setAcceptingInput(true);
+        	prevPage = currentPage;
+        }
+        
+        this.shopPages.get(currentPage).get(0).render(gc, g);
+        this.shopPages.get(currentPage).get(1).render(gc, g);
+        this.shopPages.get(currentPage).get(2).render(gc, g);
+        
+        
         chpd_button.render(gc, g);
         chpu_button.render(gc, g);
-
 		
 		// If we've started drawing, draw the string.
 		// Otherwise, turn rendering off.
