@@ -8,7 +8,7 @@ import Characters.MainCharacter;
 public class CoinDisplayer {
 
 	public void DisplayCoins(MainCharacter character, Graphics g, GameContainer gc) {
-		g.drawString("Coins: "+character.CoinCount,  10, 30);
+		g.drawString("Coins: " + MainCharacter.CoinCount,  10, 30);
 	}
 
 }

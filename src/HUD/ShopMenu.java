@@ -1,13 +1,16 @@
 package HUD;
 
+import java.awt.Font;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
 
 import Characters.MainCharacter;
 
@@ -84,10 +87,20 @@ public class ShopMenu  extends Menu {
     private Image chpu_imgc;
 
     /**
-     * Decision variable on whether to render the menu or not
+     * Decision variable on whether to render the menu or not.
      */
     private boolean _renderMenu;
-
+    
+    /**
+     * Tells whether or not an error string should be drawing.
+     */
+    private boolean _drawingShopError;
+    private String _drawingShopMsg;
+    private int _stringFrames;
+    private int _maxFrames;
+    private Font _font;
+    private TrueTypeFont _ttf;
+    
     /**
      * Default Constructor.
      * Initializes all instance variables, shop pages, and button images.
@@ -98,6 +111,12 @@ public class ShopMenu  extends Menu {
         super(_MENU_OVERLAY_BG);
         this._menuOverlay = this.getImage();
         this._renderMenu = false;
+        this._drawingShopError = false;
+        this._drawingShopMsg = "";
+        this._font = null;
+        this._ttf = null;
+        this._stringFrames = 0;
+        this._maxFrames = 40;
         
         // Initialize to the max number of pages.
         this.currentPage = 0;
@@ -130,7 +149,67 @@ public class ShopMenu  extends Menu {
 		chpd_imgc = new Image(_MENU_OVERLAY_CHPDC);
 		chpu_imgc = new Image(_MENU_OVERLAY_CHPUC);
     }
-
+    
+    /**
+     * Setter for drawing an error string.
+     * @param drawing
+     */
+    public void set_drawing(boolean drawing){
+    	this._drawingShopError = drawing;
+    }
+    
+    /**
+     * Getter for whether or not a string is being drawn.
+     * @return
+     */
+    public boolean get_drawing(){
+    	return this._drawingShopError;
+    }
+    
+    /**
+     * Setter for the string to be drawn.
+     * @param drawing
+     */
+    public void set_drawingMsg(String drawing){
+    	this._drawingShopMsg = drawing;
+    }
+    
+    /**
+     * Getter for the string to be drawn.
+     * @return
+     */
+    public String get_drawingMsg(){
+    	return this._drawingShopMsg;
+    }
+    
+    /**
+     * Setter for drawing an error string.
+     * @param drawing
+     */
+    public void set_stringFrames(int sf){
+    	this._stringFrames = sf;
+    }
+    
+    /**
+     * Getter for whether or not a string is being drawn.
+     * @return Number of frames to draw for.
+     */
+    public int get_stringFrames(){
+    	return this._stringFrames;
+    }
+    
+    /**
+     * Get the font/string drawing object.
+     * @return The font object.
+     */
+    private TrueTypeFont get_ttf(String fontName, int fontType, int size){
+		if (this._ttf == null) {
+			this._font = new Font(fontName, fontType, size);
+			this._ttf = new TrueTypeFont(_font, true);
+		}
+		return _ttf;
+    }
+    
     /**
      * Checks to see if user pressed S key and
      * renders if pressed. It also initializes all the buttons when needed.
@@ -144,15 +223,22 @@ public class ShopMenu  extends Menu {
         if (gc.getInput().isKeyPressed(Input.KEY_S)) {
             _renderMenu = !_renderMenu;
         }
+        
+        int maxFrameTime = 40;
 
         if (_renderMenu) {
         	if (this.shopPages.get(currentPage).isEmpty()) {
         		/**
         		 * Load change page down button.
         		 */
-        		chpd_button = new Button(gc, chpd_img, 0, 0) {
+        		chpd_button = new Button(gc, chpd_img, 0, 0, maxFrameTime, this) {
 					@Override
 					boolean process() {
+						if (!this.shop.get_drawing()) {
+							this.shop.set_drawing(true);
+							this.shop.set_stringFrames(0);
+							this.shop.set_drawingMsg("This button hasn't been implemented yet.");
+						}
 						return false;
 					}
         		};
@@ -162,9 +248,14 @@ public class ShopMenu  extends Menu {
 				/**
 				 * Load change page up button.
 				 */
-        		chpu_button = new Button(gc, chpu_img, 0, 0) {
+        		chpu_button = new Button(gc, chpu_img, 0, 0, maxFrameTime, this) {
 					@Override
 					boolean process() {
+						if (!this.shop.get_drawing()) {
+							this.shop.set_drawing(true);
+							this.shop.set_stringFrames(0);
+							this.shop.set_drawingMsg("This button hasn't been implemented yet.");
+						}
 						return false;
 					}
         		};
@@ -174,7 +265,7 @@ public class ShopMenu  extends Menu {
 				/**
 				 * Load speed button.
 				 */
-				spd_button = new Button(gc, spd_img, 0, 0) {
+				spd_button = new Button(gc, spd_img, 0, 0, maxFrameTime, this) {
 					@Override
 					public boolean process() {
 						System.out.println("Clicked speed button, spending 50 coins.");
@@ -183,10 +274,18 @@ public class ShopMenu  extends Menu {
 								MainCharacter.speed--;
 								MainCharacter.CoinCount = MainCharacter.CoinCount - 50;
 							} else {
-								System.out.println("Speed is already at the max.");
+								if (!this.shop.get_drawing()) {
+									this.shop.set_drawing(true);
+									this.shop.set_stringFrames(0);
+									this.shop.set_drawingMsg("Speed is already at the max.");
+								}
 							}							
 						} else {
-							System.out.println("Not enough coins.");
+							if (!this.shop.get_drawing()) {
+								this.shop.set_drawing(true);
+								this.shop.set_stringFrames(0);
+								this.shop.set_drawingMsg("Not enough coins to buy this: " + MainCharacter.CoinCount);
+							}
 						}
 						return true;
 					}
@@ -197,7 +296,7 @@ public class ShopMenu  extends Menu {
 				/**
 				 * Load questionable sale 1 button.
 				 */
-				q1_button = new Button(gc, q1_img, 0, 0) {
+				q1_button = new Button(gc, q1_img, 0, 0, maxFrameTime, this) {
 					@Override
 					public boolean process() {
 						System.out.println("Clicked Q1 button, find something for this one.");
@@ -205,7 +304,11 @@ public class ShopMenu  extends Menu {
 							System.out.println("Taking 150 coins.");
 							MainCharacter.CoinCount = MainCharacter.CoinCount - 150;
 						} else {
-							System.out.println("Not enough coins");
+							if (!this.shop.get_drawing()) {
+								this.shop.set_drawing(true);
+								this.shop.set_stringFrames(0);
+								this.shop.set_drawingMsg("Not enough coins to buy this: " + MainCharacter.CoinCount);
+							}
 						}
 						return true;
 					}
@@ -216,7 +319,7 @@ public class ShopMenu  extends Menu {
 				/**
 				 * Load questionable sale 2 button.
 				 */
-				q2_button = new Button(gc, q2_img, 0, 0) {
+				q2_button = new Button(gc, q2_img, 0, 0, maxFrameTime, this) {					
 					@Override
 					boolean process() {
 						System.out.println("Clicked Q2 button, end game easter-egg.");
@@ -227,7 +330,13 @@ public class ShopMenu  extends Menu {
 							// End the game.
 							System.exit(0);
 						} else {
-							System.out.println("Not enough coins");
+							// If were drawing increment the number of time so far,
+							// otherwise start.
+							if (!this.shop.get_drawing()) {
+								this.shop.set_drawing(true);
+								this.shop.set_stringFrames(0);
+								this.shop.set_drawingMsg("Not enough coins to buy this: " + MainCharacter.CoinCount);
+							}
 						}
 						
 						return true;
@@ -276,6 +385,18 @@ public class ShopMenu  extends Menu {
         q2_button.render(gc, g);
         chpd_button.render(gc, g);
         chpu_button.render(gc, g);
+
+		
+		// If we've started drawing, draw the string.
+		// Otherwise, turn rendering off.
+		if (this._drawingShopError && this._stringFrames <= this._maxFrames) {
+			this._stringFrames++;
+			this.get_ttf("Papyrus", Font.PLAIN, 40).drawString(gc.getWidth()/2-(gc.getWidth()/5),
+								gc.getHeight()/2-gc.getHeight()/4-50, this._drawingShopMsg, Color.black);
+		} else {
+			this._stringFrames = 0;
+			this._drawingShopError = false;
+		}
     }
 }
 

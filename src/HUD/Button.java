@@ -1,5 +1,6 @@
 package HUD;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.gui.GUIContext;
 import org.newdawn.slick.gui.MouseOverArea;
@@ -12,6 +13,10 @@ import org.newdawn.slick.gui.MouseOverArea;
  * @author Greg
  */
 abstract class Button extends MouseOverArea{
+	protected int maxFrameTime;
+	protected GameContainer gc;
+	protected ShopMenu shop;
+	
 	/**
 	 * Initialize.
 	 * @param container    GameContainer.
@@ -21,6 +26,18 @@ abstract class Button extends MouseOverArea{
 	 */
 	public Button(GUIContext container, Image im, int x, int y) {
         super(container, im, x, y);
+    }
+	
+	public Button(GUIContext container, Image im, int x, int y, int maxFrameTime, GameContainer gc) {
+        super(container, im, x, y);
+        this.maxFrameTime = maxFrameTime;
+        this.gc = gc;
+    }
+	
+	public Button(GUIContext container, Image im, int x, int y, int maxFrameTime, ShopMenu sm) {
+        super(container, im, x, y);
+        this.maxFrameTime = maxFrameTime;
+        this.shop = sm;
     }
 	
 	/**
