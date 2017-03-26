@@ -35,6 +35,15 @@ public class ShopMenu  extends Menu {
     private static final String _MENU_OVERLAY_Q1C = "dependencies/UI_photos/questions_button1_150_click.png";
     private static final String _MENU_OVERLAY_Q2C = "dependencies/UI_photos/questions_button2_200_click.png";
     
+    private static final String _MENU_OVERLAY_CHPD = "dependencies/UI_photos/arrow_left.png";
+    private static final String _MENU_OVERLAY_CHPU = "dependencies/UI_photos/arrow_right.png";
+    
+    private static final String _MENU_OVERLAY_CHPDO = "dependencies/UI_photos/arrow_left_mouseover.png";
+    private static final String _MENU_OVERLAY_CHPUO = "dependencies/UI_photos/arrow_right_mouseover.png";
+    
+    private static final String _MENU_OVERLAY_CHPDC = "dependencies/UI_photos/arrow_left_click.png";
+    private static final String _MENU_OVERLAY_CHPUC = "dependencies/UI_photos/arrow_right_click.png";
+    
     /**
      * The Image that is fetched using the path to the overlay
      * and the pages of the shop. Each inner array is one page.
@@ -58,6 +67,17 @@ public class ShopMenu  extends Menu {
     private Image spd_imgc;
     private Image q1_imgc;
     private Image q2_imgc;
+    
+    private Image chpd_img;
+    private Image chpu_img;
+    private Button chpd_button;
+    private Button chpu_button;
+    
+    private Image chpd_imgo;
+    private Image chpu_imgo;
+    
+    private Image chpd_imgc;
+    private Image chpu_imgc;
 
     /**
      * Decision variable on whether to render the menu or not
@@ -92,6 +112,15 @@ public class ShopMenu  extends Menu {
 		spd_imgc = new Image(_MENU_OVERLAY_SPDC);
 		q1_imgc = new Image(_MENU_OVERLAY_Q1C);
 		q2_imgc = new Image(_MENU_OVERLAY_Q2C);
+		
+		chpd_img = new Image(_MENU_OVERLAY_CHPD);
+		chpu_img = new Image(_MENU_OVERLAY_CHPU);
+		
+		chpd_imgo = new Image(_MENU_OVERLAY_CHPDO);
+		chpu_imgo = new Image(_MENU_OVERLAY_CHPUO);
+
+		chpd_imgc = new Image(_MENU_OVERLAY_CHPDC);
+		chpu_imgc = new Image(_MENU_OVERLAY_CHPUC);
     }
 
     /**
@@ -110,6 +139,24 @@ public class ShopMenu  extends Menu {
 
         if (_renderMenu) {
         	if (this.shopPages.get(currentPage).isEmpty()) {
+        		chpd_button = new Button(gc, chpd_img, 0, 0) {
+					@Override
+					boolean process() {
+						return false;
+					}
+        		};
+				chpd_button.setMouseDownImage(chpd_imgc);
+				chpd_button.setMouseOverImage(chpd_imgo);
+        		
+        		chpu_button = new Button(gc, chpu_img, 0, 0) {
+					@Override
+					boolean process() {
+						return false;
+					}
+        		};
+				chpu_button.setMouseDownImage(chpu_imgc);
+				chpu_button.setMouseOverImage(chpu_imgo);
+        		
 				spd_button = new Button(gc, spd_img, 0, 0) {
 					@Override
 					public boolean process() {
@@ -191,13 +238,20 @@ public class ShopMenu  extends Menu {
     	
         g.drawImage(_menuOverlay, corner.x, corner.y);
         
+        
+        // TODO: Make a better way to calculate it.
         spd_button.setLocation(corner.x+90, corner.y+130);
         q1_button.setLocation(corner.x+90, corner.y+185);
         q2_button.setLocation(corner.x+90, corner.y+240);
         
+        chpd_button.setLocation(corner.x+120, corner.y+300);
+        chpu_button.setLocation(corner.x+170, corner.y+300);
+        
         spd_button.render(gc, g);
         q1_button.render(gc, g);
         q2_button.render(gc, g);
+        chpd_button.render(gc, g);
+        chpu_button.render(gc, g);
     }
 }
 
