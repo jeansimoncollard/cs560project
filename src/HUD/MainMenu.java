@@ -9,6 +9,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.loading.LoadingList;
 
+
 /**
  * Implementation of the Main menu.
  * It will continue the game loop once space is pressed.
@@ -98,7 +99,11 @@ public class MainMenu  extends Menu {
     		System.out.println(numLoads);
             display(gc, gc.getGraphics());
     	}
-
+    	try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
         return _renderMenu;
     }
 

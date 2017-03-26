@@ -20,6 +20,7 @@ import HUD.CoinDisplayer;
 import HUD.HelpMenu;
 import HUD.MainMenu;
 import HUD.PauseMenu;
+import HUD.ShopMenu;
 import Objects.ObjectsHandler;
 
 public class Main extends BasicGame {
@@ -33,6 +34,7 @@ public class Main extends BasicGame {
     private PauseMenu _pauseMenu;
     private HelpMenu _helpMenu;
     private MainMenu _mainMenu;
+    private ShopMenu _shopMenu;
     private boolean _renderOverlay;
 
     private static final String MAP_PATH = "dependencies/map/bishopsmap.tmx";
@@ -63,6 +65,7 @@ public class Main extends BasicGame {
                     _clueDisplayer = new ClueDisplayer();
                     _pauseMenu = new PauseMenu();
                     _helpMenu = new HelpMenu();
+                    _shopMenu = new ShopMenu();
                     _gameStateMaster = new GameStateMaster(_objectsHandler, _clueDisplayer);
                 } catch (SlickException e) {
                     throw new IOException("Error loading image.");
@@ -78,7 +81,7 @@ public class Main extends BasicGame {
         });
         
         // Set minimum interval between update() calls
-        gc.setMinimumLogicUpdateInterval(5);
+        gc.setMinimumLogicUpdateInterval(1);
         _renderOverlay = true;
     }
 
@@ -88,13 +91,13 @@ public class Main extends BasicGame {
         if (LoadingList.get().getRemainingResources() > 0) {
         	this._renderOverlay = true;
         	_mainMenu.render(gc);
+            System.out.println("Loading resource...");
             DeferredResource nextResource = LoadingList.get().getNext(); 
             try {
 				nextResource.load();
 			} catch (IOException e) { // Check for error opening image.
 				e.printStackTrace();
 			}
-            System.out.println("Loading resource...");
         } else {
         	this._mainMenu.setLoading(false);
             // loading is complete, do normal update here
@@ -131,6 +134,9 @@ public class Main extends BasicGame {
 	            this._renderOverlay = true;
 	        }
 	        else if (_mainMenu.render(gc)) {
+	        	this._renderOverlay = true;
+	        }
+	        else if (_shopMenu.render(gc)) {
 	        	this._renderOverlay = true;
 	        }
 	        else {
