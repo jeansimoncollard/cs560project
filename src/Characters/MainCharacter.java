@@ -18,12 +18,15 @@ public class MainCharacter {
 
 	private Image _upperTileImage;
 	private Image _lowerTileImage;
+	
+	private boolean debug_mode;
 
 	public MainCharacter() {
 		XPosition = 0;
 		YPosition = 0;
 		_frameCount = 0;
 		CoinCount = 0;
+		debug_mode = false;
 	}
 
 	public MainCharacter(int xPosition, int yPosition) throws SlickException {
@@ -32,6 +35,7 @@ public class MainCharacter {
 		_upperTileImage = new Image(CHARACTER_IMAGE_UPPERTILE_PATH);
 		_lowerTileImage = new Image(CHARACTER_IMAGE_LOWERTILE_PATH);
 		speed = 15;
+		debug_mode = false;
 	}
 
 	public void Move(TiledMap map, boolean isRenderOverlay, GameContainer gc) {
@@ -84,6 +88,22 @@ public class MainCharacter {
 						this.YPosition++;
 					}
 				}
+			}
+			
+
+			if (gc.getInput().isKeyDown(Input.KEY_D)) {
+				if (!this.debug_mode){
+					System.out.println("Debug mode on.");
+					this.debug_mode = true;
+				} else {
+					System.out.println("Debug mode off.");
+					this.debug_mode = false;
+				}
+			}
+			
+			if (gc.getInput().isKeyDown(Input.KEY_F) && this.debug_mode) {
+				System.out.println("Free money!");
+				CoinCount++;
 			}
 			_frameCount++;
 		}
