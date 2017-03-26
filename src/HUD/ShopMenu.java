@@ -9,6 +9,8 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
+import Characters.MainCharacter;
+
 /**
  * Implementation of the Shop Menu.
  * Will show the pause menu when the user presses
@@ -111,7 +113,17 @@ public class ShopMenu  extends Menu {
 				spd_button = new Button(gc, spd_img, 0, 0) {
 					@Override
 					public boolean process() {
-						System.out.println("Clicked speed button.");
+						System.out.println("Clicked speed button, spending 50 coins.");
+						if (MainCharacter.CoinCount >= 50) {
+							if (MainCharacter.speed > 1) {
+								MainCharacter.speed--;
+								MainCharacter.CoinCount = MainCharacter.CoinCount - 50;
+							} else {
+								System.out.println("Speed is already at the max.");
+							}							
+						} else {
+							System.out.println("Not enough coins.");
+						}
 						return true;
 					}
 				};
@@ -121,7 +133,13 @@ public class ShopMenu  extends Menu {
 				q1_button = new Button(gc, q1_img, 0, 0) {
 					@Override
 					public boolean process() {
-						System.out.println("Clicked Q1 button.");
+						System.out.println("Clicked Q1 button, find something for this one.");
+						if (MainCharacter.CoinCount >= 150) {
+							System.out.println("Taking 150 coins.");
+							MainCharacter.CoinCount = MainCharacter.CoinCount - 150;
+						} else {
+							System.out.println("Not enough coins");
+						}
 						return true;
 					}
 				};
@@ -131,7 +149,17 @@ public class ShopMenu  extends Menu {
 				q2_button = new Button(gc, q2_img, 0, 0) {
 					@Override
 					boolean process() {
-						System.out.println("Clicked Q2 button.");
+						System.out.println("Clicked Q2 button, end game easter-egg.");
+						if (MainCharacter.CoinCount >= 200) {
+							System.out.println("Taking 200 coins.");
+							MainCharacter.CoinCount = MainCharacter.CoinCount - 200;
+							
+							// End the game.
+							System.exit(0);
+						} else {
+							System.out.println("Not enough coins");
+						}
+						
 						return true;
 					}
 				};
@@ -142,6 +170,7 @@ public class ShopMenu  extends Menu {
 				this.shopPages.get(currentPage).add(q1_button);
 				this.shopPages.get(currentPage).add(q2_button);
         	}
+        	
             display(gc, gc.getGraphics());
         }
 

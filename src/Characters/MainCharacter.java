@@ -10,7 +10,8 @@ public class MainCharacter {
 
 	public int XPosition, YPosition;
 	public int _frameCount;
-	public int CoinCount;
+	public static int CoinCount;
+	public static int speed;
 
 	private final String CHARACTER_IMAGE_UPPERTILE_PATH = "dependencies/characters/maincharacterUpperTile.png";
 	private final String CHARACTER_IMAGE_LOWERTILE_PATH = "dependencies/characters/maincharacterLowerTile.png";
@@ -30,6 +31,7 @@ public class MainCharacter {
 		YPosition = yPosition;
 		_upperTileImage = new Image(CHARACTER_IMAGE_UPPERTILE_PATH);
 		_lowerTileImage = new Image(CHARACTER_IMAGE_LOWERTILE_PATH);
+		speed = 15;
 	}
 
 	public void Move(TiledMap map, boolean isRenderOverlay, GameContainer gc) {
@@ -39,13 +41,13 @@ public class MainCharacter {
 				&& !gc.getInput().isKeyDown(Input.KEY_UP) && !gc.getInput().isKeyDown(Input.KEY_DOWN)) {
 			_frameCount = 0;// When nothing is pressed, reset the frameCount to
 							// 0, else, move only when _frameCount%x = 0 (x can
-							// be changed to change movement speed)
+							// be changed to change movement speed), decrease to increase speed.
 			return;
 		}
 
 		if (!isRenderOverlay) {
 
-			if (gc.getInput().isKeyDown(Input.KEY_RIGHT) && _frameCount % 15 == 0) {
+			if (gc.getInput().isKeyDown(Input.KEY_RIGHT) && _frameCount % speed == 0) {
 				// Doesn't go off map
 				if (this.XPosition != map.getWidth() - 1) {
 					// Doesn't collide with foreground
@@ -55,7 +57,7 @@ public class MainCharacter {
 				}
 			}
 
-			if (gc.getInput().isKeyDown(Input.KEY_LEFT) && _frameCount % 15 == 0) {
+			if (gc.getInput().isKeyDown(Input.KEY_LEFT) && _frameCount % speed == 0) {
 				// Doesn't go off map
 				if (this.XPosition != 0) {
 					// Doesn't collide with foreground
@@ -65,7 +67,7 @@ public class MainCharacter {
 				}
 			}
 
-			if (gc.getInput().isKeyDown(Input.KEY_UP) && _frameCount % 15 == 0) {
+			if (gc.getInput().isKeyDown(Input.KEY_UP) && _frameCount % speed == 0) {
 				// Doesn't go off map
 				if (this.YPosition != 0) {
 					// Doesn't collide with foreground
@@ -75,7 +77,7 @@ public class MainCharacter {
 				}
 			}
 
-			if (gc.getInput().isKeyDown(Input.KEY_DOWN) && _frameCount % 15 == 0) {
+			if (gc.getInput().isKeyDown(Input.KEY_DOWN) && _frameCount % speed == 0) {
 				if (this.YPosition != map.getHeight() - 1) {
 					// doesn't collide with foreground
 					if (map.getTileId(this.XPosition, this.YPosition + 1, foregroundLayerIndex) != 0) {
