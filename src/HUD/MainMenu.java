@@ -9,6 +9,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.loading.LoadingList;
 
+import StartMain.StringResources;
 
 /**
  * Implementation of the Main menu.
@@ -34,6 +35,7 @@ public class MainMenu  extends Menu {
     private Image currentMenu;
     private int numLoads;
     private boolean loading;
+    private boolean mainOff;
 
     /**
      * Decision variable on whether to render the menu or not
@@ -61,6 +63,7 @@ public class MainMenu  extends Menu {
         this._renderMenu = true;
         this.numLoads = 0;
         this.loading = true;
+        this.mainOff = false;
     }
     
     public void setLoading(boolean status) { 
@@ -86,10 +89,32 @@ public class MainMenu  extends Menu {
     @Override
     public boolean render(GameContainer gc) {
     	if (!this.loading){
-	        if (gc.getInput().isKeyPressed(Input.KEY_SPACE)) {
-	            _renderMenu = !_renderMenu;
-	        }
-	
+    		if (!this.mainOff) {
+		        if (gc.getInput().isKeyPressed(Input.KEY_SPACE)) {
+		            _renderMenu = !_renderMenu;
+		            StringResources.set_language("en");
+		            StringResources.set_country("US");
+		            StringResources.initialize_language();
+			        System.out.println(StringResources.messages.getString("speedMax"));
+			        this.mainOff = true;
+		        }
+		        if (gc.getInput().isKeyPressed(Input.KEY_E)){
+		            _renderMenu = !_renderMenu;
+		            StringResources.set_language("en");
+		            StringResources.set_country("US");
+		            StringResources.initialize_language();
+			        System.out.println(StringResources.messages.getString("speedMax"));
+			        this.mainOff = true;
+		        }
+		        if (gc.getInput().isKeyPressed(Input.KEY_F)){
+		            _renderMenu = !_renderMenu;
+		            StringResources.set_language("fr");
+		            StringResources.set_country("CA");
+		            StringResources.initialize_language();
+			        System.out.println(StringResources.messages.getString("speedMax"));
+			        this.mainOff = true;
+		        }
+    		}
 	        if (_renderMenu) {
 	            display(gc, gc.getGraphics());
 	        }

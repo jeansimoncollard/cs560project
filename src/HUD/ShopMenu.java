@@ -13,6 +13,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 
 import Characters.MainCharacter;
+import StartMain.StringResources;
 
 /**
  * Implementation of the Shop Menu.
@@ -277,14 +278,14 @@ public class ShopMenu  extends Menu {
 								if (!this.shop.get_drawing()) {
 									this.shop.set_drawing(true);
 									this.shop.set_stringFrames(0);
-									this.shop.set_drawingMsg("Speed is already at the max.");
+									this.shop.set_drawingMsg(StringResources.messages.getString("speedMax"));
 								}
 							}							
 						} else {
 							if (!this.shop.get_drawing()) {
 								this.shop.set_drawing(true);
 								this.shop.set_stringFrames(0);
-								this.shop.set_drawingMsg("Not enough coins to buy this: " + MainCharacter.CoinCount);
+								this.shop.set_drawingMsg(StringResources.messages.getString("missingCoins") + MainCharacter.CoinCount);
 							}
 						}
 						return true;
@@ -307,7 +308,7 @@ public class ShopMenu  extends Menu {
 							if (!this.shop.get_drawing()) {
 								this.shop.set_drawing(true);
 								this.shop.set_stringFrames(0);
-								this.shop.set_drawingMsg("Not enough coins to buy this: " + MainCharacter.CoinCount);
+								this.shop.set_drawingMsg(StringResources.messages.getString("missingCoins") + MainCharacter.CoinCount);
 							}
 						}
 						return true;
@@ -335,7 +336,7 @@ public class ShopMenu  extends Menu {
 							if (!this.shop.get_drawing()) {
 								this.shop.set_drawing(true);
 								this.shop.set_stringFrames(0);
-								this.shop.set_drawingMsg("Not enough coins to buy this: " + MainCharacter.CoinCount);
+								this.shop.set_drawingMsg(StringResources.messages.getString("missingCoins") + MainCharacter.CoinCount);
 							}
 						}
 						
