@@ -78,6 +78,11 @@ public class FontResources {
 		this.ttf = new TrueTypeFont(this.ft, true);
 	}
 	
+	public TrueTypeFont initialize_font(String fname, int ftype, int fsize) {
+		Font font_tmp = new Font(fname, ftype, fsize);
+		return new TrueTypeFont(font_tmp, true);
+	}
+	
 	// Prevent any calls to a constructor.
 	private FontResources(){ 			
 		this.fname = "Papyrus";

@@ -17,11 +17,11 @@ import org.newdawn.slick.tiled.TiledMap;
 import Characters.MainCharacter;
 import Clues.ClueDisplayer;
 import GameState.GameStateMaster;
-import HUD.CoinDisplayer;
 import HUD.HelpMenu;
 import HUD.MainMenu;
 import HUD.PauseMenu;
 import HUD.ShopMenu;
+import HUD.StatDisplayer;
 import Objects.ObjectsHandler;
 
 public class Main extends BasicGame {
@@ -29,7 +29,7 @@ public class Main extends BasicGame {
     private TiledMap _map;
     private MainCharacter _mainCharacter;
     private ObjectsHandler _objectsHandler;
-    private CoinDisplayer _coinDisplayer;
+    private StatDisplayer _statDisplayer;
     private GameStateMaster _gameStateMaster;
     private ClueDisplayer _clueDisplayer;
     private PauseMenu _pauseMenu;
@@ -61,7 +61,7 @@ public class Main extends BasicGame {
                     //loads immediately since deferred loading is OFF
                     _map = new TiledMap(MAP_PATH);
                     _mainCharacter = new MainCharacter(130, 85);
-                    _coinDisplayer = new CoinDisplayer();
+                    _statDisplayer = new StatDisplayer();
                     _objectsHandler = new ObjectsHandler();
                     _clueDisplayer = new ClueDisplayer();
                     _pauseMenu = new PauseMenu();
@@ -122,7 +122,7 @@ public class Main extends BasicGame {
 	
 	        _objectsHandler.HandleObjects(_mainCharacter, _map, gc, _gameStateMaster);
 	
-	        _coinDisplayer.DisplayCoins(_mainCharacter, g, gc);
+	        _statDisplayer.DisplayCoins(_mainCharacter, g, gc);
 	
 	        _gameStateMaster.Update(_mainCharacter, _map, gc, g);
 	

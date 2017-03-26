@@ -1,5 +1,7 @@
 package Characters;
 
+import java.util.Random;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
@@ -12,6 +14,7 @@ public class MainCharacter {
 	public int _frameCount;				// Used to determine how long buttons have been pressed.
 	public static int CoinCount; 		// Number of coins the player has.
 	public static int speed;			// Speed at which the character can move at (in frames per move).
+	public static String Name;			// Name of the character.
 
 	private final String CHARACTER_IMAGE_UPPERTILE_PATH = "dependencies/characters/maincharacterUpperTile.png";
 	private final String CHARACTER_IMAGE_LOWERTILE_PATH = "dependencies/characters/maincharacterLowerTile.png";
@@ -21,12 +24,24 @@ public class MainCharacter {
 	
 	private boolean debug_mode;		    // Debug mode variable.
 
+	private void get_default_name() {
+		Random r = new Random();
+		int nrand = r.nextInt(7)+1;
+		if (nrand < 4) {
+			Name = "Alice";
+		}
+		else {
+			Name = "Bob";
+		}
+	}
+	
 	public MainCharacter() {
 		XPosition = 0;
 		YPosition = 0;
 		_frameCount = 0;
 		CoinCount = 0;
 		debug_mode = false;
+		get_default_name();
 	}
 
 	public MainCharacter(int xPosition, int yPosition) throws SlickException {
@@ -36,6 +51,7 @@ public class MainCharacter {
 		_lowerTileImage = new Image(CHARACTER_IMAGE_LOWERTILE_PATH);
 		speed = 15;
 		debug_mode = false;
+		get_default_name();
 	}
 
 	public void Move(TiledMap map, boolean isRenderOverlay, GameContainer gc) {
