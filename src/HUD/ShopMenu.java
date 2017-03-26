@@ -19,7 +19,8 @@ import Characters.MainCharacter;
 public class ShopMenu  extends Menu {
 
     /**
-     * Strings that contain the paths to the shop menu and it's buttons. 
+     * Strings that contain the paths to the shop menu and it's buttons.
+     * *o for mouse over, and *c for click. 
      */
     private static final String _MENU_OVERLAY_BG = "dependencies/UI_photos/shop_menu_bg.png";
     
@@ -53,6 +54,9 @@ public class ShopMenu  extends Menu {
     private int currentPage;
     private int maxPages = 1;
     
+    /**
+     * Button images, *o for mouseover and *c for click.
+     */
     private Image spd_img;
     private Button spd_button;
     private Image q1_img;
@@ -95,12 +99,16 @@ public class ShopMenu  extends Menu {
         this._menuOverlay = this.getImage();
         this._renderMenu = false;
         
+        // Initialize to the max number of pages.
         this.currentPage = 0;
         this.shopPages = new ArrayList<ArrayList<Button>>();
         for (int i = 0; i < maxPages; i++){
         	this.shopPages.add(new ArrayList<Button>());
         }
         
+        /**
+         * Load images for all buttons and their different states.
+         */
 		spd_img = new Image(_MENU_OVERLAY_SPD);
 		q1_img = new Image(_MENU_OVERLAY_Q1);
 		q2_img = new Image(_MENU_OVERLAY_Q2);
@@ -139,6 +147,9 @@ public class ShopMenu  extends Menu {
 
         if (_renderMenu) {
         	if (this.shopPages.get(currentPage).isEmpty()) {
+        		/**
+        		 * Load change page down button.
+        		 */
         		chpd_button = new Button(gc, chpd_img, 0, 0) {
 					@Override
 					boolean process() {
@@ -148,6 +159,9 @@ public class ShopMenu  extends Menu {
 				chpd_button.setMouseDownImage(chpd_imgc);
 				chpd_button.setMouseOverImage(chpd_imgo);
         		
+				/**
+				 * Load change page up button.
+				 */
         		chpu_button = new Button(gc, chpu_img, 0, 0) {
 					@Override
 					boolean process() {
@@ -157,6 +171,9 @@ public class ShopMenu  extends Menu {
 				chpu_button.setMouseDownImage(chpu_imgc);
 				chpu_button.setMouseOverImage(chpu_imgo);
         		
+				/**
+				 * Load speed button.
+				 */
 				spd_button = new Button(gc, spd_img, 0, 0) {
 					@Override
 					public boolean process() {
@@ -177,6 +194,9 @@ public class ShopMenu  extends Menu {
 				spd_button.setMouseDownImage(spd_imgc);
 				spd_button.setMouseOverImage(spd_imgo);
 				
+				/**
+				 * Load questionable sale 1 button.
+				 */
 				q1_button = new Button(gc, q1_img, 0, 0) {
 					@Override
 					public boolean process() {
@@ -193,6 +213,9 @@ public class ShopMenu  extends Menu {
 				q1_button.setMouseDownImage(q1_imgc);
 				q1_button.setMouseOverImage(q1_imgo);
 				
+				/**
+				 * Load questionable sale 2 button.
+				 */
 				q2_button = new Button(gc, q2_img, 0, 0) {
 					@Override
 					boolean process() {
@@ -213,9 +236,10 @@ public class ShopMenu  extends Menu {
 				q2_button.setMouseDownImage(q2_imgc);
 				q2_button.setMouseOverImage(q2_imgo);
 				
-				this.shopPages.get(currentPage).add(spd_button);
-				this.shopPages.get(currentPage).add(q1_button);
-				this.shopPages.get(currentPage).add(q2_button);
+				// Add these buttons to their appropriate pages.
+				this.shopPages.get(0).add(spd_button);
+				this.shopPages.get(0).add(q1_button);
+				this.shopPages.get(0).add(q2_button);
         	}
         	
             display(gc, gc.getGraphics());

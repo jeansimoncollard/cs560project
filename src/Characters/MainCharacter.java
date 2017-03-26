@@ -8,10 +8,10 @@ import org.newdawn.slick.tiled.TiledMap;
 
 public class MainCharacter {
 
-	public int XPosition, YPosition;
-	public int _frameCount;
-	public static int CoinCount;
-	public static int speed;
+	public int XPosition, YPosition;	// Position of the character.
+	public int _frameCount;				// Used to determine how long buttons have been pressed.
+	public static int CoinCount; 		// Number of coins the player has.
+	public static int speed;			// Speed at which the character can move at (in frames per move).
 
 	private final String CHARACTER_IMAGE_UPPERTILE_PATH = "dependencies/characters/maincharacterUpperTile.png";
 	private final String CHARACTER_IMAGE_LOWERTILE_PATH = "dependencies/characters/maincharacterLowerTile.png";
@@ -19,7 +19,7 @@ public class MainCharacter {
 	private Image _upperTileImage;
 	private Image _lowerTileImage;
 	
-	private boolean debug_mode;
+	private boolean debug_mode;		    // Debug mode variable.
 
 	public MainCharacter() {
 		XPosition = 0;
@@ -90,7 +90,7 @@ public class MainCharacter {
 				}
 			}
 			
-
+			// Turn on debug mode using this.
 			if (gc.getInput().isKeyDown(Input.KEY_D)) {
 				if (!this.debug_mode){
 					System.out.println("Debug mode on.");
@@ -101,10 +101,14 @@ public class MainCharacter {
 				}
 			}
 			
+			// This can be used after debug has been turned on to get more coins.
+			// FYI, it is not easy to turn on debug mode accidently without console
+			// logging.
 			if (gc.getInput().isKeyDown(Input.KEY_F) && this.debug_mode) {
 				System.out.println("Free money!");
 				CoinCount++;
 			}
+			
 			_frameCount++;
 		}
 	}
