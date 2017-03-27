@@ -21,6 +21,7 @@ import StartMain.StringResources;
  * the S button.
  */
 public class ShopMenu  extends Menu {
+	private MainCharacter character;
 
     /**
      * Strings that contain the paths to the shop menu and it's buttons.
@@ -60,9 +61,10 @@ public class ShopMenu  extends Menu {
      */
     private Image _menuOverlay;
     private ArrayList<ArrayList<Button>> shopPages;
+    private ArrayList<ArrayList<String>> shopPages_names;
+    private ArrayList<ArrayList<Integer>> shopPages_cost;
     private int currentPage;
     private int prevPage;
-    private int maxPages = 3;
     
     /**
      * Button images, *o for mouseover and *c for click.
@@ -93,9 +95,6 @@ public class ShopMenu  extends Menu {
     private Image chpd_imgc;
     private Image chpu_imgc;
     
-    private Button blank_button1;
-    private Button blank_button2;
-    private Button blank_button3;
     private Image blank_img;
     private Image blank_imgc;
     private Image blank_imgo;
@@ -114,6 +113,7 @@ public class ShopMenu  extends Menu {
     private int _maxFrames;
     private Font _font;
     private TrueTypeFont _ttf;
+    private TrueTypeFont _ttf_pages;
     
     /**
      * Default Constructor.
@@ -135,9 +135,14 @@ public class ShopMenu  extends Menu {
         // Initialize to the max number of pages.
         this.currentPage = 0;
         this.prevPage = 0;
+        
         this.shopPages = new ArrayList<ArrayList<Button>>();
+        this.shopPages_names = new ArrayList<ArrayList<String>>();
+        this.shopPages_cost = new ArrayList<ArrayList<Integer>>();
         for (int i = 0; i < maxPages; i++){
         	this.shopPages.add(new ArrayList<Button>());
+        	this.shopPages_names.add(new ArrayList<String>());
+            this.shopPages_cost.add(new ArrayList<Integer>());
         }
         
         /**
@@ -167,6 +172,10 @@ public class ShopMenu  extends Menu {
 		blank_img = new Image(_MENU_OVERLAY_BLANK);
 		blank_imgc = new Image(_MENU_OVERLAY_BLANKC);
 		blank_imgo = new Image(_MENU_OVERLAY_BLANKO);
+    }
+    
+    public void set_character(MainCharacter character){
+    	this.character = character;
     }
     
     /**
@@ -240,7 +249,21 @@ public class ShopMenu  extends Menu {
 	public void setCurrentPage(int currentPage) {
 		this.currentPage = currentPage;
 	}
-
+	
+	/**
+	 * Get the current shop pages cost list.
+	 */
+	public ArrayList<ArrayList<Integer>> getShopCosts() {
+		return this.shopPages_cost;
+	}
+	
+	/**
+	 * Get the current shop pages cost list.
+	 */
+	public void setShopCosts(ArrayList<ArrayList<Integer>> costs) {
+		this.shopPages_cost = costs;
+	}
+	
 	/**
      * Get the font/string drawing object.
      * @return The font object.
@@ -250,7 +273,263 @@ public class ShopMenu  extends Menu {
 			this._font = new Font(fontName, fontType, size);
 			this._ttf = new TrueTypeFont(_font, true);
 		}
-		return _ttf;
+		return this._ttf;
+    }
+
+	/**
+     * Get the font/string drawing object.
+     * @return The font object.
+     */
+    private TrueTypeFont get_ttf_pages(String fontName, int fontType, int size){
+		if (this._ttf_pages == null) {
+			this._font = new Font(fontName, fontType, size);
+			this._ttf_pages = new TrueTypeFont(_font, true);
+		}
+		return this._ttf_pages;
+    }
+    
+    private int maxPages = 3;
+    /**
+     * This function adds all the buttons to the current GameContainer
+     * for the shop menu. It sets up all the available pages of the array list.
+     * @param gc
+     * @param maxFrameTime
+     */
+    public void add_buttons(GameContainer gc, int maxFrameTime) {		
+		/**
+		 * Load change page down button.
+		 */
+		chpd_button = new Button(gc, chpd_img, 0, 0, maxFrameTime, this) {
+			@Override
+			boolean process() {
+				if (currentPage > 0) {
+					this.shop.setCurrentPage(this.shop.getCurrentPage()-1);
+				}
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				return true;
+			}
+		};
+		chpd_button.setMouseDownImage(chpd_imgc);
+		chpd_button.setMouseOverImage(chpd_imgo);
+		
+		/**
+		 * Load change page up button.
+		 */
+		chpu_button = new Button(gc, chpu_img, 0, 0, maxFrameTime, this) {
+			@Override
+			boolean process() {
+				if (currentPage < this.shop.getMaximumPages()-1) {
+					this.shop.setCurrentPage(this.shop.getCurrentPage()+1);
+				}
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				return true;
+			}
+		};
+		chpu_button.setMouseDownImage(chpu_imgc);
+		chpu_button.setMouseOverImage(chpu_imgo);
+		
+		/**
+		 * Load speed button.
+		 */
+		spd_button = new Button(gc, spd_img, spd_imgc, spd_imgo, 0, 
+								0, maxFrameTime, this, this.character) {
+			@Override
+			public boolean process() {
+				System.out.println("Clicked speed button, spending 50 coins.");
+				if (this.character.getCoinCount() >= 50) {
+					if (this.character.getSpeed() > 1) {
+						this.character.setSpeed(this.character.getSpeed()-1);
+						this.character.setCoinCount(this.character.getCoinCount() - 50);
+						
+						if (!this.shop.get_drawing()) {
+							this.shop.set_drawing(true);
+							this.shop.set_stringFrames(0);
+							this.shop.set_drawingMsg(StringResources.messages.getString("speedUp"));
+						}
+					} else {
+						if (!this.shop.get_drawing()) {
+							this.shop.set_drawing(true);
+							this.shop.set_stringFrames(0);
+							this.shop.set_drawingMsg(StringResources.messages.getString("speedMax"));
+						}
+					}							
+				} else {
+					if (!this.shop.get_drawing()) {
+						this.shop.set_drawing(true);
+						this.shop.set_stringFrames(0);
+						this.shop.set_drawingMsg(StringResources.messages.getString("missingCoins") + this.character.getCoinCount());
+					}
+				}
+				// Sleep to prevent a click being recognized as two clicks.
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				return true;
+			}
+		};
+		spd_button.setMouseDownImage(spd_imgc);
+		spd_button.setMouseOverImage(spd_imgo);
+		
+		/**
+		 * Load questionable sale 1 button.
+		 */
+		q1_button = new Button(gc, q1_img, q1_imgc, q1_imgo, 0, 
+							   0, maxFrameTime, this, this.character) {
+			@Override
+			public boolean process() {
+				System.out.println("Clicked Q1 button, find something for this one.");
+				if (this.character.getCoinCount() >= 150) {
+					System.out.println("Taking 150 coins.");
+					if (!this.shop.get_drawing()) {
+						this.shop.set_drawing(true);
+						this.shop.set_stringFrames(0);
+						this.shop.set_drawingMsg("? ? ?: " + this.character.getCoinCount());
+					}
+					this.character.setCoinCount(this.character.getCoinCount() - 150);
+				} else {
+					if (!this.shop.get_drawing()) {
+						this.shop.set_drawing(true);
+						this.shop.set_stringFrames(0);
+						this.shop.set_drawingMsg(StringResources.messages.getString("missingCoins") + this.character.getCoinCount());
+					}
+				}
+				// Sleep to prevent a click being recognized as two clicks.
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				return true;
+			}
+		};
+		q1_button.setMouseDownImage(q1_imgc);
+		q1_button.setMouseOverImage(q1_imgo);
+		
+		/**
+		 * Load questionable sale 2 button.
+		 */
+		q2_button = new Button(gc, q2_img, q2_imgc, q2_imgo, 0, 
+							   0, maxFrameTime, this, this.character) {					
+			@Override
+			boolean process() {
+				System.out.println("Clicked Q2 button, end game easter-egg.");
+				if (this.character.getCoinCount() >= 200) {
+					System.out.println("Taking 200 coins.");
+					this.character.setCoinCount(this.character.getCoinCount() - 200);
+					
+					// End the game.
+					System.exit(0);
+				} else {
+					// If were drawing increment the number of time so far,
+					// otherwise start.
+					if (!this.shop.get_drawing()) {
+						this.shop.set_drawing(true);
+						this.shop.set_stringFrames(0);
+						this.shop.set_drawingMsg(StringResources.messages.getString("missingCoins") + this.character.getCoinCount());
+					}
+				}
+				
+				// Sleep to prevent a click being recognized as two clicks.
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				return true;
+			}
+		};
+		q2_button.setMouseDownImage(q2_imgc);
+		q2_button.setMouseOverImage(q2_imgo);
+
+		
+		// Add these buttons to their appropriate pages.
+		this.shopPages.get(0).add(spd_button);
+		this.shopPages.get(0).add(q1_button);
+		this.shopPages.get(0).add(q2_button);
+		
+		// Fill the rest of the pages with empty buttons.
+		Button tmp_button = null;
+		for (int i = 1; i < maxPages; i++){
+			for (int j = 0; j < 3; j++){
+				tmp_button = new Button(gc, blank_img, blank_imgc, blank_imgo, 0, 
+									    0, maxFrameTime, this) {
+					@Override
+					boolean process() {
+						System.out.println("Blank button process.");
+						return true;
+					}
+				};
+				tmp_button.setMouseDownImage(blank_imgc);
+				tmp_button.setMouseOverImage(blank_imgo);
+				this.shopPages.get(i).add(tmp_button);
+			}
+		}
+		
+		/**
+		 * Load a button for increasing coin worth.
+		 */
+		this.shopPages.get(1).set(0, new Button(gc, blank_img, blank_imgc, blank_imgo, 0,
+												0, maxFrameTime, this, this.character) {
+			private int num_buys = 1;
+			
+			@Override
+			boolean process() {
+				if (this.character.getCoinCount() >= this.num_buys*20) {
+					System.out.println("Increasing coin worth.");
+					this.character.setCoinWorth(this.character.getCoinWorth() + 1);
+					this.character.setCoinCount(this.character.getCoinCount()-(num_buys*20));
+					num_buys++;
+					
+					this.shop.getShopCosts().get(1).set(0, num_buys*20);
+					if (!this.shop.get_drawing()) {
+						this.shop.set_drawing(true);
+						this.shop.set_stringFrames(0);
+						this.shop.set_drawingMsg(StringResources.messages.getString("coinWorthUp"));
+					}
+				} else {
+					this.shop.getShopCosts().get(1).set(0, num_buys*20);
+					// If were drawing increment the number of time so far,
+					// otherwise start.
+					if (!this.shop.get_drawing()) {
+						this.shop.set_drawing(true);
+						this.shop.set_stringFrames(0);
+						this.shop.set_drawingMsg(StringResources.messages.getString("missingCoins") + this.character.getCoinCount());
+					}
+				}
+				
+				// Sleep to prevent a click being recognized as two clicks.
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+
+				return false;
+			}
+		});
+		this.shopPages.get(1).get(0).setMouseDownImage(blank_imgc);
+		this.shopPages.get(1).get(0).setMouseOverImage(blank_imgo);
+		
+		// Fill the last numbers and names with blanks.
+		for (int i = 0; i < maxPages; i++){
+			for (int j = 0; j < 3; j++){
+				this.shopPages_cost.get(i).add(-1);
+				this.shopPages_names.get(i).add(" ");
+			}
+		}
+		
+		this.shopPages_cost.get(1).set(0, 20);
+		this.shopPages_names.get(1).set(0, StringResources.messages.getString("coinWorthUpMsg"));
     }
     
     /**
@@ -269,196 +548,9 @@ public class ShopMenu  extends Menu {
         
         int maxFrameTime = 40;
 
-        if (_renderMenu) {
+        if (_renderMenu) {        	
         	if (this.shopPages.get(currentPage).isEmpty()) {
-				/**
-				 * Blank buttons for use on extra pages, or irregular
-				 * amounts of buttons (not multiples of 3).
-				 */
-				blank_button1 = new Button(gc, blank_img, 0, 0, maxFrameTime, this) {
-					@Override
-					boolean process() {
-						System.out.println("Blank button process.");
-						return true;
-					}
-				};
-				blank_button1.setMouseDownImage(blank_imgc);
-				blank_button1.setMouseOverImage(blank_imgo);
-				
-				blank_button2 = new Button(gc, blank_img, 0, 0, maxFrameTime, this) {
-					@Override
-					boolean process() {
-						System.out.println("Blank button process.");
-						return true;
-					}
-				};
-				blank_button2.setMouseDownImage(blank_imgc);
-				blank_button2.setMouseOverImage(blank_imgo);
-				
-				blank_button3 = new Button(gc, blank_img, 0, 0, maxFrameTime, this) {
-					@Override
-					boolean process() {
-						System.out.println("Blank button process.");
-						return true;
-					}
-				};
-				blank_button3.setMouseDownImage(blank_imgc);
-				blank_button3.setMouseOverImage(blank_imgo);
-        		
-        		/**
-        		 * Load change page down button.
-        		 */
-        		chpd_button = new Button(gc, chpd_img, 0, 0, maxFrameTime, this) {
-					@Override
-					boolean process() {
-						if (currentPage > 0) {
-							this.shop.setCurrentPage(this.shop.getCurrentPage()-1);
-						}
-						try {
-							Thread.sleep(100);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						return true;
-					}
-        		};
-				chpd_button.setMouseDownImage(chpd_imgc);
-				chpd_button.setMouseOverImage(chpd_imgo);
-        		
-				/**
-				 * Load change page up button.
-				 */
-        		chpu_button = new Button(gc, chpu_img, 0, 0, maxFrameTime, this) {
-					@Override
-					boolean process() {
-						if (currentPage < this.shop.getMaximumPages()-1) {
-							this.shop.setCurrentPage(this.shop.getCurrentPage()+1);
-						}
-						try {
-							Thread.sleep(100);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						return true;
-					}
-        		};
-				chpu_button.setMouseDownImage(chpu_imgc);
-				chpu_button.setMouseOverImage(chpu_imgo);
-        		
-				/**
-				 * Load speed button.
-				 */
-				spd_button = new Button(gc, spd_img, 0, 0, maxFrameTime, this) {
-					@Override
-					public boolean process() {
-						System.out.println("Clicked speed button, spending 50 coins.");
-						if (MainCharacter.CoinCount >= 50) {
-							if (MainCharacter.speed > 1) {
-								MainCharacter.speed--;
-								MainCharacter.CoinCount = MainCharacter.CoinCount - 50;
-							} else {
-								if (!this.shop.get_drawing()) {
-									this.shop.set_drawing(true);
-									this.shop.set_stringFrames(0);
-									this.shop.set_drawingMsg(StringResources.messages.getString("speedMax"));
-								}
-							}							
-						} else {
-							if (!this.shop.get_drawing()) {
-								this.shop.set_drawing(true);
-								this.shop.set_stringFrames(0);
-								this.shop.set_drawingMsg(StringResources.messages.getString("missingCoins") + MainCharacter.CoinCount);
-							}
-						}
-						// Sleep to prevent a click being recognized as two clicks.
-						try {
-							Thread.sleep(100);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						return true;
-					}
-				};
-				spd_button.setMouseDownImage(spd_imgc);
-				spd_button.setMouseOverImage(spd_imgo);
-				
-				/**
-				 * Load questionable sale 1 button.
-				 */
-				q1_button = new Button(gc, q1_img, 0, 0, maxFrameTime, this) {
-					@Override
-					public boolean process() {
-						System.out.println("Clicked Q1 button, find something for this one.");
-						if (MainCharacter.CoinCount >= 150) {
-							System.out.println("Taking 150 coins.");
-							MainCharacter.CoinCount = MainCharacter.CoinCount - 150;
-						} else {
-							if (!this.shop.get_drawing()) {
-								this.shop.set_drawing(true);
-								this.shop.set_stringFrames(0);
-								this.shop.set_drawingMsg(StringResources.messages.getString("missingCoins") + MainCharacter.CoinCount);
-							}
-						}
-						// Sleep to prevent a click being recognized as two clicks.
-						try {
-							Thread.sleep(100);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						return true;
-					}
-				};
-				q1_button.setMouseDownImage(q1_imgc);
-				q1_button.setMouseOverImage(q1_imgo);
-				
-				/**
-				 * Load questionable sale 2 button.
-				 */
-				q2_button = new Button(gc, q2_img, 0, 0, maxFrameTime, this) {					
-					@Override
-					boolean process() {
-						System.out.println("Clicked Q2 button, end game easter-egg.");
-						if (MainCharacter.CoinCount >= 200) {
-							System.out.println("Taking 200 coins.");
-							MainCharacter.CoinCount = MainCharacter.CoinCount - 200;
-							
-							// End the game.
-							System.exit(0);
-						} else {
-							// If were drawing increment the number of time so far,
-							// otherwise start.
-							if (!this.shop.get_drawing()) {
-								this.shop.set_drawing(true);
-								this.shop.set_stringFrames(0);
-								this.shop.set_drawingMsg(StringResources.messages.getString("missingCoins") + MainCharacter.CoinCount);
-							}
-						}
-						
-						// Sleep to prevent a click being recognized as two clicks.
-						try {
-							Thread.sleep(100);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						return true;
-					}
-				};
-				q2_button.setMouseDownImage(q2_imgc);
-				q2_button.setMouseOverImage(q2_imgo);
-
-				
-				// Add these buttons to their appropriate pages.
-				this.shopPages.get(0).add(spd_button);
-				this.shopPages.get(0).add(q1_button);
-				this.shopPages.get(0).add(q2_button);
-				
-				this.shopPages.get(1).add(blank_button1);
-				this.shopPages.get(1).add(blank_button2);
-				this.shopPages.get(1).add(blank_button3);
-				
-				this.shopPages.get(2).add(blank_button1);
-				this.shopPages.get(2).add(blank_button2);
-				this.shopPages.get(2).add(blank_button3);
+				add_buttons(gc, maxFrameTime);
         	}
         	
             display(gc, gc.getGraphics());
@@ -505,6 +597,24 @@ public class ShopMenu  extends Menu {
         this.shopPages.get(currentPage).get(1).render(gc, g);
         this.shopPages.get(currentPage).get(2).render(gc, g);
         
+        if (this.shopPages_cost.get(currentPage).get(0) != -1) {
+            this.get_ttf_pages("Papyrus", Font.PLAIN, 25).drawString(corner.x+100, corner.y+135, 
+            			 this.shopPages_names.get(currentPage).get(0), Color.black);
+            this.get_ttf_pages("Papyrus", Font.PLAIN, 25).drawString(corner.x+350, corner.y+135, 
+       			 Integer.toString(this.shopPages_cost.get(currentPage).get(0)), Color.black);
+        }
+        if (this.shopPages_cost.get(currentPage).get(1) != -1) {
+            this.get_ttf_pages("Papyrus", Font.PLAIN, 25).drawString(corner.x+100, corner.y+190, 
+            			 this.shopPages_names.get(currentPage).get(1), Color.black);
+            this.get_ttf_pages("Papyrus", Font.PLAIN, 25).drawString(corner.x+350, corner.y+190, 
+       			 Integer.toString(this.shopPages_cost.get(currentPage).get(1)), Color.black);
+        }
+        if (this.shopPages_cost.get(currentPage).get(2) != -1) {
+            this.get_ttf_pages("Papyrus", Font.PLAIN, 25).drawString(corner.x+100, corner.y+245, 
+            			 this.shopPages_names.get(currentPage).get(2), Color.black);
+            this.get_ttf_pages("Papyrus", Font.PLAIN, 25).drawString(corner.x+350, corner.y+245, 
+       			 Integer.toString(this.shopPages_cost.get(currentPage).get(2)), Color.black);
+        }
         
         chpd_button.render(gc, g);
         chpu_button.render(gc, g);

@@ -38,8 +38,8 @@ public class StatDisplayer {
 		}
 		
 		if (StringResources.messages != null){
-			ttf.drawString(20, 20, StringResources.messages.getString("coinCount") + MainCharacter.CoinCount, Color.black);
-			ttf.drawString(20, 65, StringResources.messages.getString("name") + MainCharacter.Name, Color.black);
+			ttf.drawString(20, 20, StringResources.messages.getString("coinCount") + character.getCoinCount(), Color.black);
+			ttf.drawString(20, 65, StringResources.messages.getString("name") + character.getName(), Color.black);
 		}
 	}
 

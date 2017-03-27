@@ -67,6 +67,7 @@ public class Main extends BasicGame {
                     _pauseMenu = new PauseMenu();
                     _helpMenu = new HelpMenu();
                     _shopMenu = new ShopMenu();
+                    _shopMenu.set_character(_mainCharacter);
                     _gameStateMaster = new GameStateMaster(_objectsHandler, _clueDisplayer);
                 } catch (SlickException e) {
                     throw new IOException("Error loading image.");

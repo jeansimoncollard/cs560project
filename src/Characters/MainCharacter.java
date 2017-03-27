@@ -12,9 +12,10 @@ public class MainCharacter {
 
 	public int XPosition, YPosition;	// Position of the character.
 	public int _frameCount;				// Used to determine how long buttons have been pressed.
-	public static int CoinCount; 		// Number of coins the player has.
-	public static int speed;			// Speed at which the character can move at (in frames per move).
-	public static String Name;			// Name of the character.
+	private int CoinCount; 		// Number of coins the player has.
+	private int CoinWorth;
+	private int speed;			// Speed at which the character can move at (in frames per move).
+	private String Name;			// Name of the character.
 
 	private final String CHARACTER_IMAGE_UPPERTILE_PATH = "dependencies/characters/maincharacterUpperTile.png";
 	private final String CHARACTER_IMAGE_LOWERTILE_PATH = "dependencies/characters/maincharacterLowerTile.png";
@@ -40,6 +41,7 @@ public class MainCharacter {
 		YPosition = 0;
 		_frameCount = 0;
 		CoinCount = 0;
+		CoinWorth = 1;
 		debug_mode = false;
 		get_default_name();
 	}
@@ -50,8 +52,41 @@ public class MainCharacter {
 		_upperTileImage = new Image(CHARACTER_IMAGE_UPPERTILE_PATH);
 		_lowerTileImage = new Image(CHARACTER_IMAGE_LOWERTILE_PATH);
 		speed = 15;
+		CoinWorth = 1;
 		debug_mode = false;
 		get_default_name();
+	}
+
+	public int getCoinCount() {
+		return CoinCount;
+	}
+
+	public void setCoinCount(int coinCount) {
+		CoinCount = coinCount;
+	}
+
+	public int getCoinWorth() {
+		return CoinWorth;
+	}
+
+	public void setCoinWorth(int coinWorth) {
+		CoinWorth = coinWorth;
+	}
+
+	public int getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
+	
+	public void setName(String name) {
+		this.Name = name;
+	}
+	
+	public String getName() {
+		return this.Name;
 	}
 
 	public void Move(TiledMap map, boolean isRenderOverlay, GameContainer gc) {

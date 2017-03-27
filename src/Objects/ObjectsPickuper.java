@@ -17,7 +17,7 @@ public class ObjectsPickuper {
 			if (object.ObjectX == character.XPosition && object.ObjectY == character.YPosition) {
 
 				if (object.ObjectType == ObjectType.Coin) {
-					MainCharacter.CoinCount++;
+					character.setCoinCount(character.getCoinCount() + character.getCoinWorth());
 				} else if (object.ObjectType == ObjectType.Clue) {				
 					gameStateMaster.GameState++;
 				}
