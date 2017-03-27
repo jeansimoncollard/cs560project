@@ -74,8 +74,10 @@ public class FontResources {
 	}
 
 	public void initialize_font() {
-		this.ft = new Font(this.fname, this.ftype, this.fsize);
-		this.ttf = new TrueTypeFont(this.ft, true);
+		if (this.ttf ==  null) {
+			this.ft = new Font(this.fname, this.ftype, this.fsize);
+			this.ttf = new TrueTypeFont(this.ft, true);
+		}
 	}
 	
 	public TrueTypeFont initialize_font(String fname, int ftype, int fsize) {
@@ -84,7 +86,8 @@ public class FontResources {
 	}
 	
 	// Prevent any calls to a constructor.
-	private FontResources(){ 			
+	private FontResources(){
+		this.ttf = null;
 		this.fname = "Papyrus";
 		this.ftype = Font.PLAIN;
 		this.fsize = 40;

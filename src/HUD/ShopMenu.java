@@ -476,6 +476,15 @@ public class ShopMenu  extends Menu {
 		}
 		
 		/**
+		 * Everything that follows here makes use of dynamic button creation.
+		 * In other words, we use a blank button picture but modify the process,
+		 * and the strings and costs that are shown.
+		 * 
+		 * This makes it simpler because this way we don't have to continuously use some
+		 * drawing tool to make the buttons, we just build them on the fly.
+		 */
+		
+		/**
 		 * Load a button for increasing coin worth.
 		 */
 		this.shopPages.get(1).set(0, new Button(gc, blank_img, blank_imgc, blank_imgo, 0,
