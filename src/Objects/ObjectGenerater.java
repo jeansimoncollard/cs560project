@@ -14,7 +14,7 @@ public class ObjectGenerater {
 
 	public void GenerateCoinsRandomly(List<ObjectEntity> objectsList, int characterX, int characterY, TiledMap map) {
 
-		ObjectEntity coinObject = createObject(characterX, characterY, map, PATH_COIN_IMAGE, 50,Enums.ObjectType.Coin);
+		ObjectEntity coinObject = createObject(characterX, characterY, map, PATH_COIN_IMAGE, 50, Enums.ObjectType.Coin);
 
 		if (coinObject != null) {
 			objectsList.add(coinObject);
@@ -23,9 +23,9 @@ public class ObjectGenerater {
 
 	public void GenerateClueRandomly(List<ObjectEntity> objectsList, int characterX, int characterY, TiledMap map,
 			GameStateMaster gameStateMaster) {
-		ObjectEntity clueObject = createObject(characterX, characterY, map, PATH_CLUE_IMAGE, 100,Enums.ObjectType.Clue);
+		ObjectEntity clueObject = createObject(characterX, characterY, map, PATH_CLUE_IMAGE, 10, Enums.ObjectType.Clue);
 
-		if (clueObject != null) {			
+		if (clueObject != null) {
 			objectsList.add(clueObject);
 			gameStateMaster.GameState++;
 		}

@@ -80,6 +80,12 @@ public class FontResources {
 		}
 	}
 	
+	public TrueTypeFont GetFontWithSize(int size) {
+			this.ft = new Font(this.fname, this.ftype, size);
+			return new TrueTypeFont(this.ft, true);
+		
+	}
+	
 	public TrueTypeFont initialize_font(String fname, int ftype, int fsize) {
 		Font font_tmp = new Font(fname, ftype, fsize);
 		return new TrueTypeFont(font_tmp, true);

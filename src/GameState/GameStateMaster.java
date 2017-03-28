@@ -18,8 +18,8 @@ public class GameStateMaster {
 	private ObjectsHandler _objectsHandler;
 	private int oldCharacterXPosition;
 	private int oldCharacterYPosition;
-	private final String PATH_LIBRARYBUSHCLUE_IMAGE = "dependencies/clues/clueBushLibrary.png";
-	private final String PATH_HAMILTONNOISECLUE_IMAGE = "dependencies/clues/noisenearhamiltonclue.png";
+	private final String PATH_LIBRARYBUSHCLUE_IMAGE = "dependencies/clues/brushcluenotext.png";
+	private final String PATH_HAMILTONNOISECLUE_IMAGE = "dependencies/clues/blankscroll2WithMagnifyingGlass.png";
 	private ClueDisplayer _clueDisplayer;
 	private LibraryBushClueDetector _libraryBushClueDetector;
 
@@ -49,19 +49,22 @@ public class GameStateMaster {
 			// the player pickups the clue
 			break;
 		case 2:// Clue is displayed
-			_clueDisplayer.CurrentClueImage = new Image(PATH_LIBRARYBUSHCLUE_IMAGE);
+			_clueDisplayer.setClue(new Image(PATH_LIBRARYBUSHCLUE_IMAGE), "bushClue");
 			_clueDisplayer.DisplayCurrentClue();
 			GameState++;
 
 			break;
 		case 3:
-			_libraryBushClueDetector.Detect(this, character); //Player walks near bush
+			_libraryBushClueDetector.Detect(this, character); // Player walks
+																// near bush
 			break;
 		case 4:
-			_clueDisplayer.CurrentClueImage = new Image(PATH_HAMILTONNOISECLUE_IMAGE); //New clue displayed
+			_clueDisplayer.setClue(new Image(PATH_HAMILTONNOISECLUE_IMAGE), "noiseClue"); // New
+																							// clue
+																							// displayed
 			_clueDisplayer.DisplayCurrentClue();
 			GameState++;
-			break;			
+			break;
 		}
 	}
 
