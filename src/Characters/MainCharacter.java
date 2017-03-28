@@ -11,7 +11,6 @@ import java.util.Random;
 
 public class MainCharacter {
 
-<<<<<<< HEAD
     public int XPosition, YPosition;    // Position of the character.
     public int _frameCount;                // Used to determine how long buttons have been pressed.
     private int CoinCount;        // Number of coins the player has.
@@ -34,7 +33,7 @@ public class MainCharacter {
      * Left = 1
      * Right = 2
      * Up = 3
-     *
+     * <p>
      * (Note: It's sorted alphabetically for easy memorization)
      */
 
@@ -115,6 +114,7 @@ public class MainCharacter {
 
     /**
      * Gets all the images in the sprite sheet and assigns them to _spriteArray
+     *
      * @throws SlickException Handled by the framework
      */
     private void getSpriteSheet() throws SlickException {
@@ -128,6 +128,7 @@ public class MainCharacter {
 
     /**
      * Gets all the bottom and top pictures in the sprite sheet and returns them in an array.
+     *
      * @param folder String - Name of the folder that the PNGs are in
      * @return ArrayList<Image> - Array containing all the images in that file.
      * @throws SlickException Handled by framework
@@ -236,13 +237,14 @@ public class MainCharacter {
 
     /**
      * Takes the position that is changing and returns which image should be displayed.
+     *
      * @param changingPosition int - Either XPosition or YPosition
      * @return int[] - Where index 0 is the bottom image and index 1 is the top image
      */
     private int[] getImgPositions(int changingPosition) {
         int[] arr = new int[2];
 
-        switch(changingPosition % 4) {
+        switch (changingPosition % 4) {
             case 0:
                 arr[0] = 0;
                 arr[1] = 1;
@@ -286,4 +288,5 @@ public class MainCharacter {
                 && map.getTileId(this.XPosition, this.YPosition - 1, overheadLayerIndex2) == 0) {
             this._upperTileImage.draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2 - 32, 40, 32);
         }
+    }
 }
