@@ -27,6 +27,7 @@ import Objects.ObjectsHandler;
 public class Main extends BasicGame {
 
     private TiledMap _map;
+    private TiledMap _mapOver;
     private MainCharacter _mainCharacter;
     private ObjectsHandler _objectsHandler;
     private StatDisplayer _statDisplayer;
@@ -38,7 +39,8 @@ public class Main extends BasicGame {
     private ShopMenu _shopMenu;
     private boolean _renderOverlay;
 
-    private static final String MAP_PATH = "dependencies/map/bishopsmap.tmx";
+    private static final String MAP_PATH = "dependencies/map/bishopsmap_test.tmx";
+    private static final String MAP_PATH_OVERHEAD = "dependencies/map/bishopsmap_overhead.tmx";
 
     public Main(String gamename) {
         super(gamename);
@@ -60,6 +62,7 @@ public class Main extends BasicGame {
                     //create the resource
                     //loads immediately since deferred loading is OFF
                     _map = new TiledMap(MAP_PATH);
+                    _mapOver = new TiledMap(MAP_PATH_OVERHEAD);
                     _mainCharacter = new MainCharacter(130, 85);
                     _statDisplayer = new StatDisplayer();
                     _objectsHandler = new ObjectsHandler();
@@ -115,19 +118,20 @@ public class Main extends BasicGame {
     	if (LoadingList.get().getRemainingResources() == 0) {
     		this._mainMenu.setLoading(false);
 	        _map.render(0, 0, _mainCharacter.XPosition - gc.getWidth() / (2 * 32),
-	                _mainCharacter.YPosition - gc.getHeight() / (2 * 32), 40, 60
-	
-	        );
-	
+	                _mainCharacter.YPosition - gc.getHeight() / (2 * 32), 40, 60);
+
 	        _mainCharacter.RenderCharacter(_map, gc);
 	
 	        _objectsHandler.HandleObjects(_mainCharacter, _map, gc, _gameStateMaster);
+
+	        _clueDisplayer.RenderClue(gc, g);
+	
+	        _mapOver.render(0, 0, _mainCharacter.XPosition - gc.getWidth() / (2 * 32),
+	                _mainCharacter.YPosition - gc.getHeight() / (2 * 32), 40, 60);
 	
 	        _statDisplayer.DisplayCoins(_mainCharacter, g, gc);
 	
 	        _gameStateMaster.Update(_mainCharacter, _map, gc, g);
-	
-	        _clueDisplayer.RenderClue(gc, g);
 	
 	        if (_pauseMenu.render(gc)) {
 	            this._renderOverlay = true;

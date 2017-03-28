@@ -11,6 +11,7 @@ import java.util.Random;
 
 public class MainCharacter {
 
+<<<<<<< HEAD
     public int XPosition, YPosition;    // Position of the character.
     public int _frameCount;                // Used to determine how long buttons have been pressed.
     private int CoinCount;        // Number of coins the player has.
@@ -285,5 +286,4 @@ public class MainCharacter {
                 && map.getTileId(this.XPosition, this.YPosition - 1, overheadLayerIndex2) == 0) {
             this._upperTileImage.draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2 - 32, 40, 32);
         }
-    }
 }
