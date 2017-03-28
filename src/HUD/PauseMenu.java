@@ -1,13 +1,18 @@
 package HUD;
 
+import StartMain.StringResources;
 import org.newdawn.slick.*;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import java.awt.Font;
 
 /**
  * Implementation of the Pause Menu.
  * Will show the pause menu when the user presses
  * the ESCAPE button.
  */
-public class PauseMenu  extends Menu {
+public class PauseMenu extends Menu {
 
     /**
      * String that contains the path to the pause menu overlay
@@ -23,6 +28,11 @@ public class PauseMenu  extends Menu {
      * Decision variable on whether to render the menu or not
      */
     private boolean _renderMenu;
+
+    /**
+     * Custom Font on menu to quit
+     */
+    private TrueTypeFont _ttf;
 
     /**
      * Default Constructor.
@@ -68,5 +78,42 @@ public class PauseMenu  extends Menu {
     public void display(GameContainer gc, Graphics g) {
         g.drawImage(_menuOverlay, (gc.getWidth() / 2) - (_menuOverlay.getWidth() / 2),
                 (gc.getHeight() / 2) - (_menuOverlay.getHeight() / 2));
+
+        this.get_ttf("Papyrus", Font.PLAIN, 40).drawString((gc.getWidth() / 2) - (_menuOverlay.getWidth() / 2) + 125,
+                (gc.getHeight() / 2) - (_menuOverlay.getHeight() / 2) + 50, StringResources.messages.getString("quitMenu"), Color.black);
+
+        try {
+            Image img = new Image("dependencies/UI_photos/exitButton.png");
+
+            Button button = new Button(gc, img, (gc.getWidth() / 2) - (img.getWidth() / 2),
+                    (gc.getHeight() / 2) - (img.getHeight() / 2) + 30, 40, gc) {
+
+                public boolean process() {
+                    if (_renderMenu) {
+                        System.exit(0);
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                }
+            };
+
+            button.render(gc, g);
+        } catch (SlickException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Get the font/string drawing object.
+     * @return The font object.
+     */
+    private TrueTypeFont get_ttf(String fontName, int fontType, int size){
+        if (this._ttf == null) {
+            Font font = new java.awt.Font(fontName, fontType, size);
+            this._ttf = new TrueTypeFont(font, true);
+        }
+        return this._ttf;
     }
 }

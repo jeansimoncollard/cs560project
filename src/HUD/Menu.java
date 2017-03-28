@@ -38,6 +38,10 @@ abstract class Menu {
     	this.pathToImage = pathToImage;
     }
 
+    String getImagePath() {
+        return this.pathToImage;
+    }
+
     /**
      * Contains the logic of when to display Menu
      * @param gc GameContainer of application

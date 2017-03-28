@@ -1,6 +1,7 @@
 package HUD;
 
 
+import StartMain.StringResources;
 import org.newdawn.slick.*;
 
 public class HelpMenu extends Menu {
@@ -8,7 +9,8 @@ public class HelpMenu extends Menu {
     /**
      * String that contains the path to the pause menu overlay
      */
-    private static final String _HELP_MENU_PATH = "dependencies/UI_photos/help.png";
+    private static final String _EN_HELP_MENU_PATH = "dependencies/UI_photos/help_en.png";
+    private static final String _FR_HELP_MENU_PATH = "dependencies/UI_photos/help_fr.png";
 
     /**
      * Decision variable on whether to render the menu or not
@@ -21,7 +23,7 @@ public class HelpMenu extends Menu {
     private Image _helpMenuOverlay;
 
     public HelpMenu() throws SlickException {
-        super(_HELP_MENU_PATH);
+        super(_EN_HELP_MENU_PATH);
         _renderMenu = false;
         _helpMenuOverlay = this.getImage();
     }
@@ -56,6 +58,14 @@ public class HelpMenu extends Menu {
      */
     @Override
     void display(GameContainer gc, Graphics g) {
+        if (StringResources.get_language().equals("fr") && !getImagePath().equals(_FR_HELP_MENU_PATH)) {
+            setImagePath(_FR_HELP_MENU_PATH);
+            try {
+                this._helpMenuOverlay = getImage();
+            } catch (SlickException e) {
+                e.printStackTrace();
+            }
+        }
         g.drawImage(_helpMenuOverlay, (gc.getWidth() / 2) - (_helpMenuOverlay.getWidth() / 2),
                 (gc.getHeight() / 2) - (_helpMenuOverlay.getHeight() / 2));
     }
