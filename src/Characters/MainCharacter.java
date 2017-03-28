@@ -57,6 +57,22 @@ public class MainCharacter {
 		get_default_name();
 	}
 
+	public Image get_upperTileImage() {
+		return _upperTileImage;
+	}
+
+	public void set_upperTileImage(Image _upperTileImage) {
+		this._upperTileImage = _upperTileImage;
+	}
+
+	public Image get_lowerTileImage() {
+		return _lowerTileImage;
+	}
+
+	public void set_lowerTileImage(Image _lowerTileImage) {
+		this._lowerTileImage = _lowerTileImage;
+	}
+
 	public int getCoinCount() {
 		return CoinCount;
 	}
@@ -169,7 +185,7 @@ public class MainCharacter {
 		// When the character is on those layers, don't render it
 		int overheadLayerIndex1 = map.getLayerIndex("characterOverhead1");
 		int overheadLayerIndex2 = map.getLayerIndex("roofsCharacterOverhead");
-
+		
 		if (map.getTileId(this.XPosition, this.YPosition, overheadLayerIndex1) == 0
 				&& map.getTileId(this.XPosition, this.YPosition, overheadLayerIndex2) == 0) {
 			this._lowerTileImage.draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2, 40, 32);
@@ -185,6 +201,7 @@ public class MainCharacter {
 		if (map.getTileId(this.XPosition, this.YPosition - 1, overheadLayerIndex1) == 0
 				&& map.getTileId(this.XPosition, this.YPosition - 1, overheadLayerIndex2) == 0) {
 			this._upperTileImage.draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2 - 32, 40, 32);
+			this._lowerTileImage.draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2, 40, 32);
 		}
 	}
 }
