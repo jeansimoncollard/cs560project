@@ -244,24 +244,10 @@ public class MainCharacter {
     private int[] getImgPositions(int changingPosition) {
         int[] arr = new int[2];
 
-        switch (changingPosition % 4) {
-            case 0:
-                arr[0] = 0;
-                arr[1] = 1;
-                break;
-            case 1:
-                arr[0] = 2;
-                arr[1] = 3;
-                break;
-            case 2:
-                arr[0] = 4;
-                arr[1] = 5;
-                break;
-            case 3:
-                arr[0] = 6;
-                arr[1] = 7;
-                break;
-        }
+        int mod = changingPosition % 4;
+
+        arr[0] = 2 * mod;
+        arr[1] = (2 * mod) + 1;
 
         return arr;
     }
@@ -281,12 +267,14 @@ public class MainCharacter {
             // if
             // lower
             // renders
+
             return;
         }
 
         if (map.getTileId(this.XPosition, this.YPosition - 1, overheadLayerIndex1) == 0
                 && map.getTileId(this.XPosition, this.YPosition - 1, overheadLayerIndex2) == 0) {
             this._upperTileImage.draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2 - 32, 40, 32);
+
         }
     }
 }
