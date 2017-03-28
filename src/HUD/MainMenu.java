@@ -93,7 +93,7 @@ public class MainMenu  extends Menu {
     public boolean render(GameContainer gc) {
     	if (!this.loading){
     		if (!this.mainOff) {
-		        if (gc.getInput().isKeyPressed(Input.KEY_SPACE)) {
+		        if (gc.getInput().isKeyPressed(Input.KEY_SPACE) || gc.getInput().isKeyPressed(Input.KEY_E)) {
 		            _renderMenu = !_renderMenu;
 		            StringResources.set_language("en");
 		            StringResources.set_country("US");
@@ -101,14 +101,14 @@ public class MainMenu  extends Menu {
 			        System.out.println(StringResources.messages.getString("speedMax"));
 			        this.mainOff = true;
 		        }
-		        if (gc.getInput().isKeyPressed(Input.KEY_E)){
+		        /*if (gc.getInput().isKeyPressed(Input.KEY_E)){             // redundant code
 		            _renderMenu = !_renderMenu;
 		            StringResources.set_language("en");
 		            StringResources.set_country("US");
 		            StringResources.initialize_language();
 			        System.out.println(StringResources.messages.getString("speedMax"));
 			        this.mainOff = true;
-		        }
+		        }*/
 		        if (gc.getInput().isKeyPressed(Input.KEY_F)){
 		            _renderMenu = !_renderMenu;
 		            StringResources.set_language("fr");
