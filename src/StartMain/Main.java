@@ -120,14 +120,14 @@ public class Main extends BasicGame {
 	        _map.render(0, 0, _mainCharacter.XPosition - gc.getWidth() / (2 * 32),
 	                _mainCharacter.YPosition - gc.getHeight() / (2 * 32), 40, 60);
 
-	        _mainCharacter.RenderCharacter(_map, gc);
-	
 	        _objectsHandler.HandleObjects(_mainCharacter, _map, gc, _gameStateMaster);
-
-	        _clueDisplayer.RenderClue(gc, g);
+	
+	        _mainCharacter.RenderCharacter(_map, gc);
 	
 	        _mapOver.render(0, 0, _mainCharacter.XPosition - gc.getWidth() / (2 * 32),
 	                _mainCharacter.YPosition - gc.getHeight() / (2 * 32), 40, 60);
+	        
+	        _clueDisplayer.RenderClue(gc, g);
 	
 	        _statDisplayer.DisplayCoins(_mainCharacter, g, gc);
 	
