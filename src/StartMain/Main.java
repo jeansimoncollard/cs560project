@@ -5,6 +5,7 @@ package StartMain;
 
 import java.io.IOException;
 
+import HUD.*;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -17,11 +18,6 @@ import org.newdawn.slick.tiled.TiledMap;
 import Characters.MainCharacter;
 import Clues.ClueDisplayer;
 import GameState.GameStateMaster;
-import HUD.HelpMenu;
-import HUD.MainMenu;
-import HUD.PauseMenu;
-import HUD.ShopMenu;
-import HUD.StatDisplayer;
 import Objects.ObjectsHandler;
 
 public class Main extends BasicGame {
@@ -35,6 +31,7 @@ public class Main extends BasicGame {
     private ClueDisplayer _clueDisplayer;
     private PauseMenu _pauseMenu;
     private HelpMenu _helpMenu;
+    private MapMenu _mapMenu;
     private MainMenu _mainMenu;
     private ShopMenu _shopMenu;
     private boolean _renderOverlay;
@@ -69,6 +66,7 @@ public class Main extends BasicGame {
                     _clueDisplayer = new ClueDisplayer();
                     _pauseMenu = new PauseMenu();
                     _helpMenu = new HelpMenu();
+                    _mapMenu = new MapMenu();
                     _shopMenu = new ShopMenu();
                     _shopMenu.set_character(_mainCharacter);
                     _gameStateMaster = new GameStateMaster(_objectsHandler, _clueDisplayer);
@@ -139,6 +137,9 @@ public class Main extends BasicGame {
 	        else if (_helpMenu.render(gc)) {
 	            this._renderOverlay = true;
 	        }
+            else if (_mapMenu.render(gc)) {
+                this._renderOverlay = true;
+            }
 	        else if (_mainMenu.render(gc)) {
 	        	this._renderOverlay = true;
 	        }

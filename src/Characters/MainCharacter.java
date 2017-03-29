@@ -27,13 +27,19 @@ public class MainCharacter {
 
     private void get_default_name() {
         Random r = new Random();
-        int nrand = r.nextInt(7) + 1;
-        if (nrand < 4) {
+        int nrand = r.nextInt(10) + 1;
+
+        if (nrand < 5) {
             Name = "Alice";
             this.SPRITE_SHEET_LOC = "dependencies/characters/SpriteSheet.png";
-        } else {
+        }
+        else if (nrand < 9) {
             Name = "Bob";
             this.SPRITE_SHEET_LOC = "dependencies/characters/Charactervector.png";
+        }
+        else {
+            Name = "Link";
+            this.SPRITE_SHEET_LOC = "dependencies/characters/linkSpriteSheet.png";
         }
     }
 
