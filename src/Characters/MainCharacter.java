@@ -1,13 +1,14 @@
 package Characters;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.tiled.TiledMap;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 public class MainCharacter {
 
@@ -19,6 +20,10 @@ public class MainCharacter {
     private String Name;            // Name of the character.
 
     private ArrayList<ArrayList<Image>> _spriteArray;
+    private SpriteSheet ss; 
+    private final String SPRITE_SHEET_LOC = "dependencies/characters/Charactervector.png";
+    private int currFrame;
+    private int currRow;
 
     private Image _upperTileImage; // Holds the current top image of the character
     private Image _lowerTileImage; // Holds the current bottom image of the character
@@ -76,6 +81,7 @@ public class MainCharacter {
         get_default_name();
         this._spriteArray = new ArrayList<>();
         getSpriteSheet();
+        ss = new SpriteSheet(new Image(SPRITE_SHEET_LOC), 32, 32);
         _upperTileImage = this._spriteArray.get(DIRECTION_DOWN).get(1);
         _lowerTileImage = this._spriteArray.get(DIRECTION_DOWN).get(0);
     }
@@ -165,6 +171,8 @@ public class MainCharacter {
                         this.XPosition++;
                         // Process the position and returns frame to be rendered
                         int[] frame = getImgPositions(this.XPosition);
+                        this.currFrame = (this.XPosition%4);
+                        this.currRow = 6;
                         this._lowerTileImage = this._spriteArray.get(DIRECTION_RIGHT).get(frame[0]);
                         this._upperTileImage = this._spriteArray.get(DIRECTION_RIGHT).get(frame[1]);
                     }
@@ -179,6 +187,8 @@ public class MainCharacter {
                         this.XPosition--;
                         // Process the position and returns frame to be rendered
                         int[] frame = getImgPositions(this.XPosition);
+                        this.currFrame = (this.XPosition%4);
+                        this.currRow = 4;
                         this._lowerTileImage = this._spriteArray.get(DIRECTION_LEFT).get(frame[0]);
                         this._upperTileImage = this._spriteArray.get(DIRECTION_LEFT).get(frame[1]);
                     }
@@ -193,6 +203,8 @@ public class MainCharacter {
                         this.YPosition--;
                         // Process the position and returns frame to be rendered
                         int[] frame = getImgPositions(this.YPosition);
+                        this.currFrame = (this.YPosition%4);
+                        this.currRow = 2;
                         this._lowerTileImage = this._spriteArray.get(DIRECTION_UP).get(frame[0]);
                         this._upperTileImage = this._spriteArray.get(DIRECTION_UP).get(frame[1]);
                     }
@@ -206,6 +218,8 @@ public class MainCharacter {
                         this.YPosition++;
                         // Process the position and returns frame to be rendered
                         int[] frame = getImgPositions(this.YPosition);
+                        this.currFrame = (this.YPosition%4);
+                        this.currRow = 0;
                         this._lowerTileImage = this._spriteArray.get(DIRECTION_DOWN).get(frame[0]);
                         this._upperTileImage = this._spriteArray.get(DIRECTION_DOWN).get(frame[1]);
                     }
@@ -260,8 +274,11 @@ public class MainCharacter {
 
         if (map.getTileId(this.XPosition, this.YPosition, overheadLayerIndex1) == 0
                 && map.getTileId(this.XPosition, this.YPosition, overheadLayerIndex2) == 0) {
-            this._lowerTileImage.draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2, 40, 32);
-            this._upperTileImage.draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2 - 32, 40, 32); // Always
+        	this.ss.getSprite(this.currFrame, this.currRow + 1).draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2, 32, 32);
+        	this.ss.getSprite(this.currFrame, this.currRow).draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2 - 32, 32, 32);
+            //this._lowerTileImage.draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2, 32, 32);
+            //this._upperTileImage.draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2 - 32, 32, 32); 
+        	// Always
             // render
             // top
             // if
@@ -273,8 +290,7 @@ public class MainCharacter {
 
         if (map.getTileId(this.XPosition, this.YPosition - 1, overheadLayerIndex1) == 0
                 && map.getTileId(this.XPosition, this.YPosition - 1, overheadLayerIndex2) == 0) {
-            this._upperTileImage.draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2 - 32, 40, 32);
-
+        	this.ss.getSprite(this.currFrame, this.currRow + 1).draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2 - 32, 32, 32);
         }
     }
 }
