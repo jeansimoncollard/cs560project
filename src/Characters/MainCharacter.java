@@ -1,6 +1,5 @@
 package Characters;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import org.newdawn.slick.GameContainer;
@@ -19,34 +18,12 @@ public class MainCharacter {
     private int speed;            // Speed at which the character can move at (in frames per move).
     private String Name;            // Name of the character.
 
-    private ArrayList<ArrayList<Image>> _spriteArray;
     private SpriteSheet ss; 
     private final String SPRITE_SHEET_LOC = "dependencies/characters/Charactervector.png";
     private int currFrame;
     private int currRow;
 
-    private Image _upperTileImage; // Holds the current top image of the character
-    private Image _lowerTileImage; // Holds the current bottom image of the character
-
     private boolean debug_mode;            // Debug mode variable.
-
-    //////////////////////////////////////////////////////////////////////
-
-    /**
-     * Cardinal Directions
-     * Down = 0
-     * Left = 1
-     * Right = 2
-     * Up = 3
-     * <p>
-     * (Note: It's sorted alphabetically for easy memorization)
-     */
-
-    private final static int DIRECTION_DOWN = 0;
-    private final static int DIRECTION_LEFT = 1;
-    private final static int DIRECTION_RIGHT = 2;
-    private final static int DIRECTION_UP = 3;
-    /////////////////////////////////////////////////////////////////////
 
     private void get_default_name() {
         Random r = new Random();
@@ -59,10 +36,6 @@ public class MainCharacter {
     }
 
     public MainCharacter() throws SlickException {
-        this._spriteArray = new ArrayList<>();
-        getSpriteSheet();
-        _upperTileImage = this._spriteArray.get(DIRECTION_DOWN).get(1);
-        _lowerTileImage = this._spriteArray.get(DIRECTION_DOWN).get(0);
         XPosition = 0;
         YPosition = 0;
         _frameCount = 0;
@@ -79,11 +52,7 @@ public class MainCharacter {
         CoinWorth = 1;
         debug_mode = false;
         get_default_name();
-        this._spriteArray = new ArrayList<>();
-        getSpriteSheet();
         ss = new SpriteSheet(new Image(SPRITE_SHEET_LOC), 32, 32);
-        _upperTileImage = this._spriteArray.get(DIRECTION_DOWN).get(1);
-        _lowerTileImage = this._spriteArray.get(DIRECTION_DOWN).get(0);
     }
 
     public int getCoinCount() {
@@ -118,38 +87,6 @@ public class MainCharacter {
         return this.Name;
     }
 
-    /**
-     * Gets all the images in the sprite sheet and assigns them to _spriteArray
-     *
-     * @throws SlickException Handled by the framework
-     */
-    private void getSpriteSheet() throws SlickException {
-
-        this._spriteArray.add(getImages("Down"));
-        this._spriteArray.add(getImages("Left"));
-        this._spriteArray.add(getImages("Right"));
-        this._spriteArray.add(getImages("Up"));
-
-    }
-
-    /**
-     * Gets all the bottom and top pictures in the sprite sheet and returns them in an array.
-     *
-     * @param folder String - Name of the folder that the PNGs are in
-     * @return ArrayList<Image> - Array containing all the images in that file.
-     * @throws SlickException Handled by framework
-     */
-    private ArrayList<Image> getImages(String folder) throws SlickException {
-        ArrayList<Image> array = new ArrayList<>();
-
-        for (int i = 1; i <= 4; i++) {
-            array.add(new Image("dependencies/characters/mainCharacterSprites/" + folder + "/" + i + "bot.png"));
-            array.add(new Image("dependencies/characters/mainCharacterSprites/" + folder + "/" + i + "top.png"));
-        }
-
-        return array;
-    }
-
     public void Move(TiledMap map, boolean isRenderOverlay, GameContainer gc) {
         int foregroundLayerIndex = map.getLayerIndex("noCollision");
 
@@ -170,11 +107,8 @@ public class MainCharacter {
                     if (map.getTileId(this.XPosition + 1, this.YPosition, foregroundLayerIndex) != 0) {
                         this.XPosition++;
                         // Process the position and returns frame to be rendered
-                        int[] frame = getImgPositions(this.XPosition);
                         this.currFrame = (this.XPosition%4);
                         this.currRow = 6;
-                        this._lowerTileImage = this._spriteArray.get(DIRECTION_RIGHT).get(frame[0]);
-                        this._upperTileImage = this._spriteArray.get(DIRECTION_RIGHT).get(frame[1]);
                     }
                 }
             }
@@ -185,12 +119,8 @@ public class MainCharacter {
                     // Doesn't collide with foreground
                     if (map.getTileId(this.XPosition - 1, this.YPosition, foregroundLayerIndex) != 0) {
                         this.XPosition--;
-                        // Process the position and returns frame to be rendered
-                        int[] frame = getImgPositions(this.XPosition);
                         this.currFrame = (this.XPosition%4);
                         this.currRow = 4;
-                        this._lowerTileImage = this._spriteArray.get(DIRECTION_LEFT).get(frame[0]);
-                        this._upperTileImage = this._spriteArray.get(DIRECTION_LEFT).get(frame[1]);
                     }
                 }
             }
@@ -202,11 +132,8 @@ public class MainCharacter {
                     if (map.getTileId(this.XPosition, this.YPosition - 1, foregroundLayerIndex) != 0) {
                         this.YPosition--;
                         // Process the position and returns frame to be rendered
-                        int[] frame = getImgPositions(this.YPosition);
                         this.currFrame = (this.YPosition%4);
                         this.currRow = 2;
-                        this._lowerTileImage = this._spriteArray.get(DIRECTION_UP).get(frame[0]);
-                        this._upperTileImage = this._spriteArray.get(DIRECTION_UP).get(frame[1]);
                     }
                 }
             }
@@ -217,11 +144,8 @@ public class MainCharacter {
                     if (map.getTileId(this.XPosition, this.YPosition + 1, foregroundLayerIndex) != 0) {
                         this.YPosition++;
                         // Process the position and returns frame to be rendered
-                        int[] frame = getImgPositions(this.YPosition);
                         this.currFrame = (this.YPosition%4);
                         this.currRow = 0;
-                        this._lowerTileImage = this._spriteArray.get(DIRECTION_DOWN).get(frame[0]);
-                        this._upperTileImage = this._spriteArray.get(DIRECTION_DOWN).get(frame[1]);
                     }
                 }
             }
@@ -249,23 +173,6 @@ public class MainCharacter {
         }
     }
 
-    /**
-     * Takes the position that is changing and returns which image should be displayed.
-     *
-     * @param changingPosition int - Either XPosition or YPosition
-     * @return int[] - Where index 0 is the bottom image and index 1 is the top image
-     */
-    private int[] getImgPositions(int changingPosition) {
-        int[] arr = new int[2];
-
-        int mod = changingPosition % 4;
-
-        arr[0] = 2 * mod;
-        arr[1] = (2 * mod) + 1;
-
-        return arr;
-    }
-
     public void RenderCharacter(TiledMap map, GameContainer gc) {
 
         // When the character is on those layers, don't render it
@@ -274,10 +181,8 @@ public class MainCharacter {
 
         if (map.getTileId(this.XPosition, this.YPosition, overheadLayerIndex1) == 0
                 && map.getTileId(this.XPosition, this.YPosition, overheadLayerIndex2) == 0) {
-        	this.ss.getSprite(this.currFrame, this.currRow + 1).draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2, 32, 32);
-        	this.ss.getSprite(this.currFrame, this.currRow).draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2 - 32, 32, 32);
-            //this._lowerTileImage.draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2, 32, 32);
-            //this._upperTileImage.draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2 - 32, 32, 32); 
+        	this.ss.getSprite(this.currFrame, this.currRow + 1).draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2, 32, 32); //lower
+        	this.ss.getSprite(this.currFrame, this.currRow).draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2 - 32, 32, 32); //upper
         	// Always
             // render
             // top
@@ -290,7 +195,7 @@ public class MainCharacter {
 
         if (map.getTileId(this.XPosition, this.YPosition - 1, overheadLayerIndex1) == 0
                 && map.getTileId(this.XPosition, this.YPosition - 1, overheadLayerIndex2) == 0) {
-        	this.ss.getSprite(this.currFrame, this.currRow + 1).draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2 - 32, 32, 32);
+        	this.ss.getSprite(this.currFrame, this.currRow + 1).draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2 - 32, 32, 32); //upper
         }
     }
 }
