@@ -19,7 +19,7 @@ public class MainCharacter {
     private String Name;            // Name of the character.
 
     private SpriteSheet ss; 
-    private final String SPRITE_SHEET_LOC = "dependencies/characters/Charactervector.png";
+    private String SPRITE_SHEET_LOC;
     private int currFrame;
     private int currRow;
 
@@ -30,8 +30,10 @@ public class MainCharacter {
         int nrand = r.nextInt(7) + 1;
         if (nrand < 4) {
             Name = "Alice";
+            this.SPRITE_SHEET_LOC = "dependencies/characters/SpriteSheet.png";
         } else {
             Name = "Bob";
+            this.SPRITE_SHEET_LOC = "dependencies/characters/Charactervector.png";
         }
     }
 
