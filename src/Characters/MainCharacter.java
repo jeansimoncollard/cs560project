@@ -195,7 +195,7 @@ public class MainCharacter {
 
         if (map.getTileId(this.XPosition, this.YPosition - 1, overheadLayerIndex1) == 0
                 && map.getTileId(this.XPosition, this.YPosition - 1, overheadLayerIndex2) == 0) {
-        	this.ss.getSprite(this.currFrame, this.currRow + 1).draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2 - 32, 32, 32); //upper
+        	this.ss.getSprite(this.currFrame, this.currRow).draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2 - 32, 32, 32); //upper
         }
     }
 }

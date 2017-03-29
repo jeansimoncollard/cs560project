@@ -37,6 +37,7 @@ public class ObjectsHandler {
 			// Only execute the code when the character moved
 			createObjects(characterX, characterY, map);
 			pickupObjects(character, _objectsList, gameStateMaster);
+			interactObjects(character, _objectsList, gameStateMaster);
 			oldCharacterXPosition = characterX;
 			oldCharacterYPosition = characterY;
 		}
@@ -60,5 +61,16 @@ public class ObjectsHandler {
 	private void pickupObjects(MainCharacter character, List<ObjectEntity> objectsList,
 			GameStateMaster gameStateMaster) {
 		_objectsPickuper.PickupObjects(character, objectsList, gameStateMaster);
+	}
+	
+	private void interactObjects(MainCharacter character, List<ObjectEntity> objectsList,
+			GameStateMaster gameStateMaster) {
+		for (ObjectEntity i : objectsList) {
+			if (i.interactType == ObjectEntity.NORMAL_INTERACT) {
+				i.interact();
+			} else if (i.interactType == ObjectEntity.COMPLEX_INTERACT) { // Perform a complex interact
+				i.interact(character, gameStateMaster);
+			}
+		}
 	}
 }
