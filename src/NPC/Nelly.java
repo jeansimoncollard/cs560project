@@ -47,15 +47,15 @@ public class Nelly extends NonPlayableCharacter {
 	public void interact(MainCharacter mc, GameStateMaster gm, GameContainer gc) {
 		if (!addedStrings) {
 			if (StringResources.messages != null) {
-				this.textPages.get(0).add(StringResources.messages.getString("thing2page1line1"));
-				this.textPages.get(0).add(StringResources.messages.getString("thing2page1line2"));
-				this.textPages.get(0).add(StringResources.messages.getString("thing2page1line3"));
-				this.textPages.get(1).add(StringResources.messages.getString("thing2page1line4"));
-				this.textPages.get(1).add(StringResources.messages.getString("thing2page1line5"));
-				this.textPages.get(1).add(StringResources.messages.getString("thing2page1line6"));
-				this.textPages.get(1).add(StringResources.messages.getString("thing2page1line7"));
-				this.textPages.get(2).add(StringResources.messages.getString("thing2page1line8"));
-				this.textPages.get(2).add(StringResources.messages.getString("thing2page1line9"));
+				this.textPages.get(0).add(StringResources.messages.getString("nellypage1line1"));
+				this.textPages.get(0).add(StringResources.messages.getString("nellypage1line2"));
+				this.textPages.get(0).add(StringResources.messages.getString("nellypage1line3"));
+				this.textPages.get(1).add(StringResources.messages.getString("nellypage1line4"));
+				this.textPages.get(1).add(StringResources.messages.getString("nellypage1line5"));
+				this.textPages.get(1).add(StringResources.messages.getString("nellypage1line6"));
+				this.textPages.get(1).add(StringResources.messages.getString("nellypage1line7"));
+				this.textPages.get(2).add(StringResources.messages.getString("nellypage1line8"));
+				this.textPages.get(2).add(StringResources.messages.getString("nellypage1line9"));
 
 				this.addedStrings = true;
 			}
