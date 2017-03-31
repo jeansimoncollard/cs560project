@@ -64,6 +64,9 @@ public class ObjectGenerater {
 		}
 	}
 
+	/**
+	 * Create object at a random position according to probability
+	 */
 	private ObjectEntity createObject(int characterX, int characterY, TiledMap map, String pathToImage, Image img,
 			int probabilityToCreate, Enums.ObjectType type) {
 		Random randomGenerator = new Random();

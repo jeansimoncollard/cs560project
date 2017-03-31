@@ -1,8 +1,5 @@
 package StartMain;
 
-
-
-
 import java.io.IOException;
 
 import org.newdawn.slick.AppGameContainer;
@@ -28,6 +25,9 @@ import NPC.ThingOne;
 import NPC.Nelly;
 import Objects.ObjectsHandler;
 
+/**
+ * This is the main class of the solution. It extends BasicGame, which is Slick2d's default game object.
+ */
 public class Main extends BasicGame {
 
     private TiledMap _map;
@@ -53,7 +53,9 @@ public class Main extends BasicGame {
     }
 
     @Override
-    // This function is called once at the beginning when we start the game
+    /**
+     * This is the function that initializes the game and where the resources are loaded.
+     */
     public void init(GameContainer gc) throws SlickException {
         _mainMenu = new MainMenu();
         _mainMenu.setLoading(true);
@@ -112,7 +114,9 @@ public class Main extends BasicGame {
     }
 
     @Override
-    // Update is called just before render
+    /**
+     *  Update is the function called just before render
+     */
     public void update(GameContainer gc, int i) throws SlickException {
         if (LoadingList.get().getRemainingResources() > 0) {
         	this._renderOverlay = true;
@@ -132,7 +136,9 @@ public class Main extends BasicGame {
     }
 
     @Override
-    // This function is called for every FPS
+    /**
+     * This function is called for every FPS, this is where to put code that is executed every frame.
+     */
     public void render(GameContainer gc, Graphics g) throws SlickException {
         // Move the map to simulate that the character moves, but the character
         // actually stays static in middle of screen {
@@ -183,6 +189,11 @@ public class Main extends BasicGame {
     	
     }
 
+    /**
+     * Main function where the workflow starts.
+     * @param args
+     * @throws SlickException
+     */
     public static void main(String[] args) throws SlickException {
         AppGameContainer appgc;
         appgc = new AppGameContainer(new Main("Treasure Trail"));

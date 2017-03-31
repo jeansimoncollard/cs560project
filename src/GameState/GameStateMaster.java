@@ -8,11 +8,13 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 import Characters.MainCharacter;
-import Clues.ClueDetector;
 import Clues.ClueDisplayer;
 import Clues.AreaClueDetector;
 import Objects.ObjectsHandler;
 
+/**
+ * This class is used to set the progress of the user in the story line.
+ */
 public class GameStateMaster {
 	public int GameState;
 
@@ -23,16 +25,27 @@ public class GameStateMaster {
 	private final String PATH_BASICCLUE_IMAGE = "dependencies/clues/blankscroll2WithMagnifyingGlass.png";
 	private ClueDisplayer _clueDisplayer;
 	private AreaClueDetector _areaClueDetector;
-	private ClueDetector _clueDetector;
-
+	
+	/**
+	 * Initialize the gamestatemaster with the needed classes for the treasure trail
+	 * @param objectsHandler
+	 * @param clueDisplayer
+	 */
 	public GameStateMaster(ObjectsHandler objectsHandler, ClueDisplayer clueDisplayer) {
 		GameState = 0;
 		_objectsHandler = objectsHandler;
 		_clueDisplayer = clueDisplayer;
 		_areaClueDetector = new AreaClueDetector();
-		_clueDetector = new ClueDetector();
 	}
 
+	/**
+	 * This function is the storyline of the treasure trail. Each time the player reaches one step, the gamestate increases and the switch goes to the next step.
+	 * @param character
+	 * @param map
+	 * @param gc
+	 * @param g
+	 * @throws SlickException
+	 */
 	public void Update(MainCharacter character, TiledMap map, GameContainer gc, Graphics g) throws SlickException {
 		switch (GameState) {
 		case 1: // Generate clue on the floor

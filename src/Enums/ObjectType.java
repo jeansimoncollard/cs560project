@@ -8,7 +8,6 @@ package Enums;
  * game-state changing objects, etc..
  *
  */
-
 public enum ObjectType {
 	Coin, // The coin that is displayed on the maps
 	Clue, // All clues use this type.

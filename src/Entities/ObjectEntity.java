@@ -15,7 +15,6 @@ import GameState.GameStateMaster;
  * interactions.
  * 
  */
-
 public class ObjectEntity {
 	public int ObjectX;								// X position of the object
 	public int ObjectY;								// Y position of the object

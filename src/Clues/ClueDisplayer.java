@@ -15,7 +15,6 @@ import StartMain.StringResources;
  * has made it to. 
  *
  */
-
 public class ClueDisplayer {
 
 	private Boolean _renderClueToogle;	// Toggles whether to display the clue.

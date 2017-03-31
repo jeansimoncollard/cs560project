@@ -35,6 +35,10 @@ abstract class Button extends MouseOverArea{
         this.imo = null;
     }
 	
+	/**
+	 * Initializers for various needs depending on what the button
+	 * can do.
+	 */	
 	public Button(GUIContext container, Image im, int x, int y, int maxFrameTime, ShopMenu sm) {
         super(container, im, x, y);
         this.maxFrameTime = maxFrameTime;
@@ -44,6 +48,10 @@ abstract class Button extends MouseOverArea{
         this.imo = null;
     }
 	
+	/**
+	 * Initializers for various needs depending on what the button
+	 * can do.
+	 */	
 	public Button(GUIContext container, Image im, Image imc, Image imo, int x, int y, int maxFrameTime, ShopMenu sm) {
         super(container, im, x, y);
         this.maxFrameTime = maxFrameTime;
@@ -53,6 +61,10 @@ abstract class Button extends MouseOverArea{
         this.imo = imo;
     }
 	
+	/**
+	 * Initializers for various needs depending on what the button
+	 * can do.
+	 */	
 	public Button(GUIContext container, Image im, Image imc, Image imo, int x, int y, int maxFrameTime, ShopMenu sm,
 				  MainCharacter character) {
         super(container, im, x, y);

@@ -9,6 +9,10 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.tiled.TiledMap;
 
+/**
+ * This class is the main character object.
+ *
+ */
 public class MainCharacter {
 
     public int XPosition, YPosition;    // Position of the character.
@@ -43,6 +47,10 @@ public class MainCharacter {
         }
     }
 
+    /**
+     * Initialize the maincharacter with everything at 0
+     * @throws SlickException
+     */
     public MainCharacter() throws SlickException {
         XPosition = 0;
         YPosition = 0;
@@ -53,6 +61,12 @@ public class MainCharacter {
         get_default_name();
     }
 
+    /**
+     * Initialize the maincharacter to the given position
+     * @param xPosition
+     * @param yPosition
+     * @throws SlickException
+     */
     public MainCharacter(int xPosition, int yPosition) throws SlickException {
         XPosition = xPosition;
         YPosition = yPosition;
@@ -63,38 +77,76 @@ public class MainCharacter {
         ss = new SpriteSheet(new Image(SPRITE_SHEET_LOC), 32, 32);
     }
 
+    /**
+     * Get coin
+     * @return
+     */
     public int getCoinCount() {
         return CoinCount;
     }
 
+    /**
+     * set coin
+     * @return
+     */
     public void setCoinCount(int coinCount) {
         CoinCount = coinCount;
     }
 
+    /**
+     * Get coin worth
+     * @return
+     */
     public int getCoinWorth() {
         return CoinWorth;
     }
 
+    /**
+     * set coin worth
+     * @return
+     */
     public void setCoinWorth(int coinWorth) {
         CoinWorth = coinWorth;
     }
 
+    /**
+     * Get speed
+     * @return
+     */
     public int getSpeed() {
         return speed;
-    }
-
+    }    
+    
+    /**
+     * set speed
+     * @return
+     */
     public void setSpeed(int speed) {
         this.speed = speed;
     }
 
+    /**
+     * set name
+     * @return
+     */
     public void setName(String name) {
         this.Name = name;
     }
 
+    /**
+     * Get name
+     * @return
+     */
     public String getName() {
         return this.Name;
     }
 
+    /**
+     * move the character, updating the displayed sprite
+     * @param map
+     * @param isRenderOverlay
+     * @param gc
+     */
     public void Move(TiledMap map, boolean isRenderOverlay, GameContainer gc) {
         int foregroundLayerIndex = map.getLayerIndex("noCollision");
 
@@ -181,12 +233,18 @@ public class MainCharacter {
         }
     }
 
+    /**
+     * Render the character with the right sprite at the middle of the screen.
+     * @param map
+     * @param gc
+     */
     public void RenderCharacter(TiledMap map, GameContainer gc) {
 
         // When the character is on those layers, don't render it
         int overheadLayerIndex1 = map.getLayerIndex("characterOverhead1");
         int overheadLayerIndex2 = map.getLayerIndex("roofsCharacterOverhead");
 
+        //To 2 below if statements are meant for character overhead. It renders the character only if it is not under a roof or something
         if (map.getTileId(this.XPosition, this.YPosition, overheadLayerIndex1) == 0
                 && map.getTileId(this.XPosition, this.YPosition, overheadLayerIndex2) == 0) {
         	this.ss.getSprite(this.currFrame, this.currRow + 1).draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2, 32, 32); //lower
@@ -201,6 +259,7 @@ public class MainCharacter {
             return;
         }
 
+        
         if (map.getTileId(this.XPosition, this.YPosition - 1, overheadLayerIndex1) == 0
                 && map.getTileId(this.XPosition, this.YPosition - 1, overheadLayerIndex2) == 0) {
         	this.ss.getSprite(this.currFrame, this.currRow).draw(gc.getWidth() / 2 - 4, gc.getHeight() / 2 - 32, 32, 32); //upper
