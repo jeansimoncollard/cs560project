@@ -35,7 +35,7 @@ public class GameStateMaster {
 
 	public void Update(MainCharacter character, TiledMap map, GameContainer gc, Graphics g) throws SlickException {
 		switch (GameState) {
-		case 0: // Generate clue on the floor
+		case 1: // Generate clue on the floor
 			int characterX = character.XPosition;
 			int characterY = character.YPosition;
 
@@ -47,46 +47,46 @@ public class GameStateMaster {
 			}
 
 			break;
-		case 1: // Player pickups clue
+		case 2: // Player pickups clue
 			// The objectsPicuper will take care of advancing the gamestate when
 			// the player pickups the clue
 			break;
-		case 2:// Clue is displayed
+		case 3:// Clue is displayed
 			_clueDisplayer.setClue(new Image(PATH_LIBRARYBUSHCLUE_IMAGE), "bushClue");
 			_clueDisplayer.DisplayCurrentClue();
 			GameState++;
 
 			break;
-		case 3:
+		case 4:
 			_areaClueDetector.Detect(this, character, 130, 135, 63, 68); // Player
 			// walks
 			// near bush
 			break;
-		case 4:
+		case 5:
 			_clueDisplayer.setClue(new Image(PATH_BASICCLUE_IMAGE), "noiseClue"); // New
 																					// clue
 																					// displayed
 			_clueDisplayer.DisplayCurrentClue();
 			GameState++;
 			break;
-		case 5:
+		case 6:
 			// position of hamilton
 			_areaClueDetector.Detect(this, character, 122, 152, 98, 109);
 
 			break;
-		case 6:
+		case 7:
 			_clueDisplayer.setClue(new Image(PATH_BASICCLUE_IMAGE), "hamiltonClue"); // New
 																						// clue
 																						// displayed
 			_clueDisplayer.DisplayCurrentClue();
 			GameState++;
 			break;
-		case 7:
+		case 8:
 			// position of gazebo
 			_areaClueDetector.Detect(this, character, 153, 157, 59, 64);
 
 			break;
-		case 8:
+		case 9:
 
 			_clueDisplayer.setClue(new Image(PATH_BASICCLUE_IMAGE), "gazeboClue"); // New
 																					// clue
@@ -94,11 +94,11 @@ public class GameStateMaster {
 			_clueDisplayer.DisplayCurrentClue();
 			GameState++;
 			break;
-		case 9:
+		case 10:
 			// position of nicolls
 			_areaClueDetector.Detect(this, character, 117, 145, 123, 139);
 			break;
-		case 10:
+		case 11:
 
 			_clueDisplayer.setClue(new Image(PATH_BASICCLUE_IMAGE), "nicollsClue"); // New
 																					// clue
@@ -107,55 +107,55 @@ public class GameStateMaster {
 			GameState++;
 			break;
 
-		case 11:
+		case 12:
 			// Position of mcgreerClue hall
 			_areaClueDetector.Detect(this, character, 169, 172, 78, 84);
 			break;
-		case 12:
+		case 13:
 			_clueDisplayer.setClue(new Image(PATH_BASICCLUE_IMAGE), "mcgreerClue"); // New
 																					// clue
 																					// displayed
 			_clueDisplayer.DisplayCurrentClue();
 			GameState++;
 			break;
-		case 13:
+		case 14:
 			// Position of church
 			_areaClueDetector.Detect(this, character, 173, 175, 89, 97);
 			break;
-		case 14:
+		case 15:
 			_clueDisplayer.setClue(new Image(PATH_BASICCLUE_IMAGE), "churchClue"); // New
 																					// clue
 																					// displayed
 			_clueDisplayer.DisplayCurrentClue();
 			GameState++;
 			break;
-		case 15:
+		case 16:
 			// Position of forest
 			_areaClueDetector.Detect(this, character, 165, 182, 107, 123);
 			break;
-		case 16:
+		case 17:
 			_clueDisplayer.setClue(new Image(PATH_BASICCLUE_IMAGE), "forestClue"); // New
 																					// clue
 																					// displayed
 			_clueDisplayer.DisplayCurrentClue();
 			GameState++;
 			break;
-		case 17:
+		case 18:
 			// Position of libaryparking
 			_areaClueDetector.Detect(this, character, 141, 159, 38, 46);
 			break;
-		case 18:
+		case 19:
 			_clueDisplayer.setClue(new Image(PATH_BASICCLUE_IMAGE), "liblaryParkingClue"); // New
 			// clue
 			// displayed
 			_clueDisplayer.DisplayCurrentClue();
 			GameState++;
 			break;
-		case 19:
+		case 20:
 			// Position of south west parking
 			_areaClueDetector.Detect(this, character, 74, 96, 123, 148);
 			break;
-		case 20:
+		case 21:
 			_clueDisplayer.setClue(new Image(PATH_BASICCLUE_IMAGE), "swParkingClue"); // New
 																						// clue
 																						// displayed

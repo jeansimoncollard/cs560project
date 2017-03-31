@@ -98,7 +98,14 @@ public class TextBox extends Menu {
     	
         if (_renderMenu) {
         	if (gc.getInput().isKeyPressed(Input.KEY_SPACE)){
-        		_renderMenu = false;
+        		
+        		if(currentPage<textPages.size()-1){
+        			currentPage++;
+        		}else{
+        			_renderMenu = false;
+        		}
+        		
+        		
         	}
             display(gc, gc.getGraphics());
         }

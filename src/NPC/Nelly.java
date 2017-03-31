@@ -60,16 +60,16 @@ public class Nelly extends NonPlayableCharacter {
 				this.textPages.get(1).add(StringResources.messages.getString("thing2page1line5"));
 				this.textPages.get(1).add(StringResources.messages.getString("thing2page1line6"));
 				this.textPages.get(1).add(StringResources.messages.getString("thing2page1line7"));
-				this.textPages.get(1).add(StringResources.messages.getString("thing2page1line8"));
+				this.textPages.get(2).add(StringResources.messages.getString("thing2page1line8"));
 				this.textPages.get(2).add(StringResources.messages.getString("thing2page1line9"));
-				this.textPages.get(2).add(StringResources.messages.getString("thing2page1line10"));
 
 				this.addedStrings = true;
 			}
 		}
 		//If the character is near, he will talk to him
-		if (isCharacterNear(mc)) {
+		if (isCharacterNear(mc)) {			
 			this.displayTextBox();
+			gm.GameState++;
 		}
 	}
 }
