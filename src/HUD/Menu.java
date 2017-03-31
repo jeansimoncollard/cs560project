@@ -5,6 +5,13 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+/**
+ * Abstract class that menus and other graphical user interface components
+ * can implement if they want an interface that can be triggered on any frame
+ * with a key (HelpMenu) or even have objects open them (TextBox).
+ *
+ */
+
 abstract class Menu {
 
     /**
