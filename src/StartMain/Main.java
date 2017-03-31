@@ -25,7 +25,7 @@ import HUD.ShopMenu;
 import HUD.StatDisplayer;
 import HUD.TextBox;
 import NPC.ThingOne;
-import NPC.ThingTwo;
+import NPC.Nelly;
 import Objects.ObjectsHandler;
 
 public class Main extends BasicGame {
@@ -74,7 +74,7 @@ public class Main extends BasicGame {
                     
                     // Find a better way to load up multiple NPCs.
                     ThingOne tOne = new ThingOne(125, 85, _map.getWidth(), _map.getHeight());
-                    ThingTwo tTwo = new ThingTwo(125, 85, _map.getWidth(), _map.getHeight());
+                    Nelly tTwo = new Nelly(125, 85, _map.getWidth(), _map.getHeight());
                     
                     _mainCharacter = new MainCharacter(130, 85);
                     _statDisplayer = new StatDisplayer();
