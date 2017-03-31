@@ -13,10 +13,7 @@ import StartMain.ImageResources;
 import StartMain.StringResources;
 
 /**
- * An NPC that displays a little bit of text if a character presses 'n' when
- * they are nearby.
- * 
- * @author Greg
+ * This NPC represents Nelly, when the character walks near her. She gives the quest to find the marker.
  *
  */
 public class Nelly extends NonPlayableCharacter {
@@ -43,11 +40,8 @@ public class Nelly extends NonPlayableCharacter {
 	}
 
 	/**
-	 * This NPC interacts with the character and the character can press 'n' to
-	 * have the NPC speak. 'n' can be changed to something else but it would
-	 * need to be changed from 'space' to another key within TextBox.
 	 * 
-	 * Very simple interaction here. If character is nearby and wants to talk,
+	 * Very simple interaction here. If character is nearby,
 	 * pop open a text box and say hello.
 	 */
 	public void interact(MainCharacter mc, GameStateMaster gm, GameContainer gc) {
