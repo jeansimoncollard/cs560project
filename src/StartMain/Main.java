@@ -13,6 +13,7 @@ import org.newdawn.slick.tiled.TiledMap;
 
 import Characters.MainCharacter;
 import Clues.ClueDisplayer;
+import Entities.ObjectEntity;
 import GameState.GameStateMaster;
 import HUD.HelpMenu;
 import HUD.MainMenu;
@@ -102,9 +103,9 @@ public class Main extends BasicGame {
                     MapResources.loadResources(_map);
                     
                     // Find a better way to load up multiple NPCs.
-                    RandomMovementNPC tOne = new RandomMovementNPC(125, 85, _map.getWidth(), _map.getHeight());
+                    RandomMovementNPC tOne = new RandomMovementNPC(125, 85, _map.getWidth(), _map.getHeight(),ObjectEntity.NORMAL_INTERACT);
                     Nelly tTwo = new Nelly(125, 85, _map.getWidth(), _map.getHeight());
-                    NPC.Layachi layachi = new  NPC.Layachi(145, 90, _map.getWidth(), _map.getHeight());
+                    NPC.Layachi layachi = new  NPC.Layachi(135, 90, _map.getWidth(), _map.getHeight(),ObjectEntity.COMPLEX_INTERACT);
                     
                     _mainCharacter = new MainCharacter(130, 85);
                     _statDisplayer = new StatDisplayer();
@@ -112,6 +113,7 @@ public class Main extends BasicGame {
                     _objectsHandler = new ObjectsHandler();
                     _objectsHandler.addObject(tOne);
                     _objectsHandler.addObject(tTwo);
+                    _objectsHandler.addObject(layachi);
                     
                     _clueDisplayer = new ClueDisplayer();
                     _pauseMenu = new PauseMenu();

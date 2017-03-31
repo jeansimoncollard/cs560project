@@ -27,8 +27,8 @@ public class RandomMovementNPC extends NonPlayableCharacter {
 	 * @param maxX
 	 * @param maxY
 	 */
-	public RandomMovementNPC(int x, int y, int maxX, int maxY) {
-		super(RandomMovementNPC.name, ImageResources.THING_ONE_SS, x, y, maxX, maxY, ObjectEntity.NORMAL_INTERACT);
+	public RandomMovementNPC(int x, int y, int maxX, int maxY, int interactType) {
+		super(RandomMovementNPC.name, ImageResources.THING_ONE_SS, x, y, maxX, maxY, interactType);
 		this.totalCalls = 0;
 		this.initCallNum = 120;
 	}
