@@ -1,8 +1,5 @@
 package StartMain;
 
-
-
-
 import java.io.IOException;
 
 import org.newdawn.slick.AppGameContainer;
@@ -28,8 +25,18 @@ import NPC.ThingOne;
 import NPC.ThingTwo;
 import Objects.ObjectsHandler;
 
+/**
+ * The main class which runs the game & loads all the resources.
+ * It handles all the interactions for displaying the game, it's objects
+ * and menus.
+ *
+ */
+
 public class Main extends BasicGame {
 
+	/**
+	 * All the variables need by the game.
+	 */
     private TiledMap _map;
     private TiledMap _mapOver;
     private MainCharacter _mainCharacter;
@@ -45,28 +52,48 @@ public class Main extends BasicGame {
     private TextBox _textBox;
     private boolean _renderOverlay;
 
+    /**
+     * Path to the walkable map and overhead map.
+     */
     private static final String MAP_PATH = "dependencies/map/bishopsmap_test.tmx";
     private static final String MAP_PATH_OVERHEAD = "dependencies/map/bishopsmap_overhead.tmx";
 
+    /**
+     * Default constructor.
+     * @param gamename
+     */
     public Main(String gamename) {
         super(gamename);
     }
 
+    /**
+     * This function is called once at the beginning of the
+     * game and handles initializing all the variables and
+     * setting up the deferred loading operations along
+     * with displaying the loading screen.
+     */
     @Override
-    // This function is called once at the beginning when we start the game
     public void init(GameContainer gc) throws SlickException {
+    	// Create the menu before deferred loading is enabled,
+    	// and set it's view to the loading screen.
         _mainMenu = new MainMenu();
         _mainMenu.setLoading(true);
+        
+        // Enable deferred loading.
         LoadingList.setDeferredLoading(true);
         LoadingList.get().add(new DeferredResource() {
-            
+            /**
+             * Anything initialized in this function will have it's
+             * images and resources loaded before the game is started
+             * during the loading screen.
+             */
             public void load() throws IOException {
                 //turn off deferred loading when we create the resource
                 boolean old = LoadingList.isDeferredLoading();
                 LoadingList.setDeferredLoading(false);
                 try {
-                    //create the resource
-                    //loads immediately since deferred loading is OFF
+                    // create the resource
+                    // loads immediately since deferred loading is OFF
                 	ImageResources.loadReources();
                     _map = new TiledMap(MAP_PATH);
                     _mapOver = new TiledMap(MAP_PATH_OVERHEAD);
@@ -99,7 +126,10 @@ public class Main extends BasicGame {
                 //reset the loading back to what it was before
                 LoadingList.setDeferredLoading(old);
             }
-
+            
+            /**
+             * Returns the description of this loader.
+             */
             public String getDescription() {
                 return "Map, and character loader.";
             }
@@ -111,49 +141,66 @@ public class Main extends BasicGame {
         _renderOverlay = true;
     }
 
+    /**
+     * This function is called just before a render
+     * which makes it an ideal place to move the character and
+     * have all associated updating actions occur.
+     */
     @Override
-    // Update is called just before render
     public void update(GameContainer gc, int i) throws SlickException {
-        if (LoadingList.get().getRemainingResources() > 0) {
+        if (LoadingList.get().getRemainingResources() > 0) {  // If we are still loading.
+        	// Render the loading screen.
         	this._renderOverlay = true;
         	_mainMenu.render(gc);
             System.out.println("Loading resource...");
+            
+            // Load the resource.
             DeferredResource nextResource = LoadingList.get().getNext(); 
             try {
 				nextResource.load();
 			} catch (IOException e) { // Check for error opening image.
 				e.printStackTrace();
 			}
-        } else {
+        } else {											 // Otherwise, we a re no longer loading.
+        	// Disable the loading screen to display the menu.
         	this._mainMenu.setLoading(false);
+        	
             // loading is complete, do normal update here
             _mainCharacter.Move(_map, _renderOverlay, gc);     
         }
     }
 
+    /**
+     * This function is called for every frame and takes ccare of drawing the objects.
+     */
     @Override
-    // This function is called for every FPS
     public void render(GameContainer gc, Graphics g) throws SlickException {
         // Move the map to simulate that the character moves, but the character
         // actually stays static in middle of screen {
     	if (LoadingList.get().getRemainingResources() == 0) {
+    		// Make sure the loading screen is off.
     		this._mainMenu.setLoading(false);
+    		
+    		// Draw the map with the character at the center
 	        _map.render(0, 0, _mainCharacter.XPosition - gc.getWidth() / (2 * 32),
 	                _mainCharacter.YPosition - gc.getHeight() / (2 * 32), 40, 60);
-
+	        // Draw objects surrounding character.
 	        _objectsHandler.HandleObjects(_mainCharacter, _map, gc, _gameStateMaster);
-	
+	        // Draw the character.
 	        _mainCharacter.RenderCharacter(_map, gc);
-	
+	        // Draw the overhead map so that the character doesn't
+	        // disappear when they move under overhead areas.
 	        _mapOver.render(0, 0, _mainCharacter.XPosition - gc.getWidth() / (2 * 32),
 	                _mainCharacter.YPosition - gc.getHeight() / (2 * 32), 40, 60);
 	        
+	        // Display the clues and the stats.
 	        _clueDisplayer.RenderClue(gc, g);
-	
 	        _statDisplayer.DisplayCoins(_mainCharacter, g, gc);
 	
+	        // Update the game state.
 	        _gameStateMaster.Update(_mainCharacter, _map, gc, g);
 	
+	        // Check if a menu should currently be rendered.
 	        if (_pauseMenu.render(gc)) {
 	            this._renderOverlay = true;
 	        }
@@ -175,7 +222,7 @@ public class Main extends BasicGame {
 	        else {
 	            this._renderOverlay = false;
 	        }
-    	} else {
+    	} else {  // Otherwise, we are loading so display the loading screen.
     		this._mainMenu.setLoading(true);
     		_mainMenu.render(gc);
     		this._renderOverlay = true;
@@ -183,6 +230,13 @@ public class Main extends BasicGame {
     	
     }
 
+    /**
+     * Starts the game by initializing this class
+     * in the AppContainer. Set the size to a fixed number
+     * and make it non-resizeable.
+     * @param args
+     * @throws SlickException
+     */
     public static void main(String[] args) throws SlickException {
         AppGameContainer appgc;
         appgc = new AppGameContainer(new Main("Treasure Trail"));
