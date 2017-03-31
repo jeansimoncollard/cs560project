@@ -14,7 +14,7 @@ import StartMain.MapResources;
  * @author Greg
  *
  */
-public class ThingOne extends NonPlayableCharacter {
+public class RandomMovementNPC extends NonPlayableCharacter {
 	private static final String name = "ThingOne";
 	private int totalCalls;			// Number of interactions
 	private int initCallNum;		// Number of interactions to hit before an action occurs
@@ -27,8 +27,8 @@ public class ThingOne extends NonPlayableCharacter {
 	 * @param maxX
 	 * @param maxY
 	 */
-	public ThingOne(int x, int y, int maxX, int maxY) {
-		super(ThingOne.name, ImageResources.THING_ONE_SS, x, y, maxX, maxY, ObjectEntity.NORMAL_INTERACT);
+	public RandomMovementNPC(int x, int y, int maxX, int maxY) {
+		super(RandomMovementNPC.name, ImageResources.THING_ONE_SS, x, y, maxX, maxY, ObjectEntity.NORMAL_INTERACT);
 		this.totalCalls = 0;
 		this.initCallNum = 120;
 	}

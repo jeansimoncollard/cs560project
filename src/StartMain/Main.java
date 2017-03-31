@@ -21,7 +21,8 @@ import HUD.PauseMenu;
 import HUD.ShopMenu;
 import HUD.StatDisplayer;
 import HUD.TextBox;
-import NPC.ThingOne;
+import NPC.RandomMovementNPC;
+import NPC.Layachi;
 import NPC.Nelly;
 import Objects.ObjectsHandler;
 
@@ -75,8 +76,10 @@ public class Main extends BasicGame {
                     MapResources.loadResources(_map);
                     
                     // Find a better way to load up multiple NPCs.
-                    ThingOne tOne = new ThingOne(125, 85, _map.getWidth(), _map.getHeight());
+                    RandomMovementNPC tOne = new RandomMovementNPC(125, 85, _map.getWidth(), _map.getHeight());
                     Nelly tTwo = new Nelly(125, 85, _map.getWidth(), _map.getHeight());
+                    Layachi layachi = new Layachi(145, 90, _map.getWidth(), _map.getHeight());
+                    
                     
                     _mainCharacter = new MainCharacter(130, 85);
                     _statDisplayer = new StatDisplayer();
