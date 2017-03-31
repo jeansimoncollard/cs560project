@@ -122,7 +122,8 @@ public class TextBox extends Menu {
      * @param g  Graphics
      */
     @Override
-    void display(GameContainer gc, Graphics g) {
+    void display(GameContainer gc, Graphics g) {    	
+    	
     	// Create these for simpler code.
     	float maxX = (float)(0.50*(gc.getWidth()));
 		float maxY = (float)(0.30*(gc.getHeight()));

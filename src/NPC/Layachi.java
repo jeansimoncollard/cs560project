@@ -25,7 +25,6 @@ public class Layachi extends RandomMovementNPC {
 		this.textPages = new ArrayList<ArrayList<String>>();
 		this.textPages.add(new ArrayList<String>());
 		this.textPages.add(new ArrayList<String>());
-		this.textPages.add(new ArrayList<String>());
 
 		this.addedStrings = false;
 
