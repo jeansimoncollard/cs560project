@@ -69,7 +69,9 @@ public class Nelly extends NonPlayableCharacter {
 		//If the character is near, he will talk to him
 		if (isCharacterNear(mc)) {			
 			this.displayTextBox();
-			gm.GameState++;
+			if(gm.GameState==0){
+				gm.GameState++;
+			}			
 		}
 	}
 }

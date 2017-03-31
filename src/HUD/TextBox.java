@@ -102,6 +102,7 @@ public class TextBox extends Menu {
         		if(currentPage<textPages.size()-1){
         			currentPage++;
         		}else{
+        			currentPage=0;
         			_renderMenu = false;
         		}
         		
