@@ -1,11 +1,14 @@
 package Objects;
 
 import java.util.List;
-import org.newdawn.slick.tiled.TiledMap;
 import java.util.Random;
+
+import org.newdawn.slick.Image;
+import org.newdawn.slick.tiled.TiledMap;
 
 import Entities.ObjectEntity;
 import GameState.GameStateMaster;
+import StartMain.ImageResources;
 
 public class ObjectGenerater {
 
@@ -14,7 +17,7 @@ public class ObjectGenerater {
 
 	public void GenerateCoinsRandomly(List<ObjectEntity> objectsList, int characterX, int characterY, TiledMap map) {
 
-		ObjectEntity coinObject = createObject(characterX, characterY, map, PATH_COIN_IMAGE, 50, Enums.ObjectType.Coin);
+		ObjectEntity coinObject = createObject(characterX, characterY, map, PATH_COIN_IMAGE, ImageResources.COIN, 50, Enums.ObjectType.Coin);
 
 		if (coinObject != null) {
 			objectsList.add(coinObject);
@@ -23,7 +26,7 @@ public class ObjectGenerater {
 
 	public void GenerateClueRandomly(List<ObjectEntity> objectsList, int characterX, int characterY, TiledMap map,
 			GameStateMaster gameStateMaster) {
-		ObjectEntity clueObject = createObject(characterX, characterY, map, PATH_CLUE_IMAGE, 10, Enums.ObjectType.Clue);
+		ObjectEntity clueObject = createObject(characterX, characterY, map, PATH_CLUE_IMAGE, ImageResources.CLUE, 10, Enums.ObjectType.Clue);
 
 		if (clueObject != null) {
 			objectsList.add(clueObject);
@@ -31,7 +34,7 @@ public class ObjectGenerater {
 		}
 	}
 
-	private ObjectEntity createObject(int characterX, int characterY, TiledMap map, String pathToImage,
+	private ObjectEntity createObject(int characterX, int characterY, TiledMap map, String pathToImage, Image img,
 			int probabilityToCreate, Enums.ObjectType type) {
 		Random randomGenerator = new Random();
 		int randomInt = randomGenerator.nextInt(probabilityToCreate);
@@ -48,7 +51,7 @@ public class ObjectGenerater {
 				objectY = characterY + randomGenerator.nextInt(20) - 10;
 			} while (objectCollidesWithTerrain(objectX, objectY, map));
 
-			return new ObjectEntity(objectX, objectY, type, pathToImage);
+			return new ObjectEntity(objectX, objectY, type, img);
 		}
 		return null;
 	}

@@ -15,12 +15,12 @@ public class ObjectsPickuper {
 			ObjectEntity object = i.next();
 			
 			// If were interacting with something that can be picked up.
-			if (object.ObjectType != ObjectType.NPC) {
+			if (object.objectType != ObjectType.NPC) {
 				if (object.ObjectX == character.XPosition && object.ObjectY == character.YPosition) {
 	
-					if (object.ObjectType == ObjectType.Coin) {
+					if (object.objectType == ObjectType.Coin) {
 						character.setCoinCount(character.getCoinCount() + character.getCoinWorth());
-					} else if (object.ObjectType == ObjectType.Clue) {				
+					} else if (object.objectType == ObjectType.Clue) {				
 						gameStateMaster.GameState++;
 					}
 	

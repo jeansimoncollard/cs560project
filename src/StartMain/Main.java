@@ -5,7 +5,6 @@ package StartMain;
 
 import java.io.IOException;
 
-import HUD.*;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -18,6 +17,13 @@ import org.newdawn.slick.tiled.TiledMap;
 import Characters.MainCharacter;
 import Clues.ClueDisplayer;
 import GameState.GameStateMaster;
+import HUD.HelpMenu;
+import HUD.MainMenu;
+import HUD.MapMenu;
+import HUD.PauseMenu;
+import HUD.ShopMenu;
+import HUD.StatDisplayer;
+import NPC.ThingOne;
 import Objects.ObjectsHandler;
 
 public class Main extends BasicGame {
@@ -58,11 +64,15 @@ public class Main extends BasicGame {
                 try {
                     //create the resource
                     //loads immediately since deferred loading is OFF
+                	ImageResources.loadReources();
                     _map = new TiledMap(MAP_PATH);
                     _mapOver = new TiledMap(MAP_PATH_OVERHEAD);
+                    MapResources.loadResources(_map);
+                    ThingOne tOne = new ThingOne(125, 85, _map.getWidth(), _map.getHeight());
                     _mainCharacter = new MainCharacter(130, 85);
                     _statDisplayer = new StatDisplayer();
                     _objectsHandler = new ObjectsHandler();
+                    _objectsHandler.addObject(tOne);
                     _clueDisplayer = new ClueDisplayer();
                     _pauseMenu = new PauseMenu();
                     _helpMenu = new HelpMenu();

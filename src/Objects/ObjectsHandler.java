@@ -9,6 +9,7 @@ import org.newdawn.slick.tiled.TiledMap;
 
 import Characters.MainCharacter;
 import Entities.ObjectEntity;
+import Enums.ObjectType;
 import GameState.GameStateMaster;
 
 public class ObjectsHandler {
@@ -37,10 +38,11 @@ public class ObjectsHandler {
 			// Only execute the code when the character moved
 			createObjects(characterX, characterY, map);
 			pickupObjects(character, _objectsList, gameStateMaster);
-			interactObjects(character, _objectsList, gameStateMaster);
 			oldCharacterXPosition = characterX;
 			oldCharacterYPosition = characterY;
 		}
+		
+		interactObjects(character, _objectsList, gameStateMaster);
 		displayObjects(characterX, characterY, gc);
 	}
 
@@ -55,7 +57,7 @@ public class ObjectsHandler {
 	}
 
 	private void displayObjects(int characterX, int characterY, GameContainer gc) throws SlickException {
-		_objectDisplayer.DisplayObjects(_objectsList, characterX, characterY, gc);
+		_objectDisplayer.displayObjects_opt(_objectsList, characterX, characterY, gc);
 	}
 
 	private void pickupObjects(MainCharacter character, List<ObjectEntity> objectsList,
@@ -72,5 +74,23 @@ public class ObjectsHandler {
 				i.interact(character, gameStateMaster);
 			}
 		}
+	}
+	
+	public boolean addObject(ObjectEntity o) {
+		System.out.println("Here start");
+		for (ObjectType i : ObjectType.values()) {
+			System.out.println(i.toString());
+			System.out.println(i);
+			System.out.println(o.objectType);
+			if (o.objectType == i) {
+				System.out.println("Added");
+				this._objectsList.add(o);
+				return true;
+			}
+		}
+		System.err.println("ERROR: Invalid object being added to object list for ObjectsHandler.");
+		System.out.println("object:");
+		System.out.println(o);
+		return false;
 	}
 }
