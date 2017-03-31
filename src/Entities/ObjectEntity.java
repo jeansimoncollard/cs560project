@@ -1,5 +1,6 @@
 package Entities;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 
 import Characters.MainCharacter;
@@ -56,5 +57,5 @@ public class ObjectEntity {
 	 * Override to get more complex interaction per render allowing
 	 * the game state to be modified along with the MainCharacter.
 	 */
-	public void interact(MainCharacter mc, GameStateMaster gm) { }
+	public void interact(MainCharacter mc, GameStateMaster gm, GameContainer gc) { }
 }

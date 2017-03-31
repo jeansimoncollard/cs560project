@@ -42,7 +42,7 @@ public class ObjectsHandler {
 			oldCharacterYPosition = characterY;
 		}
 		
-		interactObjects(character, _objectsList, gameStateMaster);
+		interactObjects(character, _objectsList, gameStateMaster, gc);
 		displayObjects(characterX, characterY, gc);
 	}
 
@@ -66,12 +66,12 @@ public class ObjectsHandler {
 	}
 	
 	private void interactObjects(MainCharacter character, List<ObjectEntity> objectsList,
-			GameStateMaster gameStateMaster) {
+			GameStateMaster gameStateMaster, GameContainer gc) {
 		for (ObjectEntity i : objectsList) {
 			if (i.interactType == ObjectEntity.NORMAL_INTERACT) {
 				i.interact();
 			} else if (i.interactType == ObjectEntity.COMPLEX_INTERACT) { // Perform a complex interact
-				i.interact(character, gameStateMaster);
+				i.interact(character, gameStateMaster, gc);
 			}
 		}
 	}

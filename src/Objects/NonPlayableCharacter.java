@@ -1,10 +1,14 @@
 package Objects;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
 
+import Characters.MainCharacter;
 import Entities.ObjectEntity;
 import Enums.ObjectType;
+import HUD.TextBox;
 
 /**
  * All npcs should implement this class and also implement one of the interact
@@ -17,7 +21,7 @@ import Enums.ObjectType;
 
 public class NonPlayableCharacter extends ObjectEntity {
 	private String name;		  // Name of the npc to be displayed.
-	private String[][] textPages; // Should use strings that are defined in 'MessageBundle*.properties'.
+	private ArrayList<ArrayList<String>> textPages; // Should use strings that are defined in 'MessageBundle*.properties'.
 	private SpriteSheet ss;       // Spritesheet for the given NPC.
 	private int xMax;
 	private int yMax;
@@ -56,7 +60,7 @@ public class NonPlayableCharacter extends ObjectEntity {
 	 * @param textPages
 	 * @param ss
 	 */
-	public NonPlayableCharacter(String name, String[][] textPages, SpriteSheet ss,
+	public NonPlayableCharacter(String name, ArrayList<ArrayList<String>> textPages, SpriteSheet ss,
 								int xpos, int ypos, int xMax, int yMax, int interactType) {
 		super(xpos, ypos, ObjectType.NPC, "", interactType);
 		this.name = name;
@@ -85,7 +89,7 @@ public class NonPlayableCharacter extends ObjectEntity {
 	 * @param name
 	 * @param ss
 	 */
-	public NonPlayableCharacter (String name, String[][] textPages, Image img, int xpos, int ypos, int interactType) {
+	public NonPlayableCharacter (String name, ArrayList<ArrayList<String>> textPages, Image img, int xpos, int ypos, int interactType) {
 		super(xpos, ypos, ObjectType.NPC, "", interactType);
 		this.name = name;
 		this.textPages = textPages;
@@ -110,5 +114,31 @@ public class NonPlayableCharacter extends ObjectEntity {
 
 	public int getyMax() {
 		return yMax;
+	}
+	
+	/**
+	 * Use to check if a character is nearby. It only checks up,
+	 * down, left, or right of the character, not diagonally.
+	 * 
+	 * @param mc
+	 * @return
+	 */
+	public boolean isCharacterNear(MainCharacter mc) {
+		if (this.ObjectX == mc.XPosition - 1 ||
+				this.ObjectX == mc.XPosition + 1 ||
+				this.ObjectY == mc.YPosition - 1 ||
+				this.ObjectY == mc.YPosition + 1)
+			return true;
+		return false;
+	}
+	
+	/**
+	 * Check for input and display text box.
+	 */
+	public boolean displayTextBox() {
+		TextBox.setText(this.textPages);
+		TextBox.setOverheadText(name);
+		TextBox.setView(true);
+		return true;
 	}
 }

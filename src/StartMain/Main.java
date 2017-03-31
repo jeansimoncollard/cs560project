@@ -23,7 +23,9 @@ import HUD.MapMenu;
 import HUD.PauseMenu;
 import HUD.ShopMenu;
 import HUD.StatDisplayer;
+import HUD.TextBox;
 import NPC.ThingOne;
+import NPC.ThingTwo;
 import Objects.ObjectsHandler;
 
 public class Main extends BasicGame {
@@ -40,6 +42,7 @@ public class Main extends BasicGame {
     private MapMenu _mapMenu;
     private MainMenu _mainMenu;
     private ShopMenu _shopMenu;
+    private TextBox _textBox;
     private boolean _renderOverlay;
 
     private static final String MAP_PATH = "dependencies/map/bishopsmap_test.tmx";
@@ -68,17 +71,27 @@ public class Main extends BasicGame {
                     _map = new TiledMap(MAP_PATH);
                     _mapOver = new TiledMap(MAP_PATH_OVERHEAD);
                     MapResources.loadResources(_map);
+                    
+                    // Find a better way to load up multiple NPCs.
                     ThingOne tOne = new ThingOne(125, 85, _map.getWidth(), _map.getHeight());
+                    ThingTwo tTwo = new ThingTwo(125, 85, _map.getWidth(), _map.getHeight());
+                    
                     _mainCharacter = new MainCharacter(130, 85);
                     _statDisplayer = new StatDisplayer();
+                    
                     _objectsHandler = new ObjectsHandler();
                     _objectsHandler.addObject(tOne);
+                    _objectsHandler.addObject(tTwo);
+                    
                     _clueDisplayer = new ClueDisplayer();
                     _pauseMenu = new PauseMenu();
                     _helpMenu = new HelpMenu();
                     _mapMenu = new MapMenu();
+                    _textBox = new TextBox();
+                    
                     _shopMenu = new ShopMenu();
                     _shopMenu.set_character(_mainCharacter);
+                    
                     _gameStateMaster = new GameStateMaster(_objectsHandler, _clueDisplayer);
                 } catch (SlickException e) {
                     throw new IOException("Error loading image.");
@@ -154,6 +167,9 @@ public class Main extends BasicGame {
 	        	this._renderOverlay = true;
 	        }
 	        else if (_shopMenu.render(gc)) {
+	        	this._renderOverlay = true;
+	        }
+	        else if (_textBox.render(gc)) {
 	        	this._renderOverlay = true;
 	        }
 	        else {
