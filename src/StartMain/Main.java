@@ -45,7 +45,7 @@ public class Main extends BasicGame {
     private TextBox _textBox;
     private boolean _renderOverlay;
 
-    private static final String MAP_PATH = "dependencies/map/bishopsmap_test.tmx";
+    private static final String MAP_PATH = "dependencies/map/mainbishopsmap.tmx";
     private static final String MAP_PATH_OVERHEAD = "dependencies/map/bishopsmap_overhead.tmx";
 
     public Main(String gamename) {
