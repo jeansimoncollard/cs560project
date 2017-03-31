@@ -16,9 +16,10 @@ import Characters.MainCharacter;
 import StartMain.StringResources;
 
 /**
- * Implementation of the Shop Menu.
- * Will show the pause menu when the user presses
- * the S button.
+ * Implementation of the Shop Menu. Press the 'S' key
+ * to render. It will display a multi-page view of a store
+ * that has clickable buttons that the user can click to 
+ * buy the item.
  */
 public class ShopMenu  extends Menu {
 	private MainCharacter character;
@@ -107,11 +108,11 @@ public class ShopMenu  extends Menu {
     /**
      * Tells whether or not an error string should be drawing.
      */
-    private boolean _drawingShopError;
-    private String _drawingShopMsg;
-    private int _stringFrames;
-    private int _maxFrames;
-    private Font _font;
+    private boolean _drawingShopError;		// Display shop string (does not necessarily need to be an error).
+    private String _drawingShopMsg;			// String to display
+    private int _stringFrames;				// Number of times string was rendered
+    private int _maxFrames;					// Max number of times to render it.
+    private Font _font;						// Font resources for displaying the text.
     private TrueTypeFont _ttf;
     private TrueTypeFont _ttf_pages;
     
@@ -132,10 +133,10 @@ public class ShopMenu  extends Menu {
         this._stringFrames = 0;
         this._maxFrames = 40;
         
-        // Initialize to the max number of pages.
         this.currentPage = 0;
         this.prevPage = 0;
-        
+
+        // Initialize to the max number of pages.
         this.shopPages = new ArrayList<ArrayList<Button>>();
         this.shopPages_names = new ArrayList<ArrayList<String>>();
         this.shopPages_cost = new ArrayList<ArrayList<Integer>>();
@@ -174,6 +175,10 @@ public class ShopMenu  extends Menu {
 		blank_imgo = new Image(_MENU_OVERLAY_BLANKO);
     }
     
+    /**
+     * Set the current character.
+     * @param character
+     */
     public void set_character(MainCharacter character){
     	this.character = character;
     }
@@ -288,23 +293,32 @@ public class ShopMenu  extends Menu {
 		return this._ttf_pages;
     }
     
+    // Max number of pages defined here.
     private int maxPages = 3;
+    
     /**
      * This function adds all the buttons to the current GameContainer
      * for the shop menu. It sets up all the available pages of the array list.
      * @param gc
      * @param maxFrameTime
      */
-    public void add_buttons(GameContainer gc, int maxFrameTime) {		
+    public void add_buttons(GameContainer gc, int maxFrameTime) {	
+    	/**
+    	 * Add buttons by loading them into a variable, giving them a process
+    	 * and then setting their mouse over and mouse click images.
+    	 */
+    	
 		/**
 		 * Load change page down button.
 		 */
 		chpd_button = new Button(gc, chpd_img, 0, 0, maxFrameTime, this) {
 			@Override
 			boolean process() {
+				// Prevent moving into negative bounds.
 				if (currentPage > 0) {
 					this.shop.setCurrentPage(this.shop.getCurrentPage()-1);
 				}
+				// Pause before continuing
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {
@@ -322,9 +336,11 @@ public class ShopMenu  extends Menu {
 		chpu_button = new Button(gc, chpu_img, 0, 0, maxFrameTime, this) {
 			@Override
 			boolean process() {
+				// Prevent moving out of bounds when changing pages.
 				if (currentPage < this.shop.getMaximumPages()-1) {
 					this.shop.setCurrentPage(this.shop.getCurrentPage()+1);
 				}
+				// Pause before continuing
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {
@@ -343,18 +359,21 @@ public class ShopMenu  extends Menu {
 								0, maxFrameTime, this, this.character) {
 			@Override
 			public boolean process() {
+				// If the character has enough coins, buy the item.
 				System.out.println("Clicked speed button, spending 50 coins.");
 				if (this.character.getCoinCount() >= 50) {
+					// If the speed is not at the max yet.
 					if (this.character.getSpeed() > 1) {
+						// Take the coings and increase speed.
 						this.character.setSpeed(this.character.getSpeed()-1);
 						this.character.setCoinCount(this.character.getCoinCount() - 50);
-						
+						// Draw a notification.
 						if (!this.shop.get_drawing()) {
 							this.shop.set_drawing(true);
 							this.shop.set_stringFrames(0);
 							this.shop.set_drawingMsg(StringResources.messages.getString("speedUp"));
 						}
-					} else {
+					} else { // Speed is at the max, display an error message.
 						if (!this.shop.get_drawing()) {
 							this.shop.set_drawing(true);
 							this.shop.set_stringFrames(0);
@@ -362,6 +381,8 @@ public class ShopMenu  extends Menu {
 						}
 					}							
 				} else {
+					// If were drawing increment the number of time so far (outside here),
+					// otherwise start.
 					if (!this.shop.get_drawing()) {
 						this.shop.set_drawing(true);
 						this.shop.set_stringFrames(0);
@@ -387,8 +408,11 @@ public class ShopMenu  extends Menu {
 							   0, maxFrameTime, this, this.character) {
 			@Override
 			public boolean process() {
+				// If the character has enough coins, buy the item.
 				System.out.println("Clicked Q1 button, find something for this one.");
 				if (this.character.getCoinCount() >= 150) {
+					// Take the coins and display a weird message.
+					// This button has no effect.
 					System.out.println("Taking 150 coins.");
 					if (!this.shop.get_drawing()) {
 						this.shop.set_drawing(true);
@@ -397,6 +421,8 @@ public class ShopMenu  extends Menu {
 					}
 					this.character.setCoinCount(this.character.getCoinCount() - 150);
 				} else {
+					// If were drawing increment the number of time so far (outside here),
+					// otherwise start.
 					if (!this.shop.get_drawing()) {
 						this.shop.set_drawing(true);
 						this.shop.set_stringFrames(0);
@@ -422,15 +448,17 @@ public class ShopMenu  extends Menu {
 							   0, maxFrameTime, this, this.character) {					
 			@Override
 			boolean process() {
+				// If the character has enough coins, buy the item.
 				System.out.println("Clicked Q2 button, end game easter-egg.");
 				if (this.character.getCoinCount() >= 200) {
+					// Take the coins.
 					System.out.println("Taking 200 coins.");
 					this.character.setCoinCount(this.character.getCoinCount() - 200);
 					
 					// End the game.
 					System.exit(0);
 				} else {
-					// If were drawing increment the number of time so far,
+					// If were drawing increment the number of time so far (outside here),
 					// otherwise start.
 					if (!this.shop.get_drawing()) {
 						this.shop.set_drawing(true);
@@ -459,8 +487,9 @@ public class ShopMenu  extends Menu {
 		
 		// Fill the rest of the pages with empty buttons.
 		Button tmp_button = null;
-		for (int i = 1; i < maxPages; i++){
-			for (int j = 0; j < 3; j++){
+		for (int i = 1; i < maxPages; i++){	// For each page
+			for (int j = 0; j < 3; j++){	// For each line
+				// Create the empty buttons.
 				tmp_button = new Button(gc, blank_img, blank_imgc, blank_imgo, 0, 
 									    0, maxFrameTime, this) {
 					@Override
@@ -469,8 +498,11 @@ public class ShopMenu  extends Menu {
 						return true;
 					}
 				};
+				// Set their images.
 				tmp_button.setMouseDownImage(blank_imgc);
 				tmp_button.setMouseOverImage(blank_imgo);
+				
+				// Add the button to the current page
 				this.shopPages.get(i).add(tmp_button);
 			}
 		}
@@ -489,26 +521,34 @@ public class ShopMenu  extends Menu {
 		 */
 		this.shopPages.get(1).set(0, new Button(gc, blank_img, blank_imgc, blank_imgo, 0,
 												0, maxFrameTime, this, this.character) {
-			private int num_buys = 1;
+			private int num_buys = 1;  // Used to increase item cost.
 			
 			@Override
 			boolean process() {
+				// If the character has enough coins, buy the item.
 				if (this.character.getCoinCount() >= this.num_buys*20) {
+					// Increase the coin worth, take the coins, increase cost.
 					System.out.println("Increasing coin worth.");
+					
 					this.character.setCoinWorth(this.character.getCoinWorth() + 1);
 					this.character.setCoinCount(this.character.getCoinCount()-(num_buys*20));
-					num_buys++;
 					
+					num_buys++;
 					this.shop.getShopCosts().get(1).set(0, num_buys*20);
+					
+					// Draw a notification string.
 					if (!this.shop.get_drawing()) {
 						this.shop.set_drawing(true);
 						this.shop.set_stringFrames(0);
 						this.shop.set_drawingMsg(StringResources.messages.getString("coinWorthUp"));
 					}
-				} else {
+				} else { 
+					// Otherwise, the character doesn't have enough money.
+					// Ensure that the correct cost is displayed.
 					this.shop.getShopCosts().get(1).set(0, num_buys*20);
-					// If were drawing increment the number of time so far,
-					// otherwise start.
+					
+					// Don't tell the user that they don't have enough coins
+					// if another string is being drawn.
 					if (!this.shop.get_drawing()) {
 						this.shop.set_drawing(true);
 						this.shop.set_stringFrames(0);
@@ -526,10 +566,11 @@ public class ShopMenu  extends Menu {
 				return false;
 			}
 		});
+		// Set the images for over and cliked.
 		this.shopPages.get(1).get(0).setMouseDownImage(blank_imgc);
 		this.shopPages.get(1).get(0).setMouseOverImage(blank_imgo);
 		
-		// Fill the last numbers and names with blanks.
+		// Fill the last numbers and names with blanks and invalid numbers.
 		for (int i = 0; i < maxPages; i++){
 			for (int j = 0; j < 3; j++){
 				this.shopPages_cost.get(i).add(-1);
@@ -537,6 +578,7 @@ public class ShopMenu  extends Menu {
 			}
 		}
 		
+		// Initialize the coin worths button cost and name.
 		this.shopPages_cost.get(1).set(0, 20);
 		this.shopPages_names.get(1).set(0, StringResources.messages.getString("coinWorthUpMsg"));
     }
@@ -551,12 +593,16 @@ public class ShopMenu  extends Menu {
      */
     @Override
     public boolean render(GameContainer gc) {
+    	// Render is S is pressed.
         if (gc.getInput().isKeyPressed(Input.KEY_S)) {
             _renderMenu = !_renderMenu;
         }
         
+        // Max time to display.
         int maxFrameTime = 40;
 
+        // If we are rendering, add the buttons if
+        // there are none and show the shop.
         if (_renderMenu) {        	
         	if (this.shopPages.get(currentPage).isEmpty()) {
 				add_buttons(gc, maxFrameTime);
@@ -577,20 +623,28 @@ public class ShopMenu  extends Menu {
      */
     @Override
     public void display(GameContainer gc, Graphics g) {
+    	// Get the upper-left corner (minX, minY) to draw the shop at.
     	Point corner = new Point((gc.getWidth() / 2) - (_menuOverlay.getWidth() / 2),
                 (gc.getHeight() / 2) - (_menuOverlay.getHeight() / 2));
     	
+    	// Draw the shop.
         g.drawImage(_menuOverlay, corner.x, corner.y);
         
         
+        // Set the locations of the buttons.
         // TODO: Make a better way to calculate it.
         this.shopPages.get(currentPage).get(0).setLocation(corner.x+90, corner.y+130);
         this.shopPages.get(currentPage).get(1).setLocation(corner.x+90, corner.y+185);
         this.shopPages.get(currentPage).get(2).setLocation(corner.x+90, corner.y+240);
         
+        // Set the location of the arrow up and 
+        // down buttons for changing pages.
         chpd_button.setLocation(corner.x+120, corner.y+300);
         chpu_button.setLocation(corner.x+170, corner.y+300);
         
+        // If we've changed pages, disable input for the 
+        // previous page and enable input for the current
+        // page.
         if (prevPage != currentPage) {
         	this.shopPages.get(prevPage).get(0).setAcceptingInput(false);
         	this.shopPages.get(prevPage).get(1).setAcceptingInput(false);
@@ -602,10 +656,13 @@ public class ShopMenu  extends Menu {
         	prevPage = currentPage;
         }
         
+        // Draw the buttons.
         this.shopPages.get(currentPage).get(0).render(gc, g);
         this.shopPages.get(currentPage).get(1).render(gc, g);
         this.shopPages.get(currentPage).get(2).render(gc, g);
         
+        // If they are not blank buttons, draw the names and costs
+        // of the buttons to draw. First draw the name and then draw the cost.
         if (this.shopPages_cost.get(currentPage).get(0) != -1) {
             this.get_ttf_pages("Papyrus", Font.PLAIN, 25).drawString(corner.x+100, corner.y+135, 
             			 this.shopPages_names.get(currentPage).get(0), Color.black);
@@ -625,6 +682,7 @@ public class ShopMenu  extends Menu {
        			 Integer.toString(this.shopPages_cost.get(currentPage).get(2)), Color.black);
         }
         
+        // Render the arrow buttons.
         chpd_button.render(gc, g);
         chpu_button.render(gc, g);
 		

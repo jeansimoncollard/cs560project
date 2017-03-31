@@ -53,7 +53,7 @@ public class ObjectGenerater {
 	public void GenerateClueRandomly(List<ObjectEntity> objectsList, int characterX, int characterY, TiledMap map,
 			GameStateMaster gameStateMaster) {
 		// Create the clue.
-		ObjectEntity clueObject = createObject(characterX, characterY, map, PATH_CLUE_IMAGE, ImageResources.CLUE, 30, Enums.ObjectType.Clue);
+		ObjectEntity clueObject = createObject(characterX, characterY, map, PATH_CLUE_IMAGE, ImageResources.CLUE, 15, Enums.ObjectType.Clue);
 
 		// If it was correctly created, add it to the list
 		// the state is changed so that there is only one clue
