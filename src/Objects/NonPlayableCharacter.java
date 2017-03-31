@@ -108,6 +108,10 @@ public class NonPlayableCharacter extends ObjectEntity {
 		this.ss = ss;
 	}
 	
+	/**
+	 * Getters for the max dimensions of the walking area.
+	 * @return
+	 */
 	public int getxMax() {
 		return xMax;
 	}

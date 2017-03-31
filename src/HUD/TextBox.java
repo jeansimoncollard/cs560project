@@ -14,6 +14,19 @@ import org.newdawn.slick.TrueTypeFont;
 import StartMain.FontResources;
 import StartMain.StringResources;
 
+/**
+ * The TextBox class can be used to display a set
+ * of lines across multiple pages. Set the text, then the view,
+ * and the text box will be displayed. If the text is too big,
+ * either in height or width, you will be notified.
+ * 
+ * This class is used by NPCs that need to communicate or speak to
+ * the Main Character.
+ * 
+ * @author Gregory
+ *
+ */
+
 public class TextBox extends Menu {
 
     /**
@@ -73,9 +86,9 @@ public class TextBox extends Menu {
     }
     
     /**
-     * Checks to see if user pressed H key and
-     * renders if pressed.
-     * (Calls displayMenu to render)
+     * Checks to see if user pressed space key and
+     * stops rendering if pressed.
+     * (Calls display to render)
      *
      * @param gc GameContainer for the game.
      * @return boolean Whether or not the Menu is rendering
@@ -94,7 +107,7 @@ public class TextBox extends Menu {
     }
 
     /**
-     * Renders menu using the GameContainer and Graphics
+     * Renders the text box using the GameContainer and Graphics
      * singletons used in the game.
      *
      * @param gc GameContainer
@@ -102,19 +115,22 @@ public class TextBox extends Menu {
      */
     @Override
     void display(GameContainer gc, Graphics g) {
+    	// Create these for simpler code.
     	float maxX = (float)(0.50*(gc.getWidth()));
 		float maxY = (float)(0.30*(gc.getHeight()));
 		float minX = (float)(gc.getWidth()/2 - maxX/2);
 		float minY = (float)(gc.getHeight() - maxY);
 		
+		// Draw the background.
 		g.drawImage(this._textBoxBacking, minX, minY, minX+maxX, minY+maxY, 0, 0, 312, 192);
 		
-		// Text for the text box should be limited to X characters per line and two lines per page.
+		// Currently there is a max of 4 lines with about 30 characters.
 		// Displayed at a font size of 20.
 		if (this.ttf == null) {
 			this.ttf = FontResources.getInstance().GetFontWithSize(25);
 		}
 		
+		// Get the current widths and heights and check if they will fit.
 		this.currentPageHeight = this.getTotalPageHeight(textPages.get(currentPage));
 		this.currentPageWidthMax = this.getMaxPageWidth(textPages.get(currentPage));
 		if (currentPageHeight > maxY) {
@@ -152,6 +168,12 @@ public class TextBox extends Menu {
 				             space, Color.black);
     }
     
+    /**
+     * This function can be used to determine the total
+     * height of a given page to be displayed.
+     * @param page
+     * @return
+     */
     private int getTotalPageHeight(ArrayList<String> page) {
     	int pageHeight = 0;
     	for (String s : page) {
@@ -160,6 +182,12 @@ public class TextBox extends Menu {
     	return pageHeight;
     }
     
+    /**
+     * This function can be used to determine the maximum
+     * width needed from a single page.
+     * @param page
+     * @return
+     */
     private int getMaxPageWidth(ArrayList<String> page) {
 		int max = 0;
 		for (String s : page) {

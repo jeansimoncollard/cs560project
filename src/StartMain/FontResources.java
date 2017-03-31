@@ -7,6 +7,12 @@ import org.newdawn.slick.TrueTypeFont;
 /**
  * A singleton that holds the font resources.
  * 
+ * They can be accessed using either GetFontWithSize,
+ * initialize_font, or get_ttf after initialization.
+ * 
+ * This class builds and holds a standard font that can be
+ * used across the program.
+ * 
  * @author Greg
  */
 public class FontResources {
@@ -17,6 +23,10 @@ public class FontResources {
 	private int ftype;
 	private int fsize;
 	
+	/**
+	 * Getters and setters for the various variables as
+	 * needed.
+	 */
 	public void set_font(Font ft) {
 		this.ft = ft;
 	}
@@ -73,6 +83,10 @@ public class FontResources {
 		this.fsize = fsize;
 	}
 
+	/**
+	 * Initialize the standard font which is 
+	 * 'Papyrus', plain, size 30. The shop uses this.
+	 */
 	public void initialize_font() {
 		if (this.ttf ==  null) {
 			this.ft = new Font(this.fname, this.ftype, this.fsize);
@@ -80,18 +94,28 @@ public class FontResources {
 		}
 	}
 	
+	/**
+	 * Get a font resource with a different size but
+	 * same name and type.
+	 */
 	public TrueTypeFont GetFontWithSize(int size) {
 			this.ft = new Font(this.fname, this.ftype, size);
 			return new TrueTypeFont(this.ft, true);
 		
 	}
 	
+	/**
+	 * Get an entirely differnt font if needed through this
+	 * function.
+	 */
 	public TrueTypeFont initialize_font(String fname, int ftype, int fsize) {
 		Font font_tmp = new Font(fname, ftype, fsize);
 		return new TrueTypeFont(font_tmp, true);
 	}
 	
-	// Prevent any calls to a constructor.
+	/**
+	 * Keep it private, we only need one resource.
+	 */
 	private FontResources(){
 		this.ttf = null;
 		this.fname = "Papyrus";
@@ -99,6 +123,11 @@ public class FontResources {
 		this.fsize = 40;
 	}
 	
+	/**
+	 * Call this function to gain access to the functions inside
+	 * this class. 
+	 * @return
+	 */
 	public static FontResources getInstance() {
 		return fontr;
 	}

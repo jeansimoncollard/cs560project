@@ -47,7 +47,7 @@ public class MainMenu  extends Menu {
 
     /**
      * Default Constructor.
-     * Initializes all instance variables.
+     * Initializes all instance variables (images, etc.).
      *
      * @throws SlickException Throws if issue with reading Image file
      */
@@ -69,6 +69,12 @@ public class MainMenu  extends Menu {
         this.mainOff = false;
     }
     
+    /**
+     * Sets the loading flag to change the main menu
+     * screen/image. (Should be improved to use the new
+     * FontResource).
+     * @param status
+     */
     public void setLoading(boolean status) { 
     	this.loading = status;
     	if (!this.loading) {
@@ -77,6 +83,10 @@ public class MainMenu  extends Menu {
     	}
     }
     
+    /**
+     * Getter for whether or not we are loading.
+     * @return
+     */
     public boolean getLoading() {
     	return this.loading;
     }
@@ -91,9 +101,10 @@ public class MainMenu  extends Menu {
      */
     @Override
     public boolean render(GameContainer gc) {
-    	if (!this.loading){
-    		if (!this.mainOff) {
+    	if (!this.loading){				// If we have finished loading.
+    		if (!this.mainOff) {		// If the main menu hasn't been turned off yet.
 		        if (gc.getInput().isKeyPressed(Input.KEY_SPACE) || gc.getInput().isKeyPressed(Input.KEY_E)) {
+		        	// Press E or space for english
 		            _renderMenu = !_renderMenu;
 		            StringResources.set_language("en");
 		            StringResources.set_country("US");
@@ -101,15 +112,8 @@ public class MainMenu  extends Menu {
 			        System.out.println(StringResources.messages.getString("speedMax"));
 			        this.mainOff = true;
 		        }
-		        /*if (gc.getInput().isKeyPressed(Input.KEY_E)){             // redundant code
-		            _renderMenu = !_renderMenu;
-		            StringResources.set_language("en");
-		            StringResources.set_country("US");
-		            StringResources.initialize_language();
-			        System.out.println(StringResources.messages.getString("speedMax"));
-			        this.mainOff = true;
-		        }*/
-		        if (gc.getInput().isKeyPressed(Input.KEY_F)){
+		        if (gc.getInput().isKeyPressed(Input.KEY_F)) {
+		        	// Press F for french.
 		            _renderMenu = !_renderMenu;
 		            StringResources.set_language("fr");
 		            StringResources.set_country("CA");
@@ -118,15 +122,17 @@ public class MainMenu  extends Menu {
 			        this.mainOff = true;
 		        }
     		}
+    		// If we are still displaying, display.
 	        if (_renderMenu) {
 	            display(gc, gc.getGraphics());
 	        }
-    	} else {
+    	} else { // Still loading, swap loading images.
     		this.currentMenu = this._menuOverlays.get(this.numLoads%3);
     		this.numLoads++;
     		System.out.println(numLoads);
             display(gc, gc.getGraphics());
     	}
+    	// Sleep for a bit before leaving.
     	try {
 			Thread.sleep(10);
 		} catch (InterruptedException e) {
@@ -144,7 +150,10 @@ public class MainMenu  extends Menu {
      */
     @Override
     public void display(GameContainer gc, Graphics g) {
+    	// Draw the current menu shown.
         g.drawImage(this.currentMenu, 0, 0, gc.getWidth(), gc.getHeight(), 0, 0, 1920, 1080);
+        
+        // Show language options.
         FontResources fontr = FontResources.getInstance();
         fontr.initialize_font();
         TrueTypeFont ttf = fontr.get_ttf();

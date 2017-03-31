@@ -89,12 +89,14 @@ public class PauseMenu extends Menu {
     private Button quit_btn = null;
     @Override
     public void display(GameContainer gc, Graphics g) {
+    	// Draw the menu
         g.drawImage(_menuOverlay, (gc.getWidth() / 2) - (_menuOverlay.getWidth() / 2),
                 (gc.getHeight() / 2) - (_menuOverlay.getHeight() / 2));
-
+        // Draw the text
         this.get_ttf("Papyrus", Font.PLAIN, 40).drawString((gc.getWidth() / 2) - (_menuOverlay.getWidth() / 2) + 125,
                 (gc.getHeight() / 2) - (_menuOverlay.getHeight() / 2) + 50, StringResources.messages.getString("quitMenu"), Color.black);
         
+        // Draw the quit button
         if (quit_btn == null) {
             this.quit_btn = new Button(gc, this.quit, (gc.getWidth() / 2) - (this.quit.getWidth() / 2),
                     (gc.getHeight() / 2) - (this.quit.getHeight() / 2) + 30, 40, gc) {
@@ -112,7 +114,6 @@ public class PauseMenu extends Menu {
             //Still needs to be worked on.
             //this.quit_btn.setMouseOverImage(this.quito);
         }
-    	
         this.quit_btn.render(gc, g);
     }
 

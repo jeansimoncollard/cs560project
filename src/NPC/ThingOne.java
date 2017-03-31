@@ -8,24 +8,38 @@ import StartMain.ImageResources;
 import StartMain.MapResources;
 
 /**
- * An NPC that does nothing. Load it's image here or in
- * ImageResources which is the suggested route.
+ * An NPC that does nothing but run/walk around randomly. 
+ * It's image and sprite sheet are loaded in ImageResources.
  * 
  * @author Greg
  *
  */
 public class ThingOne extends NonPlayableCharacter {
 	private static final String name = "ThingOne";
-	private int totalCalls;
-	private int initCallNum;
+	private int totalCalls;			// Number of interactions
+	private int initCallNum;		// Number of interactions to hit before an action occurs
 	
+	/**
+	 * Constructor, calls NonPlayableCharacter's
+	 * constructor for most of the work.
+	 * @param x
+	 * @param y
+	 * @param maxX
+	 * @param maxY
+	 */
 	public ThingOne(int x, int y, int maxX, int maxY) {
 		super(ThingOne.name, ImageResources.THING_ONE_SS, x, y, maxX, maxY, ObjectEntity.NORMAL_INTERACT);
 		this.totalCalls = 0;
 		this.initCallNum = 120;
 	}
 	
+	/**
+	 * This NPC simply runs around pointlessly.
+	 * It has absolutely no other actions.
+	 */
 	public void interact() {
+		// This is used to prevent the NPC from updating every frame
+		// and flying around at a billion miles per hour.
 		if (this.totalCalls < this.initCallNum) {
 			this.totalCalls++;
 			return;
@@ -33,14 +47,16 @@ public class ThingOne extends NonPlayableCharacter {
 			this.totalCalls = 0;
 		}
 		
+		// Find a random direction to move in
 		Random r = new Random();
 		int moveVar = r.nextInt(101)+1;
-		int rand_moveDirection = moveVar%4;
-		int currRow = 0;
+		int rand_moveDirection = moveVar%5;
 		int currFrame = 0;
+		int currRow = 0;
 		
+		// Move a random direction
 		switch(rand_moveDirection) {
-			case 0:  // Move Down
+			case 0:  // Move Down if we don't collide and we aren't at the limit.
 				if (this.ObjectY != this.getyMax() && 
 					MapResources.checkCollision(this.ObjectX, this.ObjectY+1)){
 					this.ObjectY++;
@@ -48,7 +64,7 @@ public class ThingOne extends NonPlayableCharacter {
 					currRow = 0;
 				}
 				break;
-			case 1: // Move Left
+			case 1: // Move Left if we don't collide and we aren't at the limit.
 				if (this.ObjectX != 0 &&
 					MapResources.checkCollision(this.ObjectX-1, this.ObjectY)){
 					this.ObjectX--;
@@ -56,7 +72,7 @@ public class ThingOne extends NonPlayableCharacter {
 					currRow = 2;
 				}
 				break;
-			case 2: // Move Right
+			case 2: // Move Right if we don't collide and we aren't at the limit.
 				if (this.ObjectX != this.getxMax() &&
 					MapResources.checkCollision(this.ObjectX+1, this.ObjectY)){
 					this.ObjectX++;
@@ -64,7 +80,7 @@ public class ThingOne extends NonPlayableCharacter {
 					currRow = 4;
 				}
 				break;
-			case 3: // Move Up
+			case 3: // Move Up if we don't collide and we aren't at the limit.
 				if (this.ObjectY != 0 &&
 					MapResources.checkCollision(this.ObjectX, this.ObjectY-1)){
 					this.ObjectY--;
@@ -72,11 +88,14 @@ public class ThingOne extends NonPlayableCharacter {
 					currRow = 6;
 				}
 				break;
+			case 4:	// Don't move and stay in one spot.
+				return;
 			default:
 				System.err.println("Random move direction is incorrect.");
 				break;
 		}
 		
+		// Set the new image based on the random movement made above.
 		this.img = this.getSs().getSprite(currFrame, currRow);
 		this.img1 = this.getSs().getSprite(currFrame, currRow+1);
 	}

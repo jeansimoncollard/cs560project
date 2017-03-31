@@ -3,6 +3,15 @@ package StartMain;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * This class provides access to localization capabilities
+ * through the messages variable. It currently hass access
+ * to french and english versions.
+ * 
+ * @author Gregory
+ *
+ */
+
 public class StringResources {
 	public static ResourceBundle messages;
 	private static String language;

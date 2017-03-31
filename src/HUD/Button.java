@@ -19,16 +19,13 @@ abstract class Button extends MouseOverArea{
 	protected GameContainer gc;
 	protected ShopMenu shop;
 	protected MainCharacter character;
-	protected Image im;
-	protected Image imc;
-	protected Image imo;
+	protected Image im;						// Normal image
+	protected Image imc;					// Mouse click image
+	protected Image imo;					// Mouse over image
 	
 	/**
-	 * Initialize.
-	 * @param container    GameContainer.
-	 * @param im		   Image to use.
-	 * @param x    		   Position in x.
-	 * @param y 		   Position in y.
+	 * Initializers for various needs depending on what the button
+	 * can do.
 	 */	
 	public Button(GUIContext container, Image im, int x, int y, int maxFrameTime, GameContainer gc) {
         super(container, im, x, y);

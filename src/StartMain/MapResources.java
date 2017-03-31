@@ -18,11 +18,15 @@ import org.newdawn.slick.tiled.TiledMap;
  */
 
 public class MapResources {
-	private static TiledMap map;
-	private static int walkableLayer;
-	private static int overheadLayerIndex1;
-    private static int overheadLayerIndex2;
+	private static TiledMap map;				// The map to walk around.
+	private static int walkableLayer;			// The layer of the map to walk in.
+	private static int overheadLayerIndex1;		// The first overhead layer.
+    private static int overheadLayerIndex2;		// The second overhead layer.
 	
+    /**
+     * Load a map into the resources.
+     * @param mapWalk
+     */
 	public static void loadResources(TiledMap mapWalk) {
 		if (map == null) {
 			map = mapWalk;
@@ -32,10 +36,23 @@ public class MapResources {
 		}
 	}
 	
+	/**
+	 * Check if a given position can be walked to.
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public static boolean checkCollision(int x, int y) {
 		return map.getTileId(x, y, walkableLayer) != 0;
 	}
 	
+	/**
+	 * Check if a given position has an overhead in
+	 * some form.
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public static boolean checkOverhead(int x, int y) {
 		return map.getTileId(x, y, overheadLayerIndex1) == 0
                 && map.getTileId(x, y, overheadLayerIndex2) == 0;
