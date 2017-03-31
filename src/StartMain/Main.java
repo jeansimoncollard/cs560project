@@ -78,8 +78,7 @@ public class Main extends BasicGame {
                     // Find a better way to load up multiple NPCs.
                     RandomMovementNPC tOne = new RandomMovementNPC(125, 85, _map.getWidth(), _map.getHeight());
                     Nelly tTwo = new Nelly(125, 85, _map.getWidth(), _map.getHeight());
-                    Layachi layachi = new Layachi(145, 90, _map.getWidth(), _map.getHeight());
-                    
+                    NPC.Layachi layachi = new  NPC.Layachi(145, 90, _map.getWidth(), _map.getHeight());
                     
                     _mainCharacter = new MainCharacter(130, 85);
                     _statDisplayer = new StatDisplayer();
