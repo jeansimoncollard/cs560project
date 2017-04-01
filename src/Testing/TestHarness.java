@@ -10,6 +10,9 @@ package Testing;
  */
 
 public class TestHarness {
+	/**
+	 * Declare all running test package classes.
+	 */
 	private Test_StartMain test_startmain;
 	private Test_Objects test_objects;
 	private Test_NPC test_npc;
@@ -19,7 +22,9 @@ public class TestHarness {
 	private Test_Clue test_clue;
 	private Test_Characters test_characters;
 	
-	
+	/**
+	 * Initialize all the test runners.
+	 */
 	public TestHarness() {
 		this.test_characters = new Test_Characters();
 		this.test_clue = new Test_Clue();
@@ -31,6 +36,11 @@ public class TestHarness {
 		this.test_startmain = new Test_StartMain();
 	}
 	
+	/**
+	 * Run all the tests, returns true if all tests
+	 * pass and false if at least one fails.
+	 * @return
+	 */
 	public boolean runtests() {
 		boolean test_failed = false;
 		test_failed = this.test_characters.run();

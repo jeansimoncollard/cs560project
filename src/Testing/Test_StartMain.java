@@ -13,6 +13,9 @@ import StartMain.FontResources;
 
 public class Test_StartMain extends Test_Abstract {
 
+	/**
+	 * Runs the tests, one for each class in the folder.
+	 */
 	@Override
 	public boolean run() {
 		boolean overall_result = true;
