@@ -2,6 +2,7 @@ package StartMain;
 
 import java.io.IOException;
 
+import HUD.*;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -15,14 +16,6 @@ import Characters.MainCharacter;
 import Clues.ClueDisplayer;
 import Entities.ObjectEntity;
 import GameState.GameStateMaster;
-import HUD.CongratsMenu;
-import HUD.HelpMenu;
-import HUD.MainMenu;
-import HUD.MapMenu;
-import HUD.PauseMenu;
-import HUD.ShopMenu;
-import HUD.StatDisplayer;
-import HUD.TextBox;
 import NPC.Layachi;
 import NPC.Nelly;
 import NPC.RandomMovementNPC;
@@ -47,6 +40,7 @@ public class Main extends BasicGame {
     private StatDisplayer _statDisplayer;
     private GameStateMaster _gameStateMaster;
     private ClueDisplayer _clueDisplayer;
+    private NameMenu _nameMenu;
     private PauseMenu _pauseMenu;
     private HelpMenu _helpMenu;
     private MapMenu _mapMenu;
@@ -114,6 +108,8 @@ public class Main extends BasicGame {
                     
                     _mainCharacter = new MainCharacter(130, 85);
                     _statDisplayer = new StatDisplayer();
+
+                    _nameMenu = new NameMenu(_mainCharacter);
                     
                     _objectsHandler = new ObjectsHandler();
                     _objectsHandler.addObject(tOne);
@@ -178,7 +174,12 @@ public class Main extends BasicGame {
         	this._mainMenu.setLoading(false);
         	
             // loading is complete, do normal update here
-            _mainCharacter.Move(_map, _renderOverlay, gc);     
+            _mainCharacter.Move(_map, _renderOverlay, gc);
+
+
+            if (this._nameMenu.render(gc)) {
+                _renderOverlay = true;
+            }
         }
     }
 

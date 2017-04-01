@@ -34,6 +34,8 @@ public class PauseMenu extends Menu {
      */
     private Image _menuOverlay;
 
+    private Button quit_btn = null;
+
     /**
      * Decision variable on whether to render the menu or not
      */
@@ -86,7 +88,6 @@ public class PauseMenu extends Menu {
      * @param gc GameContainer
      * @param g  Graphics
      */
-    private Button quit_btn = null;
     @Override
     public void display(GameContainer gc, Graphics g) {
     	// Draw the menu

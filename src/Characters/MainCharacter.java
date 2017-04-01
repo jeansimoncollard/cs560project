@@ -55,11 +55,8 @@ public class MainCharacter {
     }
 
     /**
-<<<<<<< HEAD
      * Initialize the maincharacter with everything at 0
-=======
      * Default constructor for the character.
->>>>>>> 232110116e4c1589b34de4780a1d4c3de2379395
      * @throws SlickException
      */
     public MainCharacter() throws SlickException {
@@ -73,12 +70,9 @@ public class MainCharacter {
     }
 
     /**
-<<<<<<< HEAD
      * Initialize the maincharacter to the given position
-=======
      * Constructor that initializes the character to
      * a certain position and a random spritesheet.
->>>>>>> 232110116e4c1589b34de4780a1d4c3de2379395
      * @param xPosition
      * @param yPosition
      * @throws SlickException
@@ -94,13 +88,8 @@ public class MainCharacter {
     }
 
     /**
-<<<<<<< HEAD
-     * Get coin
-     * @return
-=======
      * Getters and setters for the coin count, coin worth,
      * speed, and name.
->>>>>>> 232110116e4c1589b34de4780a1d4c3de2379395
      */
     public int getCoinCount() {
         return CoinCount;
@@ -163,13 +152,10 @@ public class MainCharacter {
     }
 
     /**
-<<<<<<< HEAD
      * move the character, updating the displayed sprite
-=======
      * This function handles the characters movements,
      * preventing out of bounds, and also accepts some
      * secret input.
->>>>>>> 232110116e4c1589b34de4780a1d4c3de2379395
      * @param map
      * @param isRenderOverlay
      * @param gc
@@ -271,11 +257,8 @@ public class MainCharacter {
     }
 
     /**
-<<<<<<< HEAD
      * Render the character with the right sprite at the middle of the screen.
-=======
      * Displays the character in the view.
->>>>>>> 232110116e4c1589b34de4780a1d4c3de2379395
      * @param map
      * @param gc
      */
