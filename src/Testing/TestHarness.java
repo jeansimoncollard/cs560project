@@ -19,6 +19,7 @@ public class TestHarness {
 	private Test_Clue test_clue;
 	private Test_Characters test_characters;
 	
+	
 	public TestHarness() {
 		this.test_characters = new Test_Characters();
 		this.test_clue = new Test_Clue();

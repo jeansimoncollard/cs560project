@@ -7,13 +7,10 @@ package Testing;
  * @author Greg
  */
 
-abstract class Test_Abstract {
-	private boolean testSuccess = false;
-	private boolean testFailure = false;
-	
+public class Test_Abstract {	
 	/**
 	 * All test classes for each package should implement this
 	 * method to be tested.
 	 */
-	abstract boolean run();
+	public boolean run() { return true; }
 }		

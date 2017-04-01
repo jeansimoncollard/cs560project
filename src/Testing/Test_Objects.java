@@ -10,9 +10,9 @@ package Testing;
 public class Test_Objects extends Test_Abstract {
 
 	@Override
-	boolean run() {
+	public boolean run() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }
