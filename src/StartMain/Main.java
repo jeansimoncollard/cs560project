@@ -22,10 +22,10 @@ import HUD.PauseMenu;
 import HUD.ShopMenu;
 import HUD.StatDisplayer;
 import HUD.TextBox;
-import NPC.RandomMovementNPC;
-import NPC.Layachi;
 import NPC.Nelly;
+import NPC.RandomMovementNPC;
 import Objects.ObjectsHandler;
+import Testing.TestHarness;
 
 /**
  * The main class which runs the game & loads all the resources.
@@ -52,6 +52,7 @@ public class Main extends BasicGame {
     private ShopMenu _shopMenu;
     private TextBox _textBox;
     private boolean _renderOverlay;
+    private static boolean testRun = false;
 
     /**
      * Path to the walkable map and overhead map.
@@ -244,9 +245,14 @@ public class Main extends BasicGame {
      * @throws SlickException
      */
     public static void main(String[] args) throws SlickException {
-        AppGameContainer appgc;
-        appgc = new AppGameContainer(new Main("Treasure Trail"));
-        appgc.setDisplayMode(1280, 768, false);
-        appgc.start();
+    	if (!testRun) {
+		    AppGameContainer appgc;
+		    appgc = new AppGameContainer(new Main("Treasure Trail"));
+		    appgc.setDisplayMode(1280, 768, false);
+		    appgc.start();
+    	} else {
+    		TestHarness test_runner = new TestHarness();
+    		test_runner.runtests();
+    	}
     }
 }
