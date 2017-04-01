@@ -20,6 +20,7 @@ public class ImageResources {
 	public static SpriteSheet THING_ONE_SS; // Image for NPC ThingTwo
 	public static Image CONGRATS_SCREEN;
 	public static Image CONGRATS_SCREEN_FR;
+	public static SpriteSheet NELLY_SS;
 	
 	/**
 	 * Load up the needed images and sprite sheets.
@@ -30,6 +31,7 @@ public class ImageResources {
 			CLUE = new Image("dependencies/objects/clue.png");
 			THING_ONE = new Image("dependencies/objects/thingone_npc.png");
 			THING_ONE_SS = new SpriteSheet(THING_ONE, 32, 32);
+			NELLY_SS = new SpriteSheet(new Image("dependencies/objects/nelly_npc.png"), 32, 32);
 			CONGRATS_SCREEN = new Image("dependencies/UI_photos/congrats_screen_transparent.png");
 			CONGRATS_SCREEN_FR = new Image("dependencies/UI_photos/congrats_screen_transparent_fr.png");
 		} catch (SlickException e) {
