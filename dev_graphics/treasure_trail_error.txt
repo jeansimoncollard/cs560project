@@ -1,0 +1,23 @@
+Sat Mar 04 11:56:35 EST 2017 INFO:Use Java PNG Loader = true
+WARNING: Found unknown Windows version: Windows 8.1
+Attempting to use default windows plug-in.
+Loading: net.java.games.input.DirectAndRawInputEnvironmentPlugin
+Failed to initialize device Splashtop Virtual Hid because of: java.io.IOException: Failed to acquire device (8007001e)
+Sat Mar 04 11:56:37 EST 2017 INFO:Found 0 controllers
+Sat Mar 04 11:56:37 EST 2017 ERROR:Unresolved compilation problem: 
+	The method render(GameContainer, Graphics) of type Main must override a superclass method
+
+java.lang.Error: Unresolved compilation problem: 
+	The method render(GameContainer, Graphics) of type Main must override a superclass method
+
+	at Main.render(Main.java:24)
+	at org.newdawn.slick.GameContainer.updateAndRender(GameContainer.java:688)
+	at org.newdawn.slick.AppGameContainer.gameLoop(AppGameContainer.java:411)
+	at org.newdawn.slick.AppGameContainer.start(AppGameContainer.java:321)
+	at Main.main(Main.java:33)
+Sat Mar 04 11:56:37 EST 2017 ERROR:Game.render() failure - check the game code.
+org.newdawn.slick.SlickException: Game.render() failure - check the game code.
+	at org.newdawn.slick.GameContainer.updateAndRender(GameContainer.java:691)
+	at org.newdawn.slick.AppGameContainer.gameLoop(AppGameContainer.java:411)
+	at org.newdawn.slick.AppGameContainer.start(AppGameContainer.java:321)
+	at Main.main(Main.java:33)

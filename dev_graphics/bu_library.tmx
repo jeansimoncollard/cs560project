@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="grounds1" tilewidth="32" tileheight="32" tilecount="300" columns="20">
+  <image source="grounds1.jpg" width="640" height="480"/>
+ </tileset>
+ <tileset firstgid="301" name="bulibrary" tilewidth="32" tileheight="32" tilecount="640" columns="40">
+  <image source="bulibrary.png" width="1280" height="512"/>
+ </tileset>
+ <tileset firstgid="941" name="sample3" tilewidth="32" tileheight="32" tilecount="1200" columns="40">
+  <image source="sample3.png" width="1280" height="960"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt0TERwDAQxMDnz8vhEKOJWUjxqLhRf7tm5jlbP+97ti8o/WMeeZhL/5hHHubSP+aRh7n0j3nkYS79Yx55mEv/mEce5tI/5pGHufSPeeRhLv1jHnmYS/+YRx7m0j/mkYe59I955GHuB1aM6sg=
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1"/>
+ <layer name="Tile Layer 2" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt18dv02AYx/EXRWlO7NHFv8AFVHZbt2XvdSoqu00Hey+JsGc3o4NRhsS8slcHLWFcEFzKX1Bmi8QNDnxN80ovlpPYSVrRyI/0UWIntt+f3/dxlC63aPyOb/iKL/iMT8prsM+73EJL7ydEBjKhIQvZyMEUTMU0TMcMzMQszMYczMU8zMcCLMQiLMYSWC2/W/hq3ULYUYd6NCCfaxXAi0IUoRglWIt1WI8N2IhN2Iwt2Ipt2I4d2Ild2I092GszRxPjsUrNwbGilGuVoRwVqEQVqnEaZ3AW51CDWtShHudxARdxCQ24jCu4imsRzIccm8psnzHHXa51D/fxAA/xCI/xBE/xDM/RiCY0owUv0Io2vIQfr/Aab/A2ihwtinqTfera0nPQJxr9otE3Gv2j0Uca/aR1Qn72ju+Foh6jvtf7L9Ic+tppNoxd3VerbPuV48zmVG6Hy1Eb5Dx6/0WSw6yXZV+oOdR1Jfeb5Zfb4XI0BTmPP4Ic8j4be1k9r7FP/CHupfo+0vmwm0N9HjWHuD/GtabmMJvH3pwPeslHP4pw6FdBLwt6We9LQS/qx/6TPdh4rMyHej8imQ/Nw28wspHjsb9dE7h2okdoKR7RmIwkRSrU/cbtkRwXbC3YyVHIWIpQjBKP/W2ZozNBiB8JwmfXz4TuMZutgS4bOfq7hBiAgRiEwRiCoRiG4RiBRCQhGSlIdXUfH4sc+n3P9JizWmmMZyzGYTwmYCImYTLSkYFMaMhCNnKUHE3d60qwVnx2sa7+5vB6zFmtPMazDMuxAiuxCquxBvkogBeFKEIxSgI5Oiw8I6w8L/ZxPh/24wAO4pDLeo7DfPcIjuIYjuMETuIUSlGGclSgElWoDlwj2HqQ5HMh3Peuc74buIlbuI07YXK0oi0g2vIGel9VpKwLs22z10hK5vgYxfhzWQtLLehIsMfq+GUG+RpNuUM8F9+zJj647I3ParUHxGpdjQqR4xcZfmM03xlj43fASukZ9LWkzkk0FWpt5RpeY1kyh5yT9tie3rR6Yj70Ms5JXy0nx/9V8ZJDL/XZ25crXnLoJbP09YqnHL3xO9jTpf+fjYccaXGSIy9Ocsj/s0455ZRTTjnllFNOOeWUU71VfwDnmg9D
+  </data>
+ </layer>
+</map>

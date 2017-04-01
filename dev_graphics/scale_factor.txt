@@ -1,0 +1,8 @@
+Scale Factors for image scaling:
+Width_Factor: 1280/521
+Height_Factor: 512/179
+
+Scale by multiplying *_Factor by the original width or height of the image.
+(Round to the nearest integer tile number).
+
+First, it going to big_picture.png, scale down the width by a factor of 2.201.

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="8" height="8" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="grey_roof" tilewidth="32" tileheight="32" tilecount="20" columns="4">
+  <image source="grey_roof.png" width="128" height="160"/>
+ </tileset>
+ <tileset firstgid="21" name="bu_main_scaled_alpha" tilewidth="32" tileheight="32" tilecount="4550" columns="65">
+  <image source="bu_main_scaled_alpha.png" width="2080" height="2240"/>
+ </tileset>
+ <layer name="Tile Layer 3" width="8" height="8">
+  <data encoding="base64" compression="zlib">
+   eJxdzEsOwVAUh/F/mlAS16iSPjy2YhMG+lBLsQaPQSMSe2oFVWIp/YoBBr+cnPPl3nVP2mCLHVqSLOnIUMaeo8Dp09qw0UHJzTHSwLxb96v73ALMftuTJ6uQW4T4r2XsTd+b1//TA/OMC64ocUOFOx5w+5IHHwGGGGGMCeYIESFGggVSLFEDO2wazg==
+  </data>
+ </layer>
+ <layer name="Tile Layer 1" width="8" height="8">
+  <data encoding="base64" compression="zlib">
+   eJxjYMAEfAwMCViEwYATiHkYGBw4CMhjUwMUa2BlYDiAJO+ALAfDAkhyggwMC6DiB2DyyPqg7gWpOSCARQ4GgOIHsMkBAPVsDK0=
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="8" height="8">
+  <data encoding="base64" compression="zlib">
+   eJxjYMAErAwMDViE4YCTgeEAPnlWHPKc+M3Eqg8o5oBLDlkNPvfgAwBn8gRD
+  </data>
+ </layer>
+</map>
