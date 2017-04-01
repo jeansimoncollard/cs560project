@@ -19,8 +19,9 @@ import StartMain.StringResources;
 public class Nelly extends NonPlayableCharacter {
 	private static final String name = "Harry"; // Name of the npc.
 	private boolean addedStrings; // Tells whether or not strings were added to
-									// textPages.
-
+								  // textPages.
+	private int numInteracts;
+	
 	/**
 	 * Constructor for this NPC, requires standard things like position and max
 	 * dimensions.
@@ -37,6 +38,7 @@ public class Nelly extends NonPlayableCharacter {
 		this.textPages.add(new ArrayList<String>());
 		this.textPages.add(new ArrayList<String>());
 		this.addedStrings = false;
+		this.numInteracts = 0;
 	}
 
 	/**
@@ -56,16 +58,25 @@ public class Nelly extends NonPlayableCharacter {
 				this.textPages.get(1).add(StringResources.messages.getString("nellypage1line7"));
 				this.textPages.get(2).add(StringResources.messages.getString("nellypage1line8"));
 				this.textPages.get(2).add(StringResources.messages.getString("nellypage1line9"));
-
+				this.textPages.get(2).add(StringResources.messages.getString("nellypage1line10"));
+				this.textPages.get(2).add(StringResources.messages.getString("nellypage1line11"));
 				this.addedStrings = true;
 			}
 		}
-		//If the character is near, he will talk to him
-		if (isCharacterNear(mc)) {			
-			this.displayTextBox();
-			if(gm.GameState==0){
-				gm.GameState++;
-			}			
+		// If the character is near, she will talk to him automatically
+		// the first time.
+		if (isCharacterNear(mc)) {
+			if (gc.getInput().isKeyPressed(Input.KEY_N)) {
+				this.displayTextBox();
+			} else if (this.numInteracts == 0){ 
+				// If this is the first time there is an interaction
+				// display the textbox letting them know how to open it.
+				this.displayTextBox();
+				if(gm.GameState==0){
+					gm.GameState++;
+				}
+				this.numInteracts++;
+			}
 		}
 	}
 }

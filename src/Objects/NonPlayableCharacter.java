@@ -132,23 +132,18 @@ public class NonPlayableCharacter extends ObjectEntity {
 
 	/**
 	 * Use to check if a character is nearby. It only checks up, down, left, or
-	 * right of the character, not diagonally.
+	 * right of the character, not diagonally. Any other form of checking
+	 * should be done outside this function.
 	 * 
 	 * @param mc
 	 * @return
 	 */
 	public boolean isCharacterNear(MainCharacter mc) {
-		
-		//isbeingtalked to is used to let the user walk awaywithout repopping the talk dialog each time each finished the conversation
-		if (!isBeingTalkedTo&&this.ObjectX >= mc.XPosition - 1 && this.ObjectX <= mc.XPosition + 1 && this.ObjectY >= mc.YPosition - 1
-				&& this.ObjectY <= mc.YPosition + 1) {
-			isBeingTalkedTo = true;
+		if ((mc.XPosition+1 == this.ObjectX && mc.YPosition == this.ObjectY) ||
+			(mc.XPosition-1 == this.ObjectX && mc.YPosition == this.ObjectY) ||
+			(mc.XPosition == this.ObjectX && mc.YPosition-1 == this.ObjectY) ||
+			(mc.XPosition == this.ObjectX && mc.YPosition+1 == this.ObjectY)){
 			return true;
-		}
-		if(isBeingTalkedTo&&!(this.ObjectX >= mc.XPosition - 1 && this.ObjectX <= mc.XPosition + 1 && this.ObjectY >= mc.YPosition - 1
-				&& this.ObjectY <= mc.YPosition + 1))
-		{
-			isBeingTalkedTo=false;
 		}
 		return false;
 	}

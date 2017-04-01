@@ -2,15 +2,20 @@ package NPC;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Input;
 
 import Characters.MainCharacter;
 import GameState.GameStateMaster;
+import StartMain.FontResources;
 import StartMain.StringResources;
 
 public class Layachi extends RandomMovementNPC {
-	private boolean addedStrings; // Tells whether or not strings were added to
-	// textPages.
+	private boolean addedStrings; // Tells whether or not strings were added to textPages.
+	private boolean displayMsg;
+	private int frameCount = 0;
+	private int maxFrameCount = 100;
 
 	/**
 	 * Initialize character dialog
@@ -27,7 +32,6 @@ public class Layachi extends RandomMovementNPC {
 		this.textPages.add(new ArrayList<String>());
 
 		this.addedStrings = false;
-
 	}
 
 	/**
@@ -50,9 +54,33 @@ public class Layachi extends RandomMovementNPC {
 		// If the character is near, he will talk to him
 		if (isCharacterNear(mc)) {
 			// if gamestate==22, character has found all clues.
-			if (gm.GameState == 22) {
-				this.displayTextBox();
+			if (gc.getInput().isKeyPressed(Input.KEY_N)) {
+				if (gm.GameState == 22) {
+					this.displayTextBox();
+				} else { 
+					this.displayMsg = true;
+				}
 			}
+		}
+		
+		// If we need to display an error msg and we are still displaying it
+		if (this.displayMsg && this.frameCount < this.maxFrameCount) {
+			// Draw the first line of the info.
+			String needMoreClues = StringResources.messages.getString("needMoreClues1");
+			FontResources.getInstance().get_ttf().drawString(
+					(gc.getWidth()/2 - FontResources.getInstance().get_ttf().getWidth(needMoreClues)/2),
+					(gc.getHeight()/2 - gc.getHeight()/4), needMoreClues, Color.red);
+			
+			// Draw the second line of the info.
+			needMoreClues = StringResources.messages.getString("needMoreClues2");
+			FontResources.getInstance().get_ttf().drawString(
+					(gc.getWidth()/2 - FontResources.getInstance().get_ttf().getWidth(needMoreClues)/2),
+					(gc.getHeight()/2 - gc.getHeight()/4 + FontResources.getInstance().get_ttf().getHeight(needMoreClues)),
+					needMoreClues, Color.red);
+			this.frameCount++;
+		} else { // We are either done displaying it or there is nothing to display
+			this.displayMsg = false;
+			this.frameCount = 0;
 		}
 	}
 
