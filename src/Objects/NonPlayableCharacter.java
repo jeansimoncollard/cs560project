@@ -154,7 +154,7 @@ public class NonPlayableCharacter extends ObjectEntity {
 	public boolean displayTextBox() {
 		TextBox.setText(this.textPages);
 		TextBox.setOverheadText(name);
-		TextBox.setView(true);
+		TextBox.setView();
 		return true;
 	}
 }

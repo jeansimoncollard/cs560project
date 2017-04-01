@@ -8,12 +8,15 @@ import org.newdawn.slick.Input;
 
 import Characters.MainCharacter;
 import GameState.GameStateMaster;
+import HUD.TextBox;
 import StartMain.FontResources;
 import StartMain.StringResources;
 
 public class Layachi extends RandomMovementNPC {
 	private boolean addedStrings; // Tells whether or not strings were added to textPages.
 	private boolean displayMsg;
+	private boolean spoken;
+	private boolean completedSpeakText;
 	private int frameCount = 0;
 	private int maxFrameCount = 100;
 
@@ -32,6 +35,24 @@ public class Layachi extends RandomMovementNPC {
 		this.textPages.add(new ArrayList<String>());
 
 		this.addedStrings = false;
+		this.spoken = false;
+		this.completedSpeakText = false;
+	}
+	
+	/**
+	 * Getter for whether or not the textbox has been
+	 * shown and is gone. 
+	 */
+	public boolean getCompleteText() {
+		return this.completedSpeakText;
+	}
+	
+	/**
+	 * Set the completed to text to false once
+	 * the congrats screen is finished displaying.
+	 */
+	public void setCompleteText() {
+		this.completedSpeakText = false;
 	}
 
 	/**
@@ -51,19 +72,30 @@ public class Layachi extends RandomMovementNPC {
 				this.textPages.get(1).add(StringResources.messages.getString("layachiPage2Line3"));
 			}
 		}
+		
 		// If the character is near, he will talk to him
 		if (isCharacterNear(mc)) {
 			// if gamestate==22, character has found all clues.
 			if (gc.getInput().isKeyPressed(Input.KEY_N)) {
 				if (gm.GameState == 22) {
+					// Display the text box, then set spoken to true
+					// to indicate that we've reached the end of the game,
+					// spoken to Layachi, and can now display the congrats
+					// screen after the user finishes talking.
+					
 					this.displayTextBox();
+					this.spoken = true;
 				} else { 
+					// Otherwise, if we haven't reached the end, display
+					// an informational message about what could be done.
+					
 					this.displayMsg = true;
 				}
 			}
 		}
 		
-		// If we need to display an error msg and we are still displaying it
+		// Here we display the informational message if neeeded.
+		// If we need to display an error msg and we are still displaying it.
 		if (this.displayMsg && this.frameCount < this.maxFrameCount) {
 			// Draw the first line of the info.
 			String needMoreClues = StringResources.messages.getString("needMoreClues1");
@@ -78,9 +110,19 @@ public class Layachi extends RandomMovementNPC {
 					(gc.getHeight()/2 - gc.getHeight()/4 + FontResources.getInstance().get_ttf().getHeight(needMoreClues)),
 					needMoreClues, Color.red);
 			this.frameCount++;
-		} else { // We are either done displaying it or there is nothing to display
+		} else { // We are either done displaying it or there is nothing to display.
 			this.displayMsg = false;
 			this.frameCount = 0;
+		}
+		
+		// If the user has spoken to Layachi, and
+		// the text box is no longer open, display
+		// the congratulations screen for 6 seconds.
+		if (this.spoken) {
+			if (TextBox.getView() == false) {
+				this.spoken = false;
+				this.completedSpeakText = true;
+			}
 		}
 	}
 

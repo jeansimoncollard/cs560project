@@ -15,6 +15,7 @@ import Characters.MainCharacter;
 import Clues.ClueDisplayer;
 import Entities.ObjectEntity;
 import GameState.GameStateMaster;
+import HUD.CongratsMenu;
 import HUD.HelpMenu;
 import HUD.MainMenu;
 import HUD.MapMenu;
@@ -22,6 +23,7 @@ import HUD.PauseMenu;
 import HUD.ShopMenu;
 import HUD.StatDisplayer;
 import HUD.TextBox;
+import NPC.Layachi;
 import NPC.Nelly;
 import NPC.RandomMovementNPC;
 import Objects.ObjectsHandler;
@@ -50,7 +52,9 @@ public class Main extends BasicGame {
     private MapMenu _mapMenu;
     private MainMenu _mainMenu;
     private ShopMenu _shopMenu;
+    private CongratsMenu _congratsMenu;
     private TextBox _textBox;
+    private Layachi layachi;
     private boolean _renderOverlay;
     private static boolean testRun = false;
 
@@ -106,7 +110,7 @@ public class Main extends BasicGame {
                     // Find a better way to load up multiple NPCs.
                     RandomMovementNPC tOne = new RandomMovementNPC(125, 85, _map.getWidth(), _map.getHeight(),ObjectEntity.NORMAL_INTERACT);
                     Nelly tTwo = new Nelly(125, 85, _map.getWidth(), _map.getHeight());
-                    NPC.Layachi layachi = new  NPC.Layachi(135, 90, _map.getWidth(), _map.getHeight(),ObjectEntity.COMPLEX_INTERACT);
+                    layachi = new  NPC.Layachi(135, 90, _map.getWidth(), _map.getHeight(),ObjectEntity.COMPLEX_INTERACT);
                     
                     _mainCharacter = new MainCharacter(130, 85);
                     _statDisplayer = new StatDisplayer();
@@ -120,6 +124,8 @@ public class Main extends BasicGame {
                     _pauseMenu = new PauseMenu();
                     _helpMenu = new HelpMenu();
                     _mapMenu = new MapMenu();
+                    _congratsMenu = new CongratsMenu();
+                    _congratsMenu.setLayachi(layachi);
                     _textBox = new TextBox();
                     
                     _shopMenu = new ShopMenu();
@@ -224,6 +230,9 @@ public class Main extends BasicGame {
 	        	this._renderOverlay = true;
 	        }
 	        else if (_textBox.render(gc)) {
+	        	this._renderOverlay = true;
+	        }
+	        else if (_congratsMenu.render(gc)) {
 	        	this._renderOverlay = true;
 	        }
 	        else {

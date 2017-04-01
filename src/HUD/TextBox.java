@@ -67,8 +67,16 @@ public class TextBox extends Menu {
     /**
      * Sets the textbox to display.
      */
-    public static void setView(boolean renderView) {
-    	_renderMenu = renderView;
+    public static void setView() {
+    	_renderMenu = true;
+    }
+    
+    /**
+     * Tells whether or not the text box
+     * is currently rendering.
+     */
+    public static boolean getView() {
+    	return _renderMenu;
     }
     
     /**
