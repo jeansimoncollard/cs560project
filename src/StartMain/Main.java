@@ -56,6 +56,8 @@ public class Main extends BasicGame {
     private TextBox _textBox;
     private Layachi layachi;
     private boolean _renderOverlay;
+    private int loadNumber = 0;
+    private boolean _doneLoading = false;
     private static boolean testRun = false;
 
     /**
@@ -89,6 +91,8 @@ public class Main extends BasicGame {
         
         // Enable deferred loading.
         LoadingList.setDeferredLoading(true);
+        
+        // Generate a loader for image resources.
         LoadingList.get().add(new DeferredResource() {
             /**
              * Anything initialized in this function will have it's
@@ -99,49 +103,13 @@ public class Main extends BasicGame {
                 //turn off deferred loading when we create the resource
                 boolean old = LoadingList.isDeferredLoading();
                 LoadingList.setDeferredLoading(false);
-                try {
-                    // create the resource
-                    // loads immediately since deferred loading is OFF
-                	ImageResources.loadReources();
-                    _map = new TiledMap(MAP_PATH);
-                    _mapOver = new TiledMap(MAP_PATH_OVERHEAD);
-                    MapResources.loadResources(_map);
-                    
-                    // Find a better way to load up multiple NPCs.
-                    RandomMovementNPC tOne = new RandomMovementNPC(125, 85, _map.getWidth(), _map.getHeight(),ObjectEntity.NORMAL_INTERACT);
-                    Nelly tTwo = new Nelly(125, 85, _map.getWidth(), _map.getHeight());
-                    layachi = new  NPC.Layachi(135, 90, _map.getWidth(), _map.getHeight(),ObjectEntity.COMPLEX_INTERACT);
-                    
-                    _mainCharacter = new MainCharacter(130, 85);
-                    _statDisplayer = new StatDisplayer();
-                    
-                    _objectsHandler = new ObjectsHandler();
-                    _objectsHandler.addObject(tOne);
-                    _objectsHandler.addObject(tTwo);
-                    _objectsHandler.addObject(layachi);
-                    
-                    _clueDisplayer = new ClueDisplayer();
-                    _pauseMenu = new PauseMenu();
-                    _helpMenu = new HelpMenu();
-                    _mapMenu = new MapMenu();
-                    _congratsMenu = new CongratsMenu();
-                    _congratsMenu.setLayachi(layachi);
-                    _textBox = new TextBox();
-                    
-                    _shopMenu = new ShopMenu();
-                    _shopMenu.set_character(_mainCharacter);
-                    
-                    _gameStateMaster = new GameStateMaster(_objectsHandler, _clueDisplayer);
-                } catch (SlickException e) {
-                    throw new IOException("Error loading image.");
-                }
+                // create the resource
+                // loads immediately since deferred loading is OFF
+            	ImageResources.loadReources();
+            	System.out.println("Finished loading images...");
                 //reset the loading back to what it was before
-                LoadingList.setDeferredLoading(old);
+            	LoadingList.setDeferredLoading(old);
             }
-            
-            /**
-             * Returns the description of this loader.
-             */
             public String getDescription() {
                 return "Map, and character loader.";
             }
@@ -152,7 +120,177 @@ public class Main extends BasicGame {
         gc.setMinimumLogicUpdateInterval(1);
         _renderOverlay = true;
     }
+    
+    private void addLoader() {
+    	switch (this.loadNumber) {
+    		case 0:
+    	        // Generate a loader for the map and it's resources.
+    	        LoadingList.get().add(new DeferredResource() {
+    	            /**
+    	             * Anything initialized in this function will have it's
+    	             * images and resources loaded before the game is started
+    	             * during the loading screen.
+    	             */
+    	            public void load() throws IOException {
+    	                //turn off deferred loading when we create the resource
+    	                boolean old = LoadingList.isDeferredLoading();
+    	                LoadingList.setDeferredLoading(false);
+    	                try {
+    	                	System.out.println("Started loading map.");
+    	                    _map = new TiledMap(MAP_PATH);
+    	                    _mapOver = new TiledMap(MAP_PATH_OVERHEAD);
+    	                    MapResources.loadResources(_map);
+    	                    System.out.println("Finished loading maps...");
+    	                } catch (SlickException e) {
+    	                    throw new IOException("Error loading image.");
+    	                }
+    	                //reset the loading back to what it was before
+    	                LoadingList.setDeferredLoading(old);
+    	            }
+    	            public String getDescription() {
+    	                return "Map, and character loader.";
+    	            }
+    	           
+    	        });
+    	        this.loadNumber++;
+    	        break;
+    		case 1:
+    	        // Generate a loader for npcs and other objecs.
+    	        LoadingList.get().add(new DeferredResource() {
+    	            /**
+    	             * Anything initialized in this function will have it's
+    	             * images and resources loaded before the game is started
+    	             * during the loading screen.
+    	             */
+    	            public void load() throws IOException {
+    	                //turn off deferred loading when we create the resource
+    	                boolean old = LoadingList.isDeferredLoading();
+    	                LoadingList.setDeferredLoading(false);
+    	                // Find a better way to load up multiple NPCs.
+    	                RandomMovementNPC tOne = new RandomMovementNPC(125, 85, _map.getWidth(), _map.getHeight(),ObjectEntity.NORMAL_INTERACT);
+    	                Nelly tTwo = new Nelly(125, 85, _map.getWidth(), _map.getHeight());
+    	                layachi = new  NPC.Layachi(135, 90, _map.getWidth(), _map.getHeight(),ObjectEntity.COMPLEX_INTERACT);
 
+    	                _objectsHandler = new ObjectsHandler();
+    	                _objectsHandler.addObject(tOne);
+    	                _objectsHandler.addObject(tTwo);
+    	                _objectsHandler.addObject(layachi);
+    	                //reset the loading back to what it was before
+    	                LoadingList.setDeferredLoading(old);
+    	                System.out.println("Finished loading objects...");
+    	            }
+    	            public String getDescription() {
+    	                return "Map, and character loader.";
+    	            }
+    	           
+    	        });
+    	        this.loadNumber++;
+    	        break;
+    		case 2:
+    	        // Generate a loader for the gui and other HUD components.
+    	        LoadingList.get().add(new DeferredResource() {
+    	            /**
+    	             * Anything initialized in this function will have it's
+    	             * images and resources loaded before the game is started
+    	             * during the loading screen.
+    	             */
+    	            public void load() throws IOException {
+    	                //turn off deferred loading when we create the resource
+    	                boolean old = LoadingList.isDeferredLoading();
+    	                LoadingList.setDeferredLoading(false);
+    	                try {
+    	                    _clueDisplayer = new ClueDisplayer();
+    	                    _pauseMenu = new PauseMenu();
+    	                    _helpMenu = new HelpMenu();
+    	                    _mapMenu = new MapMenu();
+    	                    _congratsMenu = new CongratsMenu();
+    	                    _congratsMenu.setLayachi(layachi);
+    	                    _textBox = new TextBox();
+    	                    System.out.println("Finished loading GUI/HUD...");
+    	                } catch (SlickException e) {
+    	                    throw new IOException("Error loading image.");
+    	                }
+    	                //reset the loading back to what it was before
+    	                LoadingList.setDeferredLoading(old);
+    	            }
+    	            public String getDescription() {
+    	                return "Map, and character loader.";
+    	            }
+    	           
+    	        });
+    	        this.loadNumber++;
+    	        break;
+    		case 3:
+    	        // Generate a loader for the shop menu and start the
+    	        // gameStateMaster.
+    	        LoadingList.get().add(new DeferredResource() {
+    	            /**
+    	             * Anything initialized in this function will have it's
+    	             * images and resources loaded before the game is started
+    	             * during the loading screen.
+    	             */
+    	            public void load() throws IOException {
+    	                //turn off deferred loading when we create the resource
+    	                boolean old = LoadingList.isDeferredLoading();
+    	                LoadingList.setDeferredLoading(false);
+    	                try {
+    	                    _mainCharacter = new MainCharacter(130, 85);
+    	                    _statDisplayer = new StatDisplayer();
+    	                    System.out.println("Finished loading character and stats displayer...");
+    	                } catch (SlickException e) {
+    	                    throw new IOException("Error loading image.");
+    	                }
+    	                //reset the loading back to what it was before
+    	                LoadingList.setDeferredLoading(old);
+    	            }
+    	            public String getDescription() {
+    	                return "Map, and character loader.";
+    	            }
+    	           
+    	        });
+    	        this.loadNumber++;
+    	        break;
+    		case 4:
+    	        // Generate a loader for the shop menu and start the
+    	        // gameStateMaster.
+    	        LoadingList.get().add(new DeferredResource() {
+    	            /**
+    	             * Anything initialized in this function will have it's
+    	             * images and resources loaded before the game is started
+    	             * during the loading screen.
+    	             */
+    	            public void load() throws IOException {
+    	                //turn off deferred loading when we create the resource
+    	                boolean old = LoadingList.isDeferredLoading();
+    	                LoadingList.setDeferredLoading(false);
+    	                try {
+    	                    _shopMenu = new ShopMenu();
+    	                    _shopMenu.set_character(_mainCharacter);
+    	                    
+    	                    _gameStateMaster = new GameStateMaster(_objectsHandler, _clueDisplayer);
+    	                    _doneLoading = true;
+    	                    _mainMenu.setLoading(false);
+    	                    System.out.println("Finished loading shop and game master...");
+    	                } catch (SlickException e) {
+    	                    throw new IOException("Error loading image.");
+    	                }
+    	                //reset the loading back to what it was before
+    	                LoadingList.setDeferredLoading(old);
+    	            }
+    	            public String getDescription() {
+    	                return "Map, and character loader.";
+    	            }
+    	           
+    	        });
+    	        this.loadNumber++;
+    	        break;
+    		default:
+                System.out.println("Loading Complete.");
+    			this._doneLoading = true;
+    			break;
+    	}
+    }
+    
     /**
      * This function is called just before a render
      * which makes it an ideal place to move the character and
@@ -173,7 +311,8 @@ public class Main extends BasicGame {
 			} catch (IOException e) { // Check for error opening image.
 				e.printStackTrace();
 			}
-        } else {											 // Otherwise, we a re no longer loading.
+            this.addLoader();
+        } else if (_doneLoading){											 // Otherwise, we a re no longer loading.
         	// Disable the loading screen to display the menu.
         	this._mainMenu.setLoading(false);
         	
@@ -190,7 +329,7 @@ public class Main extends BasicGame {
     public void render(GameContainer gc, Graphics g) throws SlickException {
         // Move the map to simulate that the character moves, but the character
         // actually stays static in middle of screen {
-    	if (LoadingList.get().getRemainingResources() == 0) {
+    	if (LoadingList.get().getRemainingResources() == 0 && _doneLoading) {
     		// Make sure the loading screen is off.
     		this._mainMenu.setLoading(false);
     		

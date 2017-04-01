@@ -90,6 +90,13 @@ public class MainMenu  extends Menu {
     public boolean getLoading() {
     	return this.loading;
     }
+    
+    /**
+     * Getter that tells if we've finished with the main menu.
+     */
+    public boolean getMainOff() {
+    	return this.mainOff;
+    }
 
     /**
      * Checks to see if user pressed SCAPE key and
@@ -129,7 +136,6 @@ public class MainMenu  extends Menu {
     	} else { // Still loading, swap loading images.
     		this.currentMenu = this._menuOverlays.get(this.numLoads%3);
     		this.numLoads++;
-    		System.out.println(numLoads);
             display(gc, gc.getGraphics());
     	}
     	// Sleep for a bit before leaving.

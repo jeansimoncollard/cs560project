@@ -17,7 +17,7 @@ import StartMain.StringResources;
  *
  */
 public class Nelly extends NonPlayableCharacter {
-	private static final String name = "Harry"; // Name of the npc.
+	private static final String name = "Nelly"; // Name of the npc.
 	private boolean addedStrings; // Tells whether or not strings were added to
 								  // textPages.
 	private int numInteracts;
@@ -32,7 +32,7 @@ public class Nelly extends NonPlayableCharacter {
 	 * @param maxY
 	 */
 	public Nelly(int x, int y, int maxX, int maxY) {
-		super(Nelly.name, ImageResources.THING_ONE_SS, x, y, maxX, maxY, ObjectEntity.COMPLEX_INTERACT);
+		super(Nelly.name, ImageResources.NELLY_SS, x, y, maxX, maxY, ObjectEntity.COMPLEX_INTERACT);
 		this.textPages = new ArrayList<ArrayList<String>>();
 		this.textPages.add(new ArrayList<String>());
 		this.textPages.add(new ArrayList<String>());

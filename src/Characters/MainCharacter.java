@@ -31,6 +31,7 @@ public class MainCharacter {
     private int currRow;				// The current row or direction to move in.
 
     private boolean debug_mode;            // Debug mode variable.
+    private boolean debug = true;
 
     /**
      * Get the default name for the character and 
@@ -55,11 +56,7 @@ public class MainCharacter {
     }
 
     /**
-<<<<<<< HEAD
-     * Initialize the maincharacter with everything at 0
-=======
      * Default constructor for the character.
->>>>>>> 232110116e4c1589b34de4780a1d4c3de2379395
      * @throws SlickException
      */
     public MainCharacter() throws SlickException {
@@ -73,12 +70,8 @@ public class MainCharacter {
     }
 
     /**
-<<<<<<< HEAD
-     * Initialize the maincharacter to the given position
-=======
      * Constructor that initializes the character to
      * a certain position and a random spritesheet.
->>>>>>> 232110116e4c1589b34de4780a1d4c3de2379395
      * @param xPosition
      * @param yPosition
      * @throws SlickException
@@ -91,6 +84,11 @@ public class MainCharacter {
         debug_mode = false;
         get_default_name();
         ss = new SpriteSheet(new Image(SPRITE_SHEET_LOC), 32, 32);
+        
+        if (this.debug) {
+        	this.speed = 1;
+        	this.CoinCount = 1000;
+        }
     }
 
     /**
@@ -248,7 +246,7 @@ public class MainCharacter {
             }
 
             // Turn on debug mode using this.
-            if (gc.getInput().isKeyDown(Input.KEY_D)) {
+            if (gc.getInput().isKeyDown(Input.KEY_D) && this.debug) {
                 if (!this.debug_mode) {
                     System.out.println("Debug mode on.");
                     this.debug_mode = true;
