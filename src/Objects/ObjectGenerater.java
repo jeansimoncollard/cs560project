@@ -101,6 +101,7 @@ public class ObjectGenerater {
 		int foregroundLayerIndex = map.getLayerIndex("noCollision"); 			// Walkable
 		int overheadLayerIndex1 = map.getLayerIndex("characterOverhead1");		// Overhead layer
 		int overheadLayerIndex2 = map.getLayerIndex("roofsCharacterOverhead");	// Overhead layer 2
+		int groundCollisionIndex = map.getLayerIndex("groundCollision");
 
 		// Check bounds
 		if (objectY >= map.getHeight()) {
@@ -121,6 +122,7 @@ public class ObjectGenerater {
 		Boolean isTileWalkable = map.getTileId(objectX, objectY, foregroundLayerIndex) != 0;
 		Boolean doesTileHaveOverhead = map.getTileId(objectX, objectY, overheadLayerIndex1) != 0
 				|| map.getTileId(objectX, objectY, overheadLayerIndex2) != 0;
+		Boolean isCollidable = map.getTileId(objectX, objectY, groundCollisionIndex) != 0;
 
 		// Will not spawn under roof or something similar
 		if (!isTileWalkable) {
@@ -128,6 +130,10 @@ public class ObjectGenerater {
 		}
 		// Will not spawn on unreachable terrain
 		if (doesTileHaveOverhead) {
+			return true;
+		}
+		
+		if (isCollidable) {
 			return true;
 		}
 

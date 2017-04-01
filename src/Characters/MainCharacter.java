@@ -175,6 +175,10 @@ public class MainCharacter {
      * @param gc
      */
     public void Move(TiledMap map, boolean isRenderOverlay, GameContainer gc) {
+    	// Check for collidables
+    	int groundCollisionIndex = map.getLayerIndex("groundCollision");
+    	
+    	// Check for undefined tiles in the walkable layer.
         int foregroundLayerIndex = map.getLayerIndex("noCollision");	// Walkable layer
 
         // When nothing is pressed, reset the frameCount to
@@ -193,7 +197,8 @@ public class MainCharacter {
                 // Doesn't go off map
                 if (this.XPosition != map.getWidth() - 1) {
                     // Doesn't collide with foreground
-                    if (map.getTileId(this.XPosition + 1, this.YPosition, foregroundLayerIndex) != 0) {
+                    if (map.getTileId(this.XPosition + 1, this.YPosition, foregroundLayerIndex) != 0 &&
+                    		map.getTileId(this.XPosition + 1, this.YPosition, groundCollisionIndex) == 0) {
                         this.XPosition++;
                         // Process the position and returns frame to be rendered
                         this.currFrame = (this.XPosition%4);
@@ -206,7 +211,8 @@ public class MainCharacter {
                 // Doesn't go off map
                 if (this.XPosition != 0) {
                     // Doesn't collide with foreground
-                    if (map.getTileId(this.XPosition - 1, this.YPosition, foregroundLayerIndex) != 0) {
+                    if (map.getTileId(this.XPosition - 1, this.YPosition, foregroundLayerIndex) != 0 &&
+                    		map.getTileId(this.XPosition - 1, this.YPosition, groundCollisionIndex) == 0) {
                         this.XPosition--;
                         this.currFrame = (this.XPosition%4);
                         this.currRow = 4;
@@ -218,7 +224,8 @@ public class MainCharacter {
                 // Doesn't go off map
                 if (this.YPosition != 0) {
                     // Doesn't collide with foreground
-                    if (map.getTileId(this.XPosition, this.YPosition - 1, foregroundLayerIndex) != 0) {
+                    if (map.getTileId(this.XPosition, this.YPosition - 1, foregroundLayerIndex) != 0 &&
+                    		map.getTileId(this.XPosition, this.YPosition-1, groundCollisionIndex) == 0) {
                         this.YPosition--;
                         // Process the position and returns frame to be rendered
                         this.currFrame = (this.YPosition%4);
@@ -230,7 +237,8 @@ public class MainCharacter {
             if (gc.getInput().isKeyDown(Input.KEY_DOWN) && _frameCount % speed == 0) {
                 if (this.YPosition != map.getHeight() - 1) {
                     // doesn't collide with foreground
-                    if (map.getTileId(this.XPosition, this.YPosition + 1, foregroundLayerIndex) != 0) {
+                    if (map.getTileId(this.XPosition, this.YPosition + 1, foregroundLayerIndex) != 0 &&
+                    		map.getTileId(this.XPosition, this.YPosition + 1, groundCollisionIndex) == 0) {
                         this.YPosition++;
                         // Process the position and returns frame to be rendered
                         this.currFrame = (this.YPosition%4);

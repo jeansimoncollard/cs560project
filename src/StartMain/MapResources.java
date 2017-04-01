@@ -22,6 +22,7 @@ public class MapResources {
 	private static int walkableLayer;			// The layer of the map to walk in.
 	private static int overheadLayerIndex1;		// The first overhead layer.
     private static int overheadLayerIndex2;		// The second overhead layer.
+    private static int groundCollisionIndex;
 	
     /**
      * Load a map into the resources.
@@ -33,17 +34,20 @@ public class MapResources {
 			walkableLayer = map.getLayerIndex("noCollision");
 			overheadLayerIndex1 = map.getLayerIndex("characterOverhead1");
 			overheadLayerIndex2 = map.getLayerIndex("roofsCharacterOverhead");
+			groundCollisionIndex = map.getLayerIndex("groundCollision");
 		}
 	}
 	
 	/**
-	 * Check if a given position can be walked to.
+	 * Check if a given position can be walked to by ensuring the
+	 * tile is defined and there are no collidables.
 	 * @param x
 	 * @param y
 	 * @return
 	 */
 	public static boolean checkCollision(int x, int y) {
-		return map.getTileId(x, y, walkableLayer) != 0;
+		return map.getTileId(x, y, walkableLayer) != 0 &&
+        		map.getTileId(x, y, groundCollisionIndex) == 0;
 	}
 	
 	/**
