@@ -31,7 +31,7 @@ public class MainCharacter {
     private int currRow;				// The current row or direction to move in.
 
     private boolean debug_mode;            // Debug mode variable.
-    private boolean debug = true;
+    private boolean debug = false;
 
     /**
      * Get the default name for the character and 

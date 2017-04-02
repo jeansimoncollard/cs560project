@@ -24,7 +24,7 @@ public class GameStateMaster {
 	private final String PATH_BASICCLUE_IMAGE = "dependencies/clues/blankscroll2WithMagnifyingGlass.png";
 	private ClueDisplayer _clueDisplayer;
 	private AreaClueDetector _areaClueDetector;
-	private boolean debug = true;
+	private boolean debug = false;
 	
 	/**
 	 * Initialize the gamestatemaster with the needed classes for the treasure trail
