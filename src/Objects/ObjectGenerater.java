@@ -22,6 +22,19 @@ public class ObjectGenerater {
 	// Path to the images used.
 	private final String PATH_COIN_IMAGE = "dependencies/objects/retrocoin.png";
 	private final String PATH_CLUE_IMAGE = "dependencies/objects/clue.png";
+	private static int coinGenerationProbability = 15;
+	
+	/**
+	 * Getters and setters for the spawning frequency of the coins.
+	 * @param probability
+	 */
+	public static void setCoinProbability(int probability) {
+		coinGenerationProbability = probability;
+	}
+	
+	public static int getCoinProbability() {
+		return coinGenerationProbability;
+	}
 
 	/**
 	 * Generate coins on the ground randomly, inserted
@@ -53,7 +66,7 @@ public class ObjectGenerater {
 	public void GenerateClueRandomly(List<ObjectEntity> objectsList, int characterX, int characterY, TiledMap map,
 			GameStateMaster gameStateMaster) {
 		// Create the clue.
-		ObjectEntity clueObject = createObject(characterX, characterY, map, PATH_CLUE_IMAGE, ImageResources.CLUE, 15, Enums.ObjectType.Clue);
+		ObjectEntity clueObject = createObject(characterX, characterY, map, PATH_CLUE_IMAGE, ImageResources.CLUE, coinGenerationProbability, Enums.ObjectType.Clue);
 
 		// If it was correctly created, add it to the list
 		// the state is changed so that there is only one clue
@@ -74,7 +87,7 @@ public class ObjectGenerater {
 
 		// Don't generate an object every time this is called, only one time out
 		// of x
-		if (randomInt == 1) {
+		if (randomInt == 0) {
 			// Generate
 			int objectX;
 			int objectY;

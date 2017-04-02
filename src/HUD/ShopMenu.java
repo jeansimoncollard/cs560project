@@ -13,6 +13,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 
 import Characters.MainCharacter;
+import Objects.ObjectGenerater;
 import StartMain.StringResources;
 
 /**
@@ -352,21 +353,114 @@ public class ShopMenu  extends Menu {
 		chpu_button.setMouseDownImage(chpu_imgc);
 		chpu_button.setMouseOverImage(chpu_imgo);
 		
+		// Fill the rest of the pages with empty buttons.
+		Button tmp_button = null;
+		for (int i = 0; i < maxPages; i++){	// For each page
+			for (int j = 0; j < 3; j++){	// For each line
+				// Create the empty buttons.
+				tmp_button = new Button(gc, blank_img, blank_imgc, blank_imgo, 0, 
+									    0, maxFrameTime, this) {
+					@Override
+					boolean process() {
+						System.out.println("Blank button process.");
+						return true;
+					}
+				};
+				// Set their images.
+				tmp_button.setMouseDownImage(blank_imgc);
+				tmp_button.setMouseOverImage(blank_imgo);
+				
+				// Add the button to the current page
+				this.shopPages.get(i).add(tmp_button);
+			}
+		}
+		
+		// Fill the last numbers and names with blanks and invalid numbers.
+		for (int i = 0; i < maxPages; i++){
+			for (int j = 0; j < 3; j++){
+				this.shopPages_cost.get(i).add(-1);
+				this.shopPages_names.get(i).add(" ");
+			}
+		}
+		
 		/**
-		 * Load speed button.
+		 * Everything that follows here makes use of dynamic button creation.
+		 * In other words, we use a blank button picture but modify the process,
+		 * and the strings and costs that are shown.
+		 * 
+		 * This makes it simpler because this way we don't have to continuously use some
+		 * drawing tool to make the buttons, we just build them on the fly.
 		 */
-		spd_button = new Button(gc, spd_img, spd_imgc, spd_imgo, 0, 
-								0, maxFrameTime, this, this.character) {
+		
+		/**
+		 * Load a button for increasing coin worth.
+		 */
+		this.shopPages.get(0).set(0, new Button(gc, blank_img, blank_imgc, blank_imgo, 0,
+												0, maxFrameTime, this, this.character) {
+			private int num_buys = 1;  // Used to increase item cost.
+			
+			@Override
+			boolean process() {
+				// If the character has enough coins, buy the item.
+				if (this.character.getCoinCount() >= this.num_buys*20) {
+					// Increase the coin worth, take the coins, increase cost.
+					System.out.println("Increasing coin worth.");
+					
+					this.character.setCoinWorth(this.character.getCoinWorth() + 1);
+					this.character.setCoinCount(this.character.getCoinCount()-(num_buys*20));
+					
+					num_buys++;
+					this.shop.getShopCosts().get(0).set(0, num_buys*20);
+					
+					// Draw a notification string.
+					if (!this.shop.get_drawing()) {
+						this.shop.set_drawing(true);
+						this.shop.set_stringFrames(0);
+						this.shop.set_drawingMsg(StringResources.messages.getString("coinWorthUp"));
+					}
+				} else { 
+					// Otherwise, the character doesn't have enough money.
+					// Ensure that the correct cost is displayed.
+					this.shop.getShopCosts().get(0).set(0, num_buys*20);
+					
+					// Don't tell the user that they don't have enough coins
+					// if another string is being drawn.
+					if (!this.shop.get_drawing()) {
+						this.shop.set_drawing(true);
+						this.shop.set_stringFrames(0);
+						this.shop.set_drawingMsg(StringResources.messages.getString("missingCoins") + this.character.getCoinCount());
+					}
+				}
+				
+				// Sleep to prevent a click being recognized as two clicks.
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+
+				return false;
+			}
+		});
+		// Set the images for over and clicked.
+		this.shopPages.get(0).get(0).setMouseDownImage(blank_imgc);
+		this.shopPages.get(0).get(0).setMouseOverImage(blank_imgo);
+		
+		/**
+		 * Load a button for increasing speed.
+		 */
+		this.shopPages.get(0).set(1, new Button(gc, blank_img, blank_imgc, blank_imgo, 0,
+												0, maxFrameTime, this, this.character) {
 			@Override
 			public boolean process() {
 				// If the character has enough coins, buy the item.
-				System.out.println("Clicked speed button, spending 50 coins.");
-				if (this.character.getCoinCount() >= 50) {
+				System.out.println("Clicked speed button, spending 20 coins.");
+				if (this.character.getCoinCount() >= 20) {
 					// If the speed is not at the max yet.
 					if (this.character.getSpeed() > 1) {
-						// Take the coings and increase speed.
+						// Take the coins and increase speed.
 						this.character.setSpeed(this.character.getSpeed()-1);
-						this.character.setCoinCount(this.character.getCoinCount() - 50);
+						this.character.setCoinCount(this.character.getCoinCount() - 20);
 						// Draw a notification.
 						if (!this.shop.get_drawing()) {
 							this.shop.set_drawing(true);
@@ -397,15 +491,81 @@ public class ShopMenu  extends Menu {
 				}
 				return true;
 			}
-		};
-		spd_button.setMouseDownImage(spd_imgc);
-		spd_button.setMouseOverImage(spd_imgo);
+		});
+		// Set the images for over and clicked.
+		this.shopPages.get(0).get(1).setMouseDownImage(blank_imgc);
+		this.shopPages.get(0).get(1).setMouseOverImage(blank_imgo);
 		
 		/**
-		 * Load questionable sale 1 button.
+		 * Load a button for increasing coin spawn rate.
 		 */
-		q1_button = new Button(gc, q1_img, q1_imgc, q1_imgo, 0, 
-							   0, maxFrameTime, this, this.character) {
+		this.shopPages.get(0).set(2, new Button(gc, blank_img, blank_imgc, blank_imgo, 0,
+				0, maxFrameTime, this, this.character) {
+			private int num_buys = 1;
+			
+			@Override
+			public boolean process() {
+				// If the character has enough coins, buy the item.
+				if (this.character.getCoinCount() >= this.num_buys*10) {
+					// Increase the coin spawn rate, take the coins, increase cost
+					// only if we are not maxed.
+					if (ObjectGenerater.getCoinProbability() > 1) {
+						System.out.println("Increasing coin frequency.");
+						
+						ObjectGenerater.setCoinProbability(ObjectGenerater.getCoinProbability() - 1);
+						this.character.setCoinCount(this.character.getCoinCount()-(num_buys*10));
+						
+						num_buys++;
+						this.shop.getShopCosts().get(0).set(2, num_buys*10);
+						
+						// Draw a notification string.
+						if (!this.shop.get_drawing()) {
+							this.shop.set_drawing(true);
+							this.shop.set_stringFrames(0);
+							this.shop.set_drawingMsg(StringResources.messages.getString("coinFreqUp"));
+						}
+					} else { // We are at the max.
+						// Draw a notification string.
+						if (!this.shop.get_drawing()) {
+							this.shop.set_drawing(true);
+							this.shop.set_stringFrames(0);
+							this.shop.set_drawingMsg(StringResources.messages.getString("coinFreqMax"));
+						}
+					}
+				} else { 
+					// Otherwise, the character doesn't have enough money.
+					// Ensure that the correct cost is displayed.
+					this.shop.getShopCosts().get(0).set(2, num_buys*10);
+					
+					// Don't tell the user that they don't have enough coins
+					// if another string is being drawn.
+					if (!this.shop.get_drawing()) {
+						this.shop.set_drawing(true);
+						this.shop.set_stringFrames(0);
+						this.shop.set_drawingMsg(StringResources.messages.getString("missingCoins") + this.character.getCoinCount());
+					}
+				}
+				// Sleep to prevent a click being recognized as two clicks.
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				return true;
+			}
+		});
+		// Set the images for over and clicked.
+		this.shopPages.get(0).get(2).setMouseDownImage(blank_imgc);
+		this.shopPages.get(0).get(2).setMouseOverImage(blank_imgo);
+		
+		/**
+		 * Load a questionable button. This one
+		 * just takes 150 coins and does nothing.
+		 * 
+		 * TODO: Make it initialize an NPC.
+		 */
+		this.shopPages.get(1).set(0, new Button(gc, blank_img, blank_imgc, blank_imgo, 0,
+				0, maxFrameTime, this, this.character) {
 			@Override
 			public boolean process() {
 				// If the character has enough coins, buy the item.
@@ -437,15 +597,20 @@ public class ShopMenu  extends Menu {
 				}
 				return true;
 			}
-		};
-		q1_button.setMouseDownImage(q1_imgc);
-		q1_button.setMouseOverImage(q1_imgo);
+		});
+		// Set the images for over and clicked.
+		this.shopPages.get(1).get(0).setMouseDownImage(blank_imgc);
+		this.shopPages.get(1).get(0).setMouseOverImage(blank_imgo);
 		
 		/**
-		 * Load questionable sale 2 button.
+		 * Load a questionable button. This one
+		 * ends the game, no other ideas for
+		 * what to do here.
+		 * 
+		 * TODO: Make it initialize an NPC or a new quest.
 		 */
-		q2_button = new Button(gc, q2_img, q2_imgc, q2_imgo, 0, 
-							   0, maxFrameTime, this, this.character) {					
+		this.shopPages.get(1).set(1, new Button(gc, blank_img, blank_imgc, blank_imgo, 0,
+				0, maxFrameTime, this, this.character) {
 			@Override
 			boolean process() {
 				// If the character has enough coins, buy the item.
@@ -475,112 +640,28 @@ public class ShopMenu  extends Menu {
 				}
 				return true;
 			}
-		};
-		q2_button.setMouseDownImage(q2_imgc);
-		q2_button.setMouseOverImage(q2_imgo);
-
-		
-		// Add these buttons to their appropriate pages.
-		this.shopPages.get(0).add(spd_button);
-		this.shopPages.get(0).add(q1_button);
-		this.shopPages.get(0).add(q2_button);
-		
-		// Fill the rest of the pages with empty buttons.
-		Button tmp_button = null;
-		for (int i = 1; i < maxPages; i++){	// For each page
-			for (int j = 0; j < 3; j++){	// For each line
-				// Create the empty buttons.
-				tmp_button = new Button(gc, blank_img, blank_imgc, blank_imgo, 0, 
-									    0, maxFrameTime, this) {
-					@Override
-					boolean process() {
-						System.out.println("Blank button process.");
-						return true;
-					}
-				};
-				// Set their images.
-				tmp_button.setMouseDownImage(blank_imgc);
-				tmp_button.setMouseOverImage(blank_imgo);
-				
-				// Add the button to the current page
-				this.shopPages.get(i).add(tmp_button);
-			}
-		}
-		
-		/**
-		 * Everything that follows here makes use of dynamic button creation.
-		 * In other words, we use a blank button picture but modify the process,
-		 * and the strings and costs that are shown.
-		 * 
-		 * This makes it simpler because this way we don't have to continuously use some
-		 * drawing tool to make the buttons, we just build them on the fly.
-		 */
-		
-		/**
-		 * Load a button for increasing coin worth.
-		 */
-		this.shopPages.get(1).set(0, new Button(gc, blank_img, blank_imgc, blank_imgo, 0,
-												0, maxFrameTime, this, this.character) {
-			private int num_buys = 1;  // Used to increase item cost.
-			
-			@Override
-			boolean process() {
-				// If the character has enough coins, buy the item.
-				if (this.character.getCoinCount() >= this.num_buys*20) {
-					// Increase the coin worth, take the coins, increase cost.
-					System.out.println("Increasing coin worth.");
-					
-					this.character.setCoinWorth(this.character.getCoinWorth() + 1);
-					this.character.setCoinCount(this.character.getCoinCount()-(num_buys*20));
-					
-					num_buys++;
-					this.shop.getShopCosts().get(1).set(0, num_buys*20);
-					
-					// Draw a notification string.
-					if (!this.shop.get_drawing()) {
-						this.shop.set_drawing(true);
-						this.shop.set_stringFrames(0);
-						this.shop.set_drawingMsg(StringResources.messages.getString("coinWorthUp"));
-					}
-				} else { 
-					// Otherwise, the character doesn't have enough money.
-					// Ensure that the correct cost is displayed.
-					this.shop.getShopCosts().get(1).set(0, num_buys*20);
-					
-					// Don't tell the user that they don't have enough coins
-					// if another string is being drawn.
-					if (!this.shop.get_drawing()) {
-						this.shop.set_drawing(true);
-						this.shop.set_stringFrames(0);
-						this.shop.set_drawingMsg(StringResources.messages.getString("missingCoins") + this.character.getCoinCount());
-					}
-				}
-				
-				// Sleep to prevent a click being recognized as two clicks.
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-
-				return false;
-			}
 		});
-		// Set the images for over and cliked.
-		this.shopPages.get(1).get(0).setMouseDownImage(blank_imgc);
-		this.shopPages.get(1).get(0).setMouseOverImage(blank_imgo);
-		
-		// Fill the last numbers and names with blanks and invalid numbers.
-		for (int i = 0; i < maxPages; i++){
-			for (int j = 0; j < 3; j++){
-				this.shopPages_cost.get(i).add(-1);
-				this.shopPages_names.get(i).add(" ");
-			}
-		}
+		// Set the images for over and clicked.
+		this.shopPages.get(1).get(1).setMouseDownImage(blank_imgc);
+		this.shopPages.get(1).get(1).setMouseOverImage(blank_imgo);
 		
 		// Initialize the coin worths button cost and name.
-		this.shopPages_cost.get(1).set(0, 20);
-		this.shopPages_names.get(1).set(0, StringResources.messages.getString("coinWorthUpMsg"));
+		this.shopPages_cost.get(0).set(0, 20);
+		this.shopPages_names.get(0).set(0, StringResources.messages.getString("coinWorthUpMsg"));
+		
+		// Initialize the speed buttons cost and name.
+		this.shopPages_cost.get(0).set(1, 20);
+		this.shopPages_names.get(0).set(1, StringResources.messages.getString("speedUpMsg"));
+		
+		// Initialize the coin frequency buttons cost and name.
+		this.shopPages_cost.get(0).set(2, 10);
+		this.shopPages_names.get(0).set(2, StringResources.messages.getString("coinFreqUpMsg"));
+		
+		// Initialize the questionable buttons.
+		this.shopPages_cost.get(1).set(0, 150);
+		this.shopPages_names.get(1).set(0, "? ? ?");
+		this.shopPages_cost.get(1).set(1, 200);
+		this.shopPages_names.get(1).set(1, "? ? ?");
     }
     
     /**
