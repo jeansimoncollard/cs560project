@@ -3,13 +3,12 @@ package GameState;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 import Characters.MainCharacter;
-import Clues.ClueDisplayer;
 import Clues.AreaClueDetector;
+import Clues.ClueDisplayer;
 import Objects.ObjectsHandler;
 
 /**
@@ -25,6 +24,7 @@ public class GameStateMaster {
 	private final String PATH_BASICCLUE_IMAGE = "dependencies/clues/blankscroll2WithMagnifyingGlass.png";
 	private ClueDisplayer _clueDisplayer;
 	private AreaClueDetector _areaClueDetector;
+	private boolean debug = true;
 	
 	/**
 	 * Initialize the gamestatemaster with the needed classes for the treasure trail
@@ -36,6 +36,15 @@ public class GameStateMaster {
 		_objectsHandler = objectsHandler;
 		_clueDisplayer = clueDisplayer;
 		_areaClueDetector = new AreaClueDetector();
+		
+		/**
+		 * Set your wanted state here.
+		 * This makes it easier to test one state
+		 * at a time.
+		 */
+		if (debug) {
+			GameState = 22;
+		}
 	}
 
 	/**
@@ -174,6 +183,10 @@ public class GameStateMaster {
 																						// displayed
 			_clueDisplayer.DisplayCurrentClue();
 			GameState++;
+			break;
+		case 22:
+			break;
+		case 23:
 			break;
 		}
 	}

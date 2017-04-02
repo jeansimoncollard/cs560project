@@ -13,11 +13,12 @@ import StartMain.FontResources;
 import StartMain.StringResources;
 
 public class Layachi extends RandomMovementNPC {
-	private boolean addedStrings; // Tells whether or not strings were added to textPages.
-	private boolean displayMsg;
-	private boolean spoken;
-	private boolean completedSpeakText;
-	private int frameCount = 0;
+	private boolean addedStrings; 		// Tells whether or not strings were added to textPages.
+	private boolean displayMsg;			// Tells whether or not to display informational message.
+	private boolean spoken;				// Tells if the character has spoken to the NPC
+	private boolean completedSpeakText;	// Tells if the character has completed speaking with the NPC.
+	private MazeHider mh = null;		// Used to initiate post-game.
+	private int frameCount = 0;			// Stop flash from speeding away...
 	private int maxFrameCount = 100;
 
 	/**
@@ -54,6 +55,15 @@ public class Layachi extends RandomMovementNPC {
 	public void setCompleteText() {
 		this.completedSpeakText = false;
 	}
+	
+	/**
+	 * Sets the maze hider to initiate post-game
+	 * content.
+	 * @param mh
+	 */
+	public void setMazeHider(MazeHider mh) {
+		this.mh = mh;
+	}
 
 	/**
 	 * Detect if character is near and has finished treasure trail. If yes, give
@@ -75,9 +85,9 @@ public class Layachi extends RandomMovementNPC {
 		
 		// If the character is near, he will talk to him
 		if (isCharacterNear(mc)) {
-			// if gamestate==22, character has found all clues.
+			// if gamestate>=22, character has found all clues.
 			if (gc.getInput().isKeyPressed(Input.KEY_N)) {
-				if (gm.GameState == 22) {
+				if (gm.GameState >= 22) {
 					// Display the text box, then set spoken to true
 					// to indicate that we've reached the end of the game,
 					// spoken to Layachi, and can now display the congrats
@@ -122,6 +132,11 @@ public class Layachi extends RandomMovementNPC {
 			if (TextBox.getView() == false) {
 				this.spoken = false;
 				this.completedSpeakText = true;
+				mc.setCoinCount(mc.getCoinCount() + 200);
+				
+				// Move to the post-main game state.
+				gm.GameState++;
+				this.mh.initiatePostGame(true);
 			}
 		}
 	}

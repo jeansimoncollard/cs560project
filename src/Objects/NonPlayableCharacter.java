@@ -142,7 +142,8 @@ public class NonPlayableCharacter extends ObjectEntity {
 		if ((mc.XPosition+1 == this.ObjectX && mc.YPosition == this.ObjectY) ||
 			(mc.XPosition-1 == this.ObjectX && mc.YPosition == this.ObjectY) ||
 			(mc.XPosition == this.ObjectX && mc.YPosition-1 == this.ObjectY) ||
-			(mc.XPosition == this.ObjectX && mc.YPosition+1 == this.ObjectY)){
+			(mc.XPosition == this.ObjectX && mc.YPosition+1 == this.ObjectY) ||
+			(mc.XPosition == this.ObjectX && mc.YPosition == this.ObjectY)){
 			return true;
 		}
 		return false;

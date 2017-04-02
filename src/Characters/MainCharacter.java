@@ -85,6 +85,10 @@ public class MainCharacter {
         get_default_name();
         ss = new SpriteSheet(new Image(SPRITE_SHEET_LOC), 32, 32);
         
+        /**
+         * If debug is set, initialize some shortcuts.
+         * Change the variables for differing effects.
+         */
         if (this.debug) {
         	this.speed = 1;
         	this.CoinCount = 1000;

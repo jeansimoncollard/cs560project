@@ -24,6 +24,7 @@ import HUD.ShopMenu;
 import HUD.StatDisplayer;
 import HUD.TextBox;
 import NPC.Layachi;
+import NPC.MazeHider;
 import NPC.Nelly;
 import NPC.RandomMovementNPC;
 import Objects.ObjectsHandler;
@@ -54,7 +55,8 @@ public class Main extends BasicGame {
     private ShopMenu _shopMenu;
     private CongratsMenu _congratsMenu;
     private TextBox _textBox;
-    private Layachi layachi;
+    private Layachi _layachi;
+    private MazeHider _mazeh;
     private boolean _renderOverlay;
     private int loadNumber = 0;
     private boolean _doneLoading = false;
@@ -169,12 +171,17 @@ public class Main extends BasicGame {
     	                // Find a better way to load up multiple NPCs.
     	                RandomMovementNPC tOne = new RandomMovementNPC(125, 85, _map.getWidth(), _map.getHeight(),ObjectEntity.NORMAL_INTERACT);
     	                Nelly tTwo = new Nelly(125, 85, _map.getWidth(), _map.getHeight());
-    	                layachi = new  NPC.Layachi(135, 90, _map.getWidth(), _map.getHeight(),ObjectEntity.COMPLEX_INTERACT);
+    	                _mazeh = new MazeHider(28, 45, 28+30, 45+30, ObjectEntity.COMPLEX_INTERACT);
+    	                _layachi = new  Layachi(135, 90, _map.getWidth(), _map.getHeight(),ObjectEntity.COMPLEX_INTERACT);
+    	                
+    	                // Add for post-game content
+    	                _layachi.setMazeHider(_mazeh);
 
     	                _objectsHandler = new ObjectsHandler();
     	                _objectsHandler.addObject(tOne);
     	                _objectsHandler.addObject(tTwo);
-    	                _objectsHandler.addObject(layachi);
+    	                _objectsHandler.addObject(_layachi);
+    	                _objectsHandler.addObject(_mazeh);
     	                //reset the loading back to what it was before
     	                LoadingList.setDeferredLoading(old);
     	                System.out.println("Finished loading objects...");
@@ -204,7 +211,7 @@ public class Main extends BasicGame {
     	                    _helpMenu = new HelpMenu();
     	                    _mapMenu = new MapMenu();
     	                    _congratsMenu = new CongratsMenu();
-    	                    _congratsMenu.setLayachi(layachi);
+    	                    _congratsMenu.setLayachi(_layachi);
     	                    _textBox = new TextBox();
     	                    System.out.println("Finished loading GUI/HUD...");
     	                } catch (SlickException e) {
@@ -221,8 +228,8 @@ public class Main extends BasicGame {
     	        this.loadNumber++;
     	        break;
     		case 3:
-    	        // Generate a loader for the shop menu and start the
-    	        // gameStateMaster.
+    	        // Generate a loader for the main character
+    			// and the statistics displayer.
     	        LoadingList.get().add(new DeferredResource() {
     	            /**
     	             * Anything initialized in this function will have it's

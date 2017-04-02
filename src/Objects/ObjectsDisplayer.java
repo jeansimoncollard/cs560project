@@ -51,16 +51,19 @@ public class ObjectsDisplayer {
 	 */
 	public void displayObjects_opt(List<ObjectEntity> objectsList, int characterX, int characterY, GameContainer gc) throws SlickException  {
 		for (ObjectEntity object : objectsList) {
-			if (object.img1 == null) { // Display Coin-like object.
-				object.img.draw((object.ObjectX - characterX) * 32+gc.getWidth() / 2, (object.ObjectY - characterY) * 32+gc.getHeight() / 2, 32, 32);
-			} else{	// Display NPC or two-cell image. 
-				if (MapResources.checkOverhead(object.ObjectX, object.ObjectY)) { // Check the overhead for how to draw the two-cell image.
-					object.img.draw((object.ObjectX - characterX) * 32+gc.getWidth() / 2, ((object.ObjectY - characterY) * 32+gc.getHeight() / 2)-32, 32, 32);
-					object.img1.draw((object.ObjectX - characterX) * 32+gc.getWidth() / 2, (object.ObjectY - characterY) * 32+gc.getHeight() / 2, 32, 32);
-				} else {	// Only draw the top if there is something in the way.
-					object.img.draw((object.ObjectX - characterX) * 32+gc.getWidth() / 2, ((object.ObjectY - characterY) * 32+gc.getHeight() / 2)-32, 32, 32);
+			if (object.img != null) {
+				if (object.img1 == null) { // Display Coin-like object.
+					object.img.draw((object.ObjectX - characterX) * 32+gc.getWidth() / 2, (object.ObjectY - characterY) * 32+gc.getHeight() / 2, 32, 32);
+				} else{	// Display NPC or two-cell image. 
+					if (MapResources.checkOverhead(object.ObjectX, object.ObjectY)) { // Check the overhead for how to draw the two-cell image.
+						object.img.draw((object.ObjectX - characterX) * 32+gc.getWidth() / 2, ((object.ObjectY - characterY) * 32+gc.getHeight() / 2)-32, 32, 32);
+						object.img1.draw((object.ObjectX - characterX) * 32+gc.getWidth() / 2, (object.ObjectY - characterY) * 32+gc.getHeight() / 2, 32, 32);
+					} else {	// Only draw the top if there is something in the way.
+						object.img.draw((object.ObjectX - characterX) * 32+gc.getWidth() / 2, ((object.ObjectY - characterY) * 32+gc.getHeight() / 2)-32, 32, 32);
+					}
 				}
 			}
 		}
 	}
+
 }
