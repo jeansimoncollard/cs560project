@@ -17,4 +17,13 @@ Java game library.</p>
 5. Copy the files in the foler 'dependencies/windows/' to the folder '/lwjgl/' that was created in (4) and used as the native library location for Slick2D.
 6. Now, it should run without any problems.
 
+# How to Release #
+1. Go in File-->export
+2. Select "Runnable Jar file" and click next
+3. In launch configuration, I had to select Main (1) - softengineeringproject instead of Main - softengineeringproject.
+4. Select "Package required libraries into generated JAR", don't check the save as ANT script checkbox.
+5. Click finish
+6. Go to the folder where the jar was exported, and add all the dependencies to that folder the same way it is done in older releases.
+7. Use command java -Djava.library.path="PATH_TO_WINDOWS_FOLDER\dependencies\windows" -jar treasuretrail.jar to debug
+
 &copy; TreasureTrail 2017
