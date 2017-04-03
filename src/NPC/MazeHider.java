@@ -73,7 +73,7 @@ public class MazeHider extends NonPlayableCharacter {
 			if (isCharacterNear(mc)) {
 				// When the user talks to this NPC, give them 500 coins
 				// on the first time.
-				if (gc.getInput().isKeyPressed(Input.KEY_N)){
+				if (gc.getInput().isKeyPressed(Input.KEY_SPACE)){
 					this.displayTextBox();
 					if (!this.given) {
 						mc.setCoinCount(mc.getCoinCount() + 500);

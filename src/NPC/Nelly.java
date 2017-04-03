@@ -8,6 +8,7 @@ import org.newdawn.slick.Input;
 import Characters.MainCharacter;
 import Entities.ObjectEntity;
 import GameState.GameStateMaster;
+import HUD.TextBox;
 import Objects.NonPlayableCharacter;
 import StartMain.ImageResources;
 import StartMain.StringResources;
@@ -21,6 +22,7 @@ public class Nelly extends NonPlayableCharacter {
 	private boolean addedStrings; // Tells whether or not strings were added to
 								  // textPages.
 	private int numInteracts;
+	private boolean spoken = false;	
 	
 	/**
 	 * Constructor for this NPC, requires standard things like position and max
@@ -66,8 +68,9 @@ public class Nelly extends NonPlayableCharacter {
 		// If the character is near, she will talk to him automatically
 		// the first time.
 		if (isCharacterNear(mc)) {
-			if (gc.getInput().isKeyPressed(Input.KEY_N)) {
+			if (!spoken&&gc.getInput().isKeyPressed(Input.KEY_SPACE)) {
 				this.displayTextBox();
+				this.spoken = true;
 			} else if (this.numInteracts == 0){ 
 				// If this is the first time there is an interaction
 				// display the textbox letting them know how to open it.
@@ -76,6 +79,12 @@ public class Nelly extends NonPlayableCharacter {
 					gm.GameState++;
 				}
 				this.numInteracts++;
+			}
+		}
+		
+		if (this.spoken) {
+			if (TextBox.getView() == false) {
+				this.spoken = false;
 			}
 		}
 	}

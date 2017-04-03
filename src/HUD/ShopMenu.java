@@ -619,9 +619,6 @@ public class ShopMenu  extends Menu {
 					// Take the coins.
 					System.out.println("Taking 200 coins.");
 					this.character.setCoinCount(this.character.getCoinCount() - 200);
-					
-					// End the game.
-					System.exit(0);
 				} else {
 					// If were drawing increment the number of time so far (outside here),
 					// otherwise start.

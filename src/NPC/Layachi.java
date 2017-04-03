@@ -20,6 +20,7 @@ public class Layachi extends RandomMovementNPC {
 	private MazeHider mh = null;		// Used to initiate post-game.
 	private int frameCount = 0;			// Stop flash from speeding away...
 	private int maxFrameCount = 100;
+	private boolean gainedCoins = false;
 
 	/**
 	 * Initialize character dialog
@@ -86,7 +87,7 @@ public class Layachi extends RandomMovementNPC {
 		// If the character is near, he will talk to him
 		if (isCharacterNear(mc)) {
 			// if gamestate>=22, character has found all clues.
-			if (gc.getInput().isKeyPressed(Input.KEY_N)) {
+			if (!spoken&&gc.getInput().isKeyPressed(Input.KEY_SPACE)) {
 				if (gm.GameState >= 22) {
 					// Display the text box, then set spoken to true
 					// to indicate that we've reached the end of the game,
@@ -132,11 +133,15 @@ public class Layachi extends RandomMovementNPC {
 			if (TextBox.getView() == false) {
 				this.spoken = false;
 				this.completedSpeakText = true;
-				mc.setCoinCount(mc.getCoinCount() + 200);
 				
-				// Move to the post-main game state.
-				gm.GameState++;
-				this.mh.initiatePostGame(true);
+				if (!this.gainedCoins) {
+					mc.setCoinCount(mc.getCoinCount() + 200);
+					
+					// Move to the post-main game state.
+					gm.GameState++;
+					this.mh.initiatePostGame(true);
+					this.gainedCoins = true;
+				}
 			}
 		}
 	}
