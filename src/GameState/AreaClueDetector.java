@@ -1,7 +1,6 @@
-package Clues;
+package GameState;
 
 import Characters.MainCharacter;
-import GameState.GameStateMaster;
 
 /**
  * This class detects whether or not the character is nearby to

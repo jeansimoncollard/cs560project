@@ -12,9 +12,9 @@ import org.newdawn.slick.loading.LoadingList;
 import org.newdawn.slick.tiled.TiledMap;
 
 import Characters.MainCharacter;
-import Clues.ClueDisplayer;
 import Entities.ObjectEntity;
 import GameState.GameStateMaster;
+import HUD.ClueDisplayer;
 import HUD.CongratsMenu;
 import HUD.HelpMenu;
 import HUD.MainMenu;

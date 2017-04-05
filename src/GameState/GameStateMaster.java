@@ -7,8 +7,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 import Characters.MainCharacter;
-import Clues.AreaClueDetector;
-import Clues.ClueDisplayer;
+import HUD.ClueDisplayer;
 import Objects.ObjectsHandler;
 
 /**
