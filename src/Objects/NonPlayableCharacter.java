@@ -2,7 +2,7 @@ package Objects;
 
 import java.util.ArrayList;
 
-import org.newdawn.slick.Image;
+import org.newdawn.slick.BigImage;
 import org.newdawn.slick.SpriteSheet;
 
 import Characters.MainCharacter;
@@ -52,8 +52,8 @@ public class NonPlayableCharacter extends ObjectEntity {
 		this.textPages = null;
 		this.ss = ss;
 		if (this.ss != null) {
-			this.img = this.ss.getSprite(0, 0);
-			this.img1 = this.ss.getSprite(0, 1);
+			this.img = (BigImage) this.ss.getSprite(0, 0);
+			this.img1 = (BigImage) this.ss.getSprite(0, 1);
 		}
 	}
 
@@ -71,8 +71,8 @@ public class NonPlayableCharacter extends ObjectEntity {
 		this.textPages = textPages;
 		this.ss = ss;
 		if (this.ss != null) {
-			this.img = this.ss.getSprite(0, 0);
-			this.img1 = this.ss.getSprite(0, 1);
+			this.img = (BigImage) this.ss.getSprite(0, 0);
+			this.img1 = (BigImage) this.ss.getSprite(0, 1);
 		}
 	}
 
@@ -83,7 +83,7 @@ public class NonPlayableCharacter extends ObjectEntity {
 	 * @param name
 	 * @param ss
 	 */
-	public NonPlayableCharacter(String name, Image img, int xpos, int ypos, int interactType) {
+	public NonPlayableCharacter(String name, BigImage img, int xpos, int ypos, int interactType) {
 		super(xpos, ypos, ObjectType.NPC, "", interactType);
 		this.name = name;
 		this.textPages = null;
@@ -96,7 +96,7 @@ public class NonPlayableCharacter extends ObjectEntity {
 	 * @param name
 	 * @param ss
 	 */
-	public NonPlayableCharacter(String name, ArrayList<ArrayList<String>> textPages, Image img, int xpos, int ypos,
+	public NonPlayableCharacter(String name, ArrayList<ArrayList<String>> textPages, BigImage img, int xpos, int ypos,
 			int interactType) {
 		super(xpos, ypos, ObjectType.NPC, "", interactType);
 		this.name = name;

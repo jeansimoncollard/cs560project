@@ -5,12 +5,12 @@ import java.util.List;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.tiled.TiledMap;
 
 import Characters.MainCharacter;
 import Entities.ObjectEntity;
 import Enums.ObjectType;
 import GameState.GameStateMaster;
+import StartMain.BigTiledMap;
 
 /**
  * This class handles everything that objects do.
@@ -57,7 +57,7 @@ public class ObjectsHandler {
 	 * @param gameStateMaster
 	 * @throws SlickException
 	 */
-	public void HandleObjects(MainCharacter character, TiledMap map, GameContainer gc, GameStateMaster gameStateMaster) throws SlickException {
+	public void HandleObjects(MainCharacter character, BigTiledMap map, GameContainer gc, GameStateMaster gameStateMaster) throws SlickException {
 
 		int characterX = character.XPosition;
 		int characterY = character.YPosition;
@@ -87,7 +87,7 @@ public class ObjectsHandler {
 	 * @param gameStateMaster
 	 * @throws SlickException
 	 */
-	public void GenerateClueItem(int characterX, int characterY, TiledMap map, GameStateMaster gameStateMaster)
+	public void GenerateClueItem(int characterX, int characterY, BigTiledMap map, GameStateMaster gameStateMaster)
 			throws SlickException {
 
 		_objectGenerator.GenerateClueRandomly(_objectsList, characterX, characterY, map, gameStateMaster);
@@ -99,7 +99,7 @@ public class ObjectsHandler {
 	 * @param characterY
 	 * @param map
 	 */
-	private void createObjects(int characterX, int characterY, TiledMap map) {
+	private void createObjects(int characterX, int characterY, BigTiledMap map) {
 		_objectGenerator.GenerateCoinsRandomly(_objectsList, characterX, characterY, map);
 	}
 	

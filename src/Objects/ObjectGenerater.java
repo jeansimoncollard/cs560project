@@ -3,11 +3,11 @@ package Objects;
 import java.util.List;
 import java.util.Random;
 
-import org.newdawn.slick.Image;
-import org.newdawn.slick.tiled.TiledMap;
+import org.newdawn.slick.BigImage;
 
 import Entities.ObjectEntity;
 import GameState.GameStateMaster;
+import StartMain.BigTiledMap;
 import StartMain.ImageResources;
 
 /**
@@ -44,7 +44,7 @@ public class ObjectGenerater {
 	 * @param characterY
 	 * @param map
 	 */
-	public void GenerateCoinsRandomly(List<ObjectEntity> objectsList, int characterX, int characterY, TiledMap map) {
+	public void GenerateCoinsRandomly(List<ObjectEntity> objectsList, int characterX, int characterY, BigTiledMap map) {
 		// Create a new coin.
 		ObjectEntity coinObject = createObject(characterX, characterY, map, PATH_COIN_IMAGE, ImageResources.COIN, 50, Enums.ObjectType.Coin);
 		
@@ -63,7 +63,7 @@ public class ObjectGenerater {
 	 * @param map
 	 * @param gameStateMaster
 	 */
-	public void GenerateClueRandomly(List<ObjectEntity> objectsList, int characterX, int characterY, TiledMap map,
+	public void GenerateClueRandomly(List<ObjectEntity> objectsList, int characterX, int characterY, BigTiledMap map,
 			GameStateMaster gameStateMaster) {
 		// Create the clue.
 		ObjectEntity clueObject = createObject(characterX, characterY, map, PATH_CLUE_IMAGE, ImageResources.CLUE, coinGenerationProbability, Enums.ObjectType.Clue);
@@ -80,7 +80,7 @@ public class ObjectGenerater {
 	/**
 	 * Create object at a random position according to probability
 	 */
-	private ObjectEntity createObject(int characterX, int characterY, TiledMap map, String pathToImage, Image img,
+	private ObjectEntity createObject(int characterX, int characterY, BigTiledMap map, String pathToImage, BigImage img,
 			int probabilityToCreate, Enums.ObjectType type) {
 		Random randomGenerator = new Random();
 		int randomInt = randomGenerator.nextInt(probabilityToCreate);
@@ -109,7 +109,7 @@ public class ObjectGenerater {
 	 * @param map
 	 * @return
 	 */
-	private Boolean objectCollidesWithTerrain(int objectX, int objectY, TiledMap map) {
+	private Boolean objectCollidesWithTerrain(int objectX, int objectY, BigTiledMap map) {
 		// Get layer indices
 		int foregroundLayerIndex = map.getLayerIndex("noCollision"); 			// Walkable
 		int overheadLayerIndex1 = map.getLayerIndex("characterOverhead1");		// Overhead layer

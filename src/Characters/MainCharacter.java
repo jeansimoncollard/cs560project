@@ -7,7 +7,8 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
-import org.newdawn.slick.tiled.TiledMap;
+
+import StartMain.BigTiledMap;
 
 /**
  * The class for the main character that will
@@ -31,7 +32,7 @@ public class MainCharacter {
     private int currRow;				// The current row or direction to move in.
 
     private boolean debug_mode;            // Debug mode variable.
-    private boolean debug = false;
+    private boolean debug = true;
 
     /**
      * Get the default name for the character and 
@@ -79,7 +80,7 @@ public class MainCharacter {
     public MainCharacter(int xPosition, int yPosition) throws SlickException {
         XPosition = xPosition;
         YPosition = yPosition;
-        speed = 15;
+        speed = 12;
         CoinWorth = 1;
         debug_mode = false;
         get_default_name();
@@ -90,93 +91,56 @@ public class MainCharacter {
          * Change the variables for differing effects.
          */
         if (this.debug) {
-        	this.speed = 1;
+        	this.speed = 5;
         	this.CoinCount = 1000;
         }
     }
 
     /**
-<<<<<<< HEAD
-     * Get coin
-     * @return
-=======
      * Getters and setters for the coin count, coin worth,
      * speed, and name.
->>>>>>> 232110116e4c1589b34de4780a1d4c3de2379395
      */
     public int getCoinCount() {
         return CoinCount;
     }
 
-    /**
-     * set coin
-     * @return
-     */
     public void setCoinCount(int coinCount) {
         CoinCount = coinCount;
     }
 
-    /**
-     * Get coin worth
-     * @return
-     */
     public int getCoinWorth() {
         return CoinWorth;
     }
 
-    /**
-     * set coin worth
-     * @return
-     */
     public void setCoinWorth(int coinWorth) {
         CoinWorth = coinWorth;
     }
 
-    /**
-     * Get speed
-     * @return
-     */
     public int getSpeed() {
         return speed;
     }    
     
-    /**
-     * set speed
-     * @return
-     */
     public void setSpeed(int speed) {
         this.speed = speed;
     }
 
-    /**
-     * set name
-     * @return
-     */
     public void setName(String name) {
         this.Name = name;
     }
 
-    /**
-     * Get name
-     * @return
-     */
     public String getName() {
         return this.Name;
     }
 
     /**
-<<<<<<< HEAD
-     * move the character, updating the displayed sprite
-=======
      * This function handles the characters movements,
      * preventing out of bounds, and also accepts some
      * secret input.
->>>>>>> 232110116e4c1589b34de4780a1d4c3de2379395
      * @param map
      * @param isRenderOverlay
      * @param gc
      */
-    public void Move(TiledMap map, boolean isRenderOverlay, GameContainer gc) {
+    public void Move(BigTiledMap map, boolean isRenderOverlay, GameContainer gc) {
     	// Check for collidables
     	int groundCollisionIndex = map.getLayerIndex("groundCollision");
     	
@@ -273,15 +237,12 @@ public class MainCharacter {
     }
 
     /**
-<<<<<<< HEAD
      * Render the character with the right sprite at the middle of the screen.
-=======
      * Displays the character in the view.
->>>>>>> 232110116e4c1589b34de4780a1d4c3de2379395
      * @param map
      * @param gc
      */
-    public void RenderCharacter(TiledMap map, GameContainer gc) {
+    public void RenderCharacter(BigTiledMap map, GameContainer gc) {
         // When the character is on those layers, don't render it
         int overheadLayerIndex1 = map.getLayerIndex("characterOverhead1");
         int overheadLayerIndex2 = map.getLayerIndex("roofsCharacterOverhead");

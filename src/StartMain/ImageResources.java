@@ -1,5 +1,5 @@
 package StartMain;
-import org.newdawn.slick.Image;
+import org.newdawn.slick.BigImage;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
@@ -14,12 +14,12 @@ import org.newdawn.slick.SpriteSheet;
  */
 
 public class ImageResources {
-	public static Image COIN;				// Image for a coin
-	public static Image CLUE;				// Image for a clue
-	public static Image THING_ONE;			// Image for NPC ThingOne
+	public static BigImage COIN;				// Image for a coin
+	public static BigImage CLUE;				// Image for a clue
+	public static BigImage THING_ONE;			// Image for NPC ThingOne
 	public static SpriteSheet THING_ONE_SS; // Image for NPC ThingTwo
-	public static Image CONGRATS_SCREEN;
-	public static Image CONGRATS_SCREEN_FR;
+	public static BigImage CONGRATS_SCREEN;
+	public static BigImage CONGRATS_SCREEN_FR;
 	public static SpriteSheet NELLY_SS;
 	public static SpriteSheet MAZEHIDER_SS;
 	
@@ -28,14 +28,14 @@ public class ImageResources {
 	 */
 	public static void loadReources() {
 		try {
-			COIN = new Image("dependencies/objects/retrocoin.png");
-			CLUE = new Image("dependencies/objects/clue.png");
-			THING_ONE = new Image("dependencies/objects/thingone_npc.png");
+			COIN = new BigImage("dependencies/objects/retrocoin.png");
+			CLUE = new BigImage("dependencies/objects/clue.png");
+			THING_ONE = new BigImage("dependencies/objects/thingone_npc.png");
 			THING_ONE_SS = new SpriteSheet(THING_ONE, 32, 32);
-			NELLY_SS = new SpriteSheet(new Image("dependencies/objects/nelly_npc.png"), 32, 32);
-			MAZEHIDER_SS = new SpriteSheet(new Image("dependencies/objects/mazehider_sprites.png"), 32, 32);
-			CONGRATS_SCREEN = new Image("dependencies/UI_photos/congrats_screen_transparent.png");
-			CONGRATS_SCREEN_FR = new Image("dependencies/UI_photos/congrats_screen_transparent_fr.png");
+			NELLY_SS = new SpriteSheet(new BigImage("dependencies/objects/nelly_npc.png"), 32, 32);
+			MAZEHIDER_SS = new SpriteSheet(new BigImage("dependencies/objects/mazehider_sprites.png"), 32, 32);
+			CONGRATS_SCREEN = new BigImage("dependencies/UI_photos/congrats_screen_transparent.png");
+			CONGRATS_SCREEN_FR = new BigImage("dependencies/UI_photos/congrats_screen_transparent_fr.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

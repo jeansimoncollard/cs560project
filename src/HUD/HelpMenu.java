@@ -1,8 +1,13 @@
 package HUD;
 
 
+import org.newdawn.slick.BigImage;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+
 import StartMain.StringResources;
-import org.newdawn.slick.*;
 
 public class HelpMenu extends Menu {
 
@@ -20,7 +25,7 @@ public class HelpMenu extends Menu {
     /**
      * The Image that is fetched using the path to the overlay
      */
-    private Image _helpMenuOverlay;
+    private BigImage _helpMenuOverlay;
 
     public HelpMenu() throws SlickException {
         super(_EN_HELP_MENU_PATH);

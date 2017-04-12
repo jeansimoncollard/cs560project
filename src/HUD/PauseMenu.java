@@ -2,10 +2,10 @@ package HUD;
 
 import java.awt.Font;
 
+import org.newdawn.slick.BigImage;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
@@ -26,13 +26,13 @@ public class PauseMenu extends Menu {
     private static final String _MENU_OVERLAY_QUIT = "dependencies/UI_photos/exitButton.png";
     private static final String _MENU_OVERLAY_QUITO = "dependencies/UI_photos/exitButton_mouseOver.png";
     
-    private Image quit;
-    private Image quito;
+    private BigImage quit;
+    private BigImage quito;
 
     /**
      * The Image that is fetched using the path to the overlay
      */
-    private Image _menuOverlay;
+    private BigImage _menuOverlay;
 
     /**
      * Decision variable on whether to render the menu or not
@@ -53,8 +53,8 @@ public class PauseMenu extends Menu {
     public PauseMenu() throws SlickException {
         super(_MENU_OVERLAY_PATH);
         this._menuOverlay = this.getImage();
-        this.quit = new Image(_MENU_OVERLAY_QUIT);
-        this.quito = new Image(_MENU_OVERLAY_QUITO);
+        this.quit = new BigImage(_MENU_OVERLAY_QUIT);
+        this.quito = new BigImage(_MENU_OVERLAY_QUITO);
         this._renderMenu = false;
     }
 

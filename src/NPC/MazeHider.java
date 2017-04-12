@@ -3,6 +3,7 @@ package NPC;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.newdawn.slick.BigImage;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 
@@ -150,8 +151,8 @@ public class MazeHider extends NonPlayableCharacter {
 			}
 			
 			// Set the new image based on the random movement made above.
-			this.img = this.getSs().getSprite(currFrame, currRow);
-			this.img1 = this.getSs().getSprite(currFrame, currRow+1);
+			this.img = (BigImage) this.getSs().getSprite(currFrame, currRow);
+			this.img1 = (BigImage) this.getSs().getSprite(currFrame, currRow+1);
 		} else {
 			this.img = null;
 		}

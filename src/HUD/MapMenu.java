@@ -1,6 +1,10 @@
 package HUD;
 
-import org.newdawn.slick.*;
+import org.newdawn.slick.BigImage;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
 
 /**
  * Created by Gab on 3/29/2017.
@@ -20,7 +24,7 @@ public class MapMenu extends Menu {
     /**
      *
      */
-    private Image _mapImage;
+    private BigImage _mapImage;
 
     /**
      * Constructor for Menu. Initializes the

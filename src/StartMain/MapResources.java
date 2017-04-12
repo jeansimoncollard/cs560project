@@ -1,7 +1,5 @@
 package StartMain;
 
-import org.newdawn.slick.tiled.TiledMap;
-
 /**
  * This class contains the actual map and gives access to different
  * functionality of the map to the rest of the game.
@@ -18,7 +16,7 @@ import org.newdawn.slick.tiled.TiledMap;
  */
 
 public class MapResources {
-	private static TiledMap map;				// The map to walk around.
+	private static BigTiledMap map;				// The map to walk around.
 	private static int walkableLayer;			// The layer of the map to walk in.
 	private static int overheadLayerIndex1;		// The first overhead layer.
     private static int overheadLayerIndex2;		// The second overhead layer.
@@ -28,7 +26,7 @@ public class MapResources {
      * Load a map into the resources.
      * @param mapWalk
      */
-	public static void loadResources(TiledMap mapWalk) {
+	public static void loadResources(BigTiledMap mapWalk) {
 		if (map == null) {
 			map = mapWalk;
 			walkableLayer = map.getLayerIndex("noCollision");

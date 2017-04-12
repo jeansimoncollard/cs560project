@@ -1,7 +1,7 @@
 package Entities;
 
+import org.newdawn.slick.BigImage;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Image;
 
 import Characters.MainCharacter;
 import GameState.GameStateMaster;
@@ -20,8 +20,8 @@ public class ObjectEntity {
 	public int ObjectY;								// Y position of the object
 	public Enums.ObjectType objectType;				// The object type, i.e. NPC, Coin, etc.
 	public String PathToImage;						// Path to the image for non-deferred loading of images
-	public Image img;								// Image of the object, or upper cell of a two-cell object.
-	public Image img1;								// Bottom part of a two-cell object image (null if not defined).
+	public BigImage img;								// Image of the object, or upper cell of a two-cell object.
+	public BigImage img1;								// Bottom part of a two-cell object image (null if not defined).
 	public int interactType;						// The interaction type to be performed.
 	public static final int NORMAL_INTERACT = 1;	// A normal interaction that doesn't interact with the character, etc.
 	public static final int COMPLEX_INTERACT = 2;	// Complex interaction to change states, and have character-NPC interactions.
@@ -59,7 +59,7 @@ public class ObjectEntity {
 	 * @param objectType
 	 * @param img
 	 */
-	public ObjectEntity(int objectX, int objectY, Enums.ObjectType objectType, Image img) {
+	public ObjectEntity(int objectX, int objectY, Enums.ObjectType objectType, BigImage img) {
 		ObjectX = objectX;
 		ObjectY = objectY;
 		this.objectType = objectType;

@@ -2,7 +2,8 @@ package NPC;
 
 import java.util.Random;
 
-import Entities.ObjectEntity;
+import org.newdawn.slick.BigImage;
+
 import Objects.NonPlayableCharacter;
 import StartMain.ImageResources;
 import StartMain.MapResources;
@@ -96,7 +97,7 @@ public class RandomMovementNPC extends NonPlayableCharacter {
 		}
 		
 		// Set the new image based on the random movement made above.
-		this.img = this.getSs().getSprite(currFrame, currRow);
-		this.img1 = this.getSs().getSprite(currFrame, currRow+1);
+		this.img = (BigImage) this.getSs().getSprite(currFrame, currRow);
+		this.img1 = (BigImage) this.getSs().getSprite(currFrame, currRow+1);
 	}
 }

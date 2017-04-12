@@ -1,15 +1,15 @@
 package GameState;
 
+import org.newdawn.slick.BigImage;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.tiled.TiledMap;
 
 import Characters.MainCharacter;
 import Clues.AreaClueDetector;
 import Clues.ClueDisplayer;
 import Objects.ObjectsHandler;
+import StartMain.BigTiledMap;
 
 /**
  * This class is used to set the progress of the user in the story line.
@@ -55,7 +55,7 @@ public class GameStateMaster {
 	 * @param g
 	 * @throws SlickException
 	 */
-	public void Update(MainCharacter character, TiledMap map, GameContainer gc, Graphics g) throws SlickException {
+	public void Update(MainCharacter character, BigTiledMap map, GameContainer gc, Graphics g) throws SlickException {
 		switch (GameState) {
 		case 1: // Generate clue on the floor
 			int characterX = character.XPosition;
@@ -74,7 +74,7 @@ public class GameStateMaster {
 			// the player pickups the clue
 			break;
 		case 3:// Clue is displayed
-			_clueDisplayer.setClue(new Image(PATH_LIBRARYBUSHCLUE_IMAGE), "bushClue");
+			_clueDisplayer.setClue(new BigImage(PATH_LIBRARYBUSHCLUE_IMAGE), "bushClue");
 			_clueDisplayer.DisplayCurrentClue();
 			GameState++;
 
@@ -85,7 +85,7 @@ public class GameStateMaster {
 			// near bush
 			break;
 		case 5:
-			_clueDisplayer.setClue(new Image(PATH_BASICCLUE_IMAGE), "noiseClue"); // New
+			_clueDisplayer.setClue(new BigImage(PATH_BASICCLUE_IMAGE), "noiseClue"); // New
 																					// clue
 																					// displayed
 			_clueDisplayer.DisplayCurrentClue();
@@ -97,7 +97,7 @@ public class GameStateMaster {
 
 			break;
 		case 7:
-			_clueDisplayer.setClue(new Image(PATH_BASICCLUE_IMAGE), "hamiltonClue"); // New
+			_clueDisplayer.setClue(new BigImage(PATH_BASICCLUE_IMAGE), "hamiltonClue"); // New
 																						// clue
 																						// displayed
 			_clueDisplayer.DisplayCurrentClue();
@@ -110,7 +110,7 @@ public class GameStateMaster {
 			break;
 		case 9:
 
-			_clueDisplayer.setClue(new Image(PATH_BASICCLUE_IMAGE), "gazeboClue"); // New
+			_clueDisplayer.setClue(new BigImage(PATH_BASICCLUE_IMAGE), "gazeboClue"); // New
 																					// clue
 																					// displayed
 			_clueDisplayer.DisplayCurrentClue();
@@ -122,7 +122,7 @@ public class GameStateMaster {
 			break;
 		case 11:
 
-			_clueDisplayer.setClue(new Image(PATH_BASICCLUE_IMAGE), "nicollsClue"); // New
+			_clueDisplayer.setClue(new BigImage(PATH_BASICCLUE_IMAGE), "nicollsClue"); // New
 																					// clue
 																					// displayed
 			_clueDisplayer.DisplayCurrentClue();
@@ -134,7 +134,7 @@ public class GameStateMaster {
 			_areaClueDetector.Detect(this, character, 169, 172, 78, 84);
 			break;
 		case 13:
-			_clueDisplayer.setClue(new Image(PATH_BASICCLUE_IMAGE), "mcgreerClue"); // New
+			_clueDisplayer.setClue(new BigImage(PATH_BASICCLUE_IMAGE), "mcgreerClue"); // New
 																					// clue
 																					// displayed
 			_clueDisplayer.DisplayCurrentClue();
@@ -145,7 +145,7 @@ public class GameStateMaster {
 			_areaClueDetector.Detect(this, character, 173, 175, 89, 97);
 			break;
 		case 15:
-			_clueDisplayer.setClue(new Image(PATH_BASICCLUE_IMAGE), "churchClue"); // New
+			_clueDisplayer.setClue(new BigImage(PATH_BASICCLUE_IMAGE), "churchClue"); // New
 																					// clue
 																					// displayed
 			_clueDisplayer.DisplayCurrentClue();
@@ -156,7 +156,7 @@ public class GameStateMaster {
 			_areaClueDetector.Detect(this, character, 165, 182, 107, 123);
 			break;
 		case 17:
-			_clueDisplayer.setClue(new Image(PATH_BASICCLUE_IMAGE), "forestClue"); // New
+			_clueDisplayer.setClue(new BigImage(PATH_BASICCLUE_IMAGE), "forestClue"); // New
 																					// clue
 																					// displayed
 			_clueDisplayer.DisplayCurrentClue();
@@ -167,7 +167,7 @@ public class GameStateMaster {
 			_areaClueDetector.Detect(this, character, 141, 159, 38, 46);
 			break;
 		case 19:
-			_clueDisplayer.setClue(new Image(PATH_BASICCLUE_IMAGE), "liblaryParkingClue"); // New
+			_clueDisplayer.setClue(new BigImage(PATH_BASICCLUE_IMAGE), "liblaryParkingClue"); // New
 			// clue
 			// displayed
 			_clueDisplayer.DisplayCurrentClue();
@@ -178,7 +178,7 @@ public class GameStateMaster {
 			_areaClueDetector.Detect(this, character, 74, 96, 123, 148);
 			break;
 		case 21:
-			_clueDisplayer.setClue(new Image(PATH_BASICCLUE_IMAGE), "swParkingClue"); // New
+			_clueDisplayer.setClue(new BigImage(PATH_BASICCLUE_IMAGE), "swParkingClue"); // New
 																						// clue
 																						// displayed
 			_clueDisplayer.DisplayCurrentClue();

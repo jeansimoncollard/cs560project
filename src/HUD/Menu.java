@@ -1,8 +1,8 @@
 package HUD;
 
+import org.newdawn.slick.BigImage;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 /**
@@ -33,8 +33,8 @@ abstract class Menu {
      * @return Image supplied in constructor
      * @throws SlickException Throws if issue with reading Image file
      */
-    Image getImage() throws SlickException {
-        return new Image(this.pathToImage);
+    BigImage getImage() throws SlickException {
+        return new BigImage(this.pathToImage);
     }
     
     /**

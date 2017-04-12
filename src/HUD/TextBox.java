@@ -3,10 +3,10 @@ package HUD;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.BigImage;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
@@ -50,7 +50,7 @@ public class TextBox extends Menu {
     /**
      * The Image that is fetched using the path to the overlay
      */
-    private Image _textBoxBacking;
+    private BigImage _textBoxBacking;
 
     public TextBox() throws SlickException {
         super(_TEXT_BOX_PATH);

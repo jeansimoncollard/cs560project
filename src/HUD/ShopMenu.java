@@ -4,10 +4,10 @@ import java.awt.Font;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import org.newdawn.slick.BigImage;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
@@ -61,7 +61,7 @@ public class ShopMenu  extends Menu {
      * The Image that is fetched using the path to the overlay
      * and the pages of the shop. Each inner array is one page.
      */
-    private Image _menuOverlay;
+    private BigImage _menuOverlay;
     private ArrayList<ArrayList<Button>> shopPages;
     private ArrayList<ArrayList<String>> shopPages_names;
     private ArrayList<ArrayList<Integer>> shopPages_cost;
@@ -71,35 +71,35 @@ public class ShopMenu  extends Menu {
     /**
      * Button images, *o for mouseover and *c for click.
      */
-    private Image spd_img;
+    private BigImage spd_img;
     private Button spd_button;
-    private Image q1_img;
+    private BigImage q1_img;
     private Button q1_button;
-    private Image q2_img;
+    private BigImage q2_img;
     private Button q2_button;
     
-    private Image spd_imgo;
-    private Image q1_imgo;
-    private Image q2_imgo;
+    private BigImage spd_imgo;
+    private BigImage q1_imgo;
+    private BigImage q2_imgo;
     
-    private Image spd_imgc;
-    private Image q1_imgc;
-    private Image q2_imgc;
+    private BigImage spd_imgc;
+    private BigImage q1_imgc;
+    private BigImage q2_imgc;
     
-    private Image chpd_img;
-    private Image chpu_img;
+    private BigImage chpd_img;
+    private BigImage chpu_img;
     private Button chpd_button;
     private Button chpu_button;
     
-    private Image chpd_imgo;
-    private Image chpu_imgo;
+    private BigImage chpd_imgo;
+    private BigImage chpu_imgo;
     
-    private Image chpd_imgc;
-    private Image chpu_imgc;
+    private BigImage chpd_imgc;
+    private BigImage chpu_imgc;
     
-    private Image blank_img;
-    private Image blank_imgc;
-    private Image blank_imgo;
+    private BigImage blank_img;
+    private BigImage blank_imgc;
+    private BigImage blank_imgo;
 
     /**
      * Decision variable on whether to render the menu or not.
@@ -150,30 +150,30 @@ public class ShopMenu  extends Menu {
         /**
          * Load images for all buttons and their different states.
          */
-		spd_img = new Image(_MENU_OVERLAY_SPD);
-		q1_img = new Image(_MENU_OVERLAY_Q1);
-		q2_img = new Image(_MENU_OVERLAY_Q2);
+		spd_img = new BigImage(_MENU_OVERLAY_SPD);
+		q1_img = new BigImage(_MENU_OVERLAY_Q1);
+		q2_img = new BigImage(_MENU_OVERLAY_Q2);
 		
-		spd_imgo = new Image(_MENU_OVERLAY_SPDO);
-		q1_imgo = new Image(_MENU_OVERLAY_Q1O);
-		q2_imgo = new Image(_MENU_OVERLAY_Q2O);
+		spd_imgo = new BigImage(_MENU_OVERLAY_SPDO);
+		q1_imgo = new BigImage(_MENU_OVERLAY_Q1O);
+		q2_imgo = new BigImage(_MENU_OVERLAY_Q2O);
 		
-		spd_imgc = new Image(_MENU_OVERLAY_SPDC);
-		q1_imgc = new Image(_MENU_OVERLAY_Q1C);
-		q2_imgc = new Image(_MENU_OVERLAY_Q2C);
+		spd_imgc = new BigImage(_MENU_OVERLAY_SPDC);
+		q1_imgc = new BigImage(_MENU_OVERLAY_Q1C);
+		q2_imgc = new BigImage(_MENU_OVERLAY_Q2C);
 		
-		chpd_img = new Image(_MENU_OVERLAY_CHPD);
-		chpu_img = new Image(_MENU_OVERLAY_CHPU);
+		chpd_img = new BigImage(_MENU_OVERLAY_CHPD);
+		chpu_img = new BigImage(_MENU_OVERLAY_CHPU);
 		
-		chpd_imgo = new Image(_MENU_OVERLAY_CHPDO);
-		chpu_imgo = new Image(_MENU_OVERLAY_CHPUO);
+		chpd_imgo = new BigImage(_MENU_OVERLAY_CHPDO);
+		chpu_imgo = new BigImage(_MENU_OVERLAY_CHPUO);
 
-		chpd_imgc = new Image(_MENU_OVERLAY_CHPDC);
-		chpu_imgc = new Image(_MENU_OVERLAY_CHPUC);
+		chpd_imgc = new BigImage(_MENU_OVERLAY_CHPDC);
+		chpu_imgc = new BigImage(_MENU_OVERLAY_CHPUC);
 		
-		blank_img = new Image(_MENU_OVERLAY_BLANK);
-		blank_imgc = new Image(_MENU_OVERLAY_BLANKC);
-		blank_imgo = new Image(_MENU_OVERLAY_BLANKO);
+		blank_img = new BigImage(_MENU_OVERLAY_BLANK);
+		blank_imgc = new BigImage(_MENU_OVERLAY_BLANKC);
+		blank_imgo = new BigImage(_MENU_OVERLAY_BLANKO);
     }
     
     /**

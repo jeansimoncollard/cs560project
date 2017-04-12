@@ -1,9 +1,9 @@
 package Clues;
 
+import org.newdawn.slick.BigImage;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.TrueTypeFont;
 
@@ -18,7 +18,7 @@ import StartMain.StringResources;
 public class ClueDisplayer {
 
 	private Boolean _renderClueToogle;	// Toggles whether to display the clue.
-	private Image _currentClueImage;	// The image of the current clue to display.
+	private BigImage _currentClueImage;	// The image of the current clue to display.
 	private String _clueText;			// The text to display within the clue.
 	private TrueTypeFont _ttf;			// The font to use for the text.
 
@@ -63,7 +63,7 @@ public class ClueDisplayer {
 	 * @param image
 	 * @param clueText
 	 */
-	public void setClue(Image image, String clueText) {
+	public void setClue(BigImage image, String clueText) {
 		_currentClueImage = image;
 		_clueText = clueText;
 	}

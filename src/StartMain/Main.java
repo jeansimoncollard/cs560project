@@ -9,7 +9,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.loading.DeferredResource;
 import org.newdawn.slick.loading.LoadingList;
-import org.newdawn.slick.tiled.TiledMap;
 
 import Characters.MainCharacter;
 import Clues.ClueDisplayer;
@@ -41,8 +40,8 @@ public class Main extends BasicGame {
 	/**
 	 * All the variables need by the game.
 	 */
-    private TiledMap _map;
-    private TiledMap _mapOver;
+    private BigTiledMap _map;
+    private BigTiledMap _mapOver;
     private MainCharacter _mainCharacter;
     private ObjectsHandler _objectsHandler;
     private StatDisplayer _statDisplayer;
@@ -139,8 +138,8 @@ public class Main extends BasicGame {
     	                LoadingList.setDeferredLoading(false);
     	                try {
     	                	System.out.println("Started loading map.");
-    	                    _map = new TiledMap(MAP_PATH);
-    	                    _mapOver = new TiledMap(MAP_PATH_OVERHEAD);
+    	                    _map = new BigTiledMap(MAP_PATH);
+    	                    _mapOver = new BigTiledMap(MAP_PATH_OVERHEAD);
     	                    MapResources.loadResources(_map);
     	                    System.out.println("Finished loading maps...");
     	                } catch (SlickException e) {

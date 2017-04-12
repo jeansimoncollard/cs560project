@@ -2,10 +2,10 @@ package HUD;
 
 import java.awt.Font;
 
+import org.newdawn.slick.BigImage;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 
@@ -26,7 +26,7 @@ public class StatDisplayer {
 	private final String _MENU_OVERLAY_STATS_BG = "dependencies/UI_photos/coins_stats_bg.png";
 	
 	// Background image.
-	private Image stats_bg;
+	private BigImage stats_bg;
 	
 	// Font resources.
 	private TrueTypeFont ttf;
@@ -36,7 +36,7 @@ public class StatDisplayer {
 	 */
 	public StatDisplayer() {
 		try {
-			this.stats_bg = new Image(_MENU_OVERLAY_STATS_BG);
+			this.stats_bg = new BigImage(_MENU_OVERLAY_STATS_BG);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

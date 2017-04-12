@@ -1,8 +1,8 @@
 package HUD;
 
+import org.newdawn.slick.BigImage;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import NPC.Layachi;
@@ -18,7 +18,7 @@ public class CongratsMenu extends Menu {
 	private Layachi npc_layachi;
 	private int frameCount = 0;
 	private int maxFrameCount = 400;
-	private Image CONGRATS_SCREEN = null;
+	private BigImage CONGRATS_SCREEN = null;
 
     /**
      * Decision variable on whether to render the menu or not

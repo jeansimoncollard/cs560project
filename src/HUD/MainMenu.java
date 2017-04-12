@@ -2,10 +2,10 @@ package HUD;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.BigImage;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
@@ -33,9 +33,9 @@ public class MainMenu  extends Menu {
     /**
      * The Image that is fetched using the path to the overlay
      */
-    private ArrayList<Image> _menuOverlays;
-    private Image _menuOverlayComplete;
-    private Image currentMenu;
+    private ArrayList<BigImage> _menuOverlays;
+    private BigImage _menuOverlayComplete;
+    private BigImage currentMenu;
     private int numLoads;
     private boolean loading;
     private boolean mainOff;
@@ -53,7 +53,7 @@ public class MainMenu  extends Menu {
      */
     public MainMenu() throws SlickException {
         super(_MENU_OVERLAY_LOAD3);
-    	this._menuOverlays = new ArrayList<Image>();
+    	this._menuOverlays = new ArrayList<BigImage>();
     	
         this._menuOverlays.add(this.getImage());
         this.setImagePath(_MENU_OVERLAY_LOAD1);
